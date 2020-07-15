@@ -2,6 +2,7 @@ import numbers
 import operator
 import pathlib
 import sys
+import time
 import typing
 
 import torch
@@ -75,6 +76,77 @@ class Save(Op):
                 self.log, "New best value: {}".format(self.best),
             )
 
+        return data
+
+
+class TimeStopping(Op):
+    """
+    Exit program with status `0` if `duration` was reached.
+
+    Used to stop training of neural network after desired duration.
+    Python's `time.time()` functionality is used.
+
+    Parameters
+    ----------
+    duration : int | float
+        How long to run (in seconds) before exiting program.
+    log : str | int, optional
+        Severity level for logging object's actions.
+        Available levels of logging:
+            NONE        0
+            TRACE 	5
+            DEBUG 	10
+            INFO 	20
+            SUCCESS 	25
+            WARNING 	30
+            ERROR 	40
+            CRITICAL 	50
+        Default: `NONE` (no logging, `0` priority)
+    """
+
+    def __init__(
+        self, duration: float, log="NONE",
+    ):
+        self.duration = duration
+        self.log = log
+        self._start = time.time()
+
+    def forward(self, data):
+        if time.time() - self._start > self.duration:
+            loguru.log(self.log, "Stopping after {} seconds.".format(self.duration))
+            sys.exit(0)
+        return data
+
+
+class TerminateOnNan(Op):
+    """
+    Exit program with status `1` if any `NaN` value encountered in provided `data`.
+
+    Parameters
+    ----------
+    log : str | int, optional
+        Severity level for logging object's actions.
+        Available levels of logging:
+            NONE        0
+            TRACE 	5
+            DEBUG 	10
+            INFO 	20
+            SUCCESS 	25
+            WARNING 	30
+            ERROR 	40
+            CRITICAL 	50
+        Default: `NONE` (no logging, `0` priority)
+    """
+
+    def __init__(
+        self, log: typing.Union[str, int] = "NONE",
+    ):
+        self.log = log
+
+    def forward(self, data):
+        if torch.any(torch.isnan(data)):
+            loguru.log(self.log, "NaN values found, exiting with 1.")
+            sys.exit(1)
         return data
 
 
