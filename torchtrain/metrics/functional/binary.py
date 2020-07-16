@@ -53,11 +53,13 @@ def jaccard(
     return reduction(intersection.float() / union)
 
 
+# This
 def true_positive(output, target, reduction=torch.sum, threshold: float = 0.0):
     output, target = _prepare_data(output, target, threshold)
     return reduction((output & target).float())
 
 
+# This
 def false_positive(output, target, reduction=torch.sum, threshold: float = 0.0):
     output, target = _prepare_data(output, target, threshold)
     return reduction((output & ~target).float())
@@ -73,15 +75,6 @@ def false_negative(output, target, reduction=torch.sum, threshold: float = 0.0):
     return reduction((~output & target).float())
 
 
-def confusion_matrix(output, target, reduction=torch.sum, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    tp = reduction((output & target).float())
-    fp = reduction((output & ~target).float())
-    tn = reduction((~output & ~target).float())
-    fn = reduction((~output & target).float())
-    return torch.tensor([tp, fn, fp, tn]).view(2, 2)
-
-
 def recall(output, target, threshold: float = 0.0):
     output, target = _prepare_data(output, target, threshold)
     return (output & target).sum().float() / target.sum()
@@ -89,12 +82,50 @@ def recall(output, target, threshold: float = 0.0):
 
 def specificity(output, target, threshold: float = 0.0):
     output, target = _prepare_data(output, target, threshold)
-    return (~output & ~target).sum().float() / (~target).sum()
+    inverse_target = ~target
+    return (~output & inverse_target).sum().float() / inverse_target.sum()
 
 
 def precision(output, target, threshold: float = 0.0):
     output, target = _prepare_data(output, target, threshold)
     return (output & target).sum().float() / output.sum()
+
+
+def negative_predictive_value(output, target, threshold: float = 0.0):
+    output, target = _prepare_data(output, target, threshold)
+    inverse_output = ~output
+    return (inverse_output & ~target).sum().float() / inverse_output.sum()
+
+
+def false_negative_rate(output, target, threshold: float = 0.0):
+    output, target = _prepare_data(output, target, threshold)
+    return (~output & target).sum().float() / target.sum()
+
+
+def false_positive_rate(output, target, threshold: float = 0.0):
+    output, target = _prepare_data(output, target, threshold)
+    inverse_target = ~target
+    return (output & inverse_target).sum().float() / inverse_target.sum()
+
+
+def false_discovery_rate(output, target, threshold: float = 0.0):
+    output, target = _prepare_data(output, target, threshold)
+    return (output & ~target).sum().float() / output.sum()
+
+
+def false_omission_rate(output, target, threshold: float = 0.0):
+    output, target = _prepare_data(output, target, threshold)
+    inverse_output = ~output
+    return (inverse_output & target).sum().float() / inverse_output.sum()
+
+
+def confusion_matrix(output, target, reduction=torch.sum, threshold: float = 0.0):
+    output, target = _prepare_data(output, target, threshold)
+    tp = reduction((output & target).float())
+    fp = reduction((output & ~target).float())
+    tn = reduction((~output & ~target).float())
+    fn = reduction((~output & target).float())
+    return torch.tensor([tp, fn, fp, tn]).reshape(2, 2)
 
 
 # TBD Ignite source
