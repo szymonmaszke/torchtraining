@@ -167,25 +167,20 @@ class FalseOmissionRate(_Threshold):
         return functional.binary.false_omission_rate(*data, self.threshold)
 
 
-class AreaUnderCurve(_base.Op):
-    pass
-
-
-class TopK(_base.Op):
-    pass
-
-
-class F2(_base.Op):
-    pass
+class F1(_Threshold):
+    def forward(self, data):
+        return functional.binary.f1(*data, self.threshold)
 
 
 class FBeta(_base.Op):
-    pass
+    def __init__(self, beta: float, threshold: float = 0.0):
+        self.beta = beta
+        self.threshold = threshold
+
+    def forward(self, data):
+        return functional.binary.fbeta(*data, self.threshold)
 
 
-class MatthewsCorrelationCoefficient(_base.Op):
-    pass
-
-
-class Dice(_base.Op):
-    pass
+class MatthewsCorrelationCoefficient(_Threshold):
+    def forward(self, data):
+        return functional.binary.matthews_correlation_coefficient(*data, self.threshold)
