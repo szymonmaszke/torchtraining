@@ -2,28 +2,9 @@ import typing
 
 import torch
 
+from . import utils
+
 # Useful interfaces
-
-# Precision, Recall, ConfusionMatrix, AbsoluteError, SquaredError, PairwiseDistance,
-# TopK, F2, FBeta, MCC, TruePositive, FalsePositive, TrueNegative, FalseNegative,
-# AreaUnderCurve, Dice
-
-
-def _output_target_same_shape(output, target):
-    if output.shape != target.shape:
-        raise ValueError(
-            "Output and target has to be of the same shape! Got {} for output and {} for target".format(
-                output.shape, target.shape
-            )
-        )
-
-
-def _prepare_data(output, target, threshold):
-    _output_target_same_shape(output, target)
-
-    output = output > threshold
-    target = target.bool()
-    return output, target
 
 
 def accuracy(
@@ -32,7 +13,8 @@ def accuracy(
     reduction: typing.Callable = torch.mean,
     threshold: float = 0.0,
 ):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
     return reduction((output == target).float())
 
 
@@ -42,7 +24,8 @@ def jaccard(
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = torch.mean,
     threshold: float = 0.0,
 ):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
 
     union = (output | target).sum(axis=-1)
     intersection = (target & output).sum(axis=-1)
@@ -53,74 +36,39 @@ def jaccard(
     return reduction(intersection.float() / union)
 
 
-# This
+# Basic cases
+
+
 def true_positive(output, target, reduction=torch.sum, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
     return reduction((output & target).float())
 
 
-# This
 def false_positive(output, target, reduction=torch.sum, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
     return reduction((output & ~target).float())
 
 
 def true_negative(output, target, reduction=torch.sum, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
     return reduction((~output & ~target).float())
 
 
 def false_negative(output, target, reduction=torch.sum, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
     return reduction((~output & target).float())
 
 
-def recall(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    return (output & target).sum().float() / target.sum()
-
-
-def specificity(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    inverse_target = ~target
-    return (~output & inverse_target).sum().float() / inverse_target.sum()
-
-
-def precision(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    return (output & target).sum().float() / output.sum()
-
-
-def negative_predictive_value(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    inverse_output = ~output
-    return (inverse_output & ~target).sum().float() / inverse_output.sum()
-
-
-def false_negative_rate(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    return (~output & target).sum().float() / target.sum()
-
-
-def false_positive_rate(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    inverse_target = ~target
-    return (output & inverse_target).sum().float() / inverse_target.sum()
-
-
-def false_discovery_rate(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    return (output & ~target).sum().float() / output.sum()
-
-
-def false_omission_rate(output, target, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
-    inverse_output = ~output
-    return (inverse_output & target).sum().float() / inverse_output.sum()
+# Confusion matrix
 
 
 def confusion_matrix(output, target, reduction=torch.sum, threshold: float = 0.0):
-    output, target = _prepare_data(output, target, threshold)
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
     tp = reduction((output & target).float())
     fp = reduction((output & ~target).float())
     tn = reduction((~output & ~target).float())
@@ -128,33 +76,113 @@ def confusion_matrix(output, target, reduction=torch.sum, threshold: float = 0.0
     return torch.tensor([tp, fn, fp, tn]).reshape(2, 2)
 
 
-# TBD Ignite source
-def topk(output, target, k: int, reduction=torch.sum, threshold: float = 0.0):
-    indices = torch.topk(output, k, dim=1)[1]
-    expanded_y = y.view(-1, 1).expand(-1, k)
-    correct = torch.sum(torch.eq(sorted_indices, expanded_y), dim=1)
-    self._num_correct += torch.sum(correct).item()
-    self._num_examples += correct.shape[0]
-    pass
+# Rate metrics
 
 
-def area_under_curve(output, target, reduction=torch.sum, threshold: float = 0.0):
-    pass
+def recall(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    return (output & target).sum().float() / target.sum()
 
 
-def f2(output, target, reduction=torch.sum, threshold: float = 0.0):
-    pass
+def specificity(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    inverse_target = ~target
+    return (~output & inverse_target).sum().float() / inverse_target.sum()
 
 
-def fbeta(output, target, reduction=torch.sum, threshold: float = 0.0):
-    pass
+def precision(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    return (output & target).sum().float() / output.sum()
 
 
-def matthews_correlation_coefficient(
-    output, target, reduction=torch.sum, threshold: float = 0.0
-):
-    pass
+def negative_predictive_value(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    inverse_output = ~output
+    return (inverse_output & ~target).sum().float() / inverse_output.sum()
 
 
-def dice(output, target, reduction=torch.sum, threshold: float = 0.0):
-    pass
+def false_negative_rate(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    return (~output & target).sum().float() / target.sum()
+
+
+def false_positive_rate(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    inverse_target = ~target
+    return (output & inverse_target).sum().float() / inverse_target.sum()
+
+
+def false_discovery_rate(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    return (output & ~target).sum().float() / output.sum()
+
+
+def false_omission_rate(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    inverse_output = ~output
+    return (inverse_output & target).sum().float() / inverse_output.sum()
+
+
+# Other related to above metrics
+
+# Like F1-score almost
+def critical_success_index(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+    tp = (output & target).sum().float()
+    return tp / tp + (output != target).sum()
+
+
+def balanced_accuracy(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+
+    inverse_target = ~target
+    return (
+        (output & target).sum().float() / target.sum()
+        + (~output & inverse_target).sum().float() / inverse_target.sum()
+    ) / 2
+
+
+def f1(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+
+    tp = 2 * (output & target).sum().float()
+    return tp / (tp + (output != target).sum())
+
+
+def fbeta(output, target, beta: float, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+
+    tp = (1 + beta) ** 2 * (output & target).sum().float()
+    return tp / (tp + (beta ** 2) * (output != target).sum())
+
+
+def matthews_correlation_coefficient(output, target, threshold: float = 0.0):
+    utils.binary.check(output, target)
+    output, target = utils.binary.threshold(output, target, threshold)
+
+    inverse_output = ~output
+    inverse_target = ~target
+    tp = (output & target).float()
+    tn = (inverse_output & inverse_target).float()
+    fp = (output & inverse_target).float()
+    fn = (inverse_output & target).float()
+    numerator = torch.dot(tp, tn) - torch.dot(fp, fn)
+    denominator = (
+        output.sum() * target.sum() * inverse_target.sum() * inverse_output.sum()
+    )
+
+    if denominator == 0.0:
+        return numerator
+    return numerator / denominator
