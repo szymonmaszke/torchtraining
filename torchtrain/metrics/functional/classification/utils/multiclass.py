@@ -38,13 +38,5 @@ def one_hot(output, target, num_classes):
     )
 
 
-def get_num_classes(num_classes, output, target):
-    if num_classes == -1:
-        return max(output.shape[-1], torch.max(target).item())
-    if num_classes < 1:
-        raise ValueError(
-            "num_classes has to be either -1 or positive value, got {}".format(
-                num_classes
-            )
-        )
-    return num_classes
+def get_num_classes(output, target):
+    return max(output.shape[-1], torch.max(target).item())

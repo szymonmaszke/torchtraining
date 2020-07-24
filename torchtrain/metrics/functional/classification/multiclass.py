@@ -22,43 +22,43 @@ def accuracy(
 
 
 def true_positive(
-    output, target, num_classes=-1, reduction=torch.sum,
+    output, target, reduction=torch.sum,
 ):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return reduction((output & target).float(), dim=-1)
 
 
 def false_positive(
-    output, target, num_classes: int = -1, reduction=torch.sum,
+    output, target, reduction=torch.sum,
 ):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return reduction((output & ~target).float(), dim=-1)
 
 
 def true_negative(
-    output, target, num_classes: int = -1, reduction=torch.sum,
+    output, target, reduction=torch.sum,
 ):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return reduction((~output & ~target).float(), dim=-1)
+
+
+def false_negative(
+    output, target, reduction=torch.sum,
+):
+    utils.multiclass.check(output, target)
+    output, target = utils.multiclass.one_hot(output, target)
+    return reduction((~output & target).float(), dim=-1)
 
 
 # Confusion matrix
 
 
-def false_negative(
-    output, target, num_classes: int = -1, reduction=torch.sum,
-):
+def confusion_matrix(output, target, reduction=torch.sum):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
-    return reduction((~output & target).float(), dim=-1)
-
-
-def confusion_matrix(output, target, num_classes: int = -1, reduction=torch.sum):
-    utils.multiclass.check(output, target)
-    num_classes = utils.multiclass.get_num_classes(num_classes, output, target)
+    num_classes = utils.multiclass.get_num_classes(output, target)
     output, target = utils.multiclass.categorical(output, target)
     unique_labels = target * num_classes + output
     return torch.bincount(unique_labels, minlength=num_classes ** 2).reshape(
@@ -69,54 +69,54 @@ def confusion_matrix(output, target, num_classes: int = -1, reduction=torch.sum)
 # Rate metrics
 
 
-def recall(output, target, num_classes: int = -1):
+def recall(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return (output & target).sum().float() / target.sum()
 
 
-def specificity(output, target, num_classes: int = -1):
+def specificity(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     inverse_target = ~target
     return (~output & inverse_target).sum().float() / inverse_target.sum()
 
 
-def precision(output, target, num_classes: int = -1):
+def precision(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return (output & target).sum().float() / output.sum()
 
 
-def negative_predictive_value(output, target, num_classes: int = -1):
+def negative_predictive_value(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     inverse_output = ~output
     return (inverse_output & ~target).sum().float() / inverse_output.sum()
 
 
-def false_negative_rate(output, target, num_classes: int = -1):
+def false_negative_rate(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return (~output & target).sum().float() / target.sum()
 
 
-def false_positive_rate(output, target, num_classes: int = -1):
+def false_positive_rate(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     inverse_target = ~target
     return (output & inverse_target).sum().float() / inverse_target.sum()
 
 
-def false_discovery_rate(output, target, num_classes: int = -1):
+def false_discovery_rate(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     return (output & ~target).sum().float() / output.sum()
 
 
-def false_omission_rate(output, target, num_classes: int = -1):
+def false_omission_rate(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     inverse_output = ~output
     return (inverse_output & target).sum().float() / inverse_output.sum()
 
@@ -125,16 +125,16 @@ def false_omission_rate(output, target, num_classes: int = -1):
 
 
 # Like F1-score almost
-def critical_success_index(output, target, num_classes: int = -1):
+def critical_success_index(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
     tp = (output & target).sum().float()
     return tp / tp + (output != target).sum()
 
 
-def balanced_accuracy(output, target, num_classes: int = -1):
+def balanced_accuracy(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output, target)
 
     inverse_target = ~target
     return (
@@ -143,15 +143,15 @@ def balanced_accuracy(output, target, num_classes: int = -1):
     ) / 2
 
 
-def f1(output, target, num_classes: int = -1):
+def f1(output, target):
     utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target, num_classes)
+    output, target = utils.multiclass.one_hot(output)
 
     tp = 2 * (output & target).sum().float()
     return tp / (tp + (output != target).sum())
 
 
-def fbeta(output, target, beta: float, num_classes: int = -1):
+def fbeta(output, target, beta: float):
     utils.multiclass.check(output, target)
     output, target = utils.multiclass.one_hot(output, target, num_classes)
 
@@ -159,7 +159,7 @@ def fbeta(output, target, beta: float, num_classes: int = -1):
     return tp / (tp + (beta ** 2) * (output != target).sum())
 
 
-def matthews_correlation_coefficient(output, target, num_classes: int = -1):
+def matthews_correlation_coefficient(output, target):
     utils.multiclass.check(output, target)
     output, target = utils.multiclass.one_hot(output, target, num_classes)
 
