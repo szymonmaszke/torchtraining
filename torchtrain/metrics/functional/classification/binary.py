@@ -10,8 +10,8 @@ from . import utils
 def accuracy(
     output: torch.Tensor,
     target: torch.Tensor,
-    reduction: typing.Callable = torch.mean,
     threshold: float = 0.0,
+    reduction: typing.Callable = torch.mean,
 ):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
@@ -21,8 +21,8 @@ def accuracy(
 def jaccard(
     output: torch.Tensor,
     target: torch.Tensor,
-    reduction: typing.Callable[[torch.Tensor], torch.Tensor] = torch.mean,
     threshold: float = 0.0,
+    reduction: typing.Callable[[torch.Tensor], torch.Tensor] = torch.mean,
 ):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
@@ -39,25 +39,33 @@ def jaccard(
 # Basic cases
 
 
-def true_positive(output, target, reduction=torch.sum, threshold: float = 0.0):
+def true_positive(
+    output, target, threshold: float = 0.0, reduction=torch.sum,
+):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
     return reduction((output & target).float())
 
 
-def false_positive(output, target, reduction=torch.sum, threshold: float = 0.0):
+def false_positive(
+    output, target, threshold: float = 0.0, reduction=torch.sum,
+):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
     return reduction((output & ~target).float())
 
 
-def true_negative(output, target, reduction=torch.sum, threshold: float = 0.0):
+def true_negative(
+    output, target, threshold: float = 0.0, reduction=torch.sum,
+):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
     return reduction((~output & ~target).float())
 
 
-def false_negative(output, target, reduction=torch.sum, threshold: float = 0.0):
+def false_negative(
+    output, target, threshold: float = 0.0, reduction=torch.sum,
+):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
     return reduction((~output & target).float())
@@ -66,7 +74,9 @@ def false_negative(output, target, reduction=torch.sum, threshold: float = 0.0):
 # Confusion matrix
 
 
-def confusion_matrix(output, target, reduction=torch.sum, threshold: float = 0.0):
+def confusion_matrix(
+    output, target, threshold: float = 0.0, reduction=torch.sum,
+):
     utils.binary.check(output, target)
     output, target = utils.binary.threshold(output, target, threshold)
     tp = reduction((output & target).float())
