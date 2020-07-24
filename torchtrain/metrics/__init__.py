@@ -1,1 +1,1 @@
-from . import binary, functional, multiclass, regression
+from . import classification, functional, regression
