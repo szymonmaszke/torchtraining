@@ -3,14 +3,12 @@ import functools
 import inspect
 import typing
 
+import yaml
+
 
 class Base:
     def __str__(self) -> str:
-        return (
-            self.before_repr()
-            + f"{type(self).__module__}.{type(self).__name__}"
-            + self.after_repr()
-        )
+        return f"{type(self).__module__}.{type(self).__name__}"
 
     def __repr__(self) -> str:
         parameters = ", ".join(
@@ -20,14 +18,8 @@ class Base:
         )
         return "{}({})".format(self, parameters)
 
-    def after_repr(self):
-        return ""
-
-    def before_repr(self):
-        return ""
-
     # Add yaml-like pretty print
-    def print(self):
+    def __str__(self) -> str:
         pass
 
 
@@ -63,6 +55,9 @@ class StatefulPipe(Base):
     def forward(self, data):
         pass
 
+    def __str__(self):
+        return yaml.dump({super().__str__(): self.pipes})
+
 
 class StatelessPipe(Base):
     def __init__(self, first, second):
@@ -74,7 +69,7 @@ class StatelessPipe(Base):
             return str(self.first)
         if str(self.first) == "":
             return str(self.second)
-        return "{} -> {}".format(self.first, self.second)
+        return yaml.dump({str(self.first): str(self.second)})
 
     def __call__(self, data):
         return self.forward(data)
@@ -150,11 +145,10 @@ class Saver(StatefulPipe):
         self.data = self.forward(self._apply_pipes(data))
         return self.data
 
-    def before_repr(self):
-        pipes = " -> ".join(map(str, self.pipes))
-        if pipes != "":
-            return "{} -> ".format(pipes)
-        return ""
+    def __str__(self):
+        if pipes:
+            return yaml.dump(list(map(str, self.pipes)) + [super().__str__()])
+        return super().__str__()
 
     @abc.abstractmethod
     def forward(self, data):
@@ -193,6 +187,9 @@ class _ProducerBase(StatefulPipe):
 
         return self
 
+    def __str__(self):
+        return {super().__str__(): {"ops": self._ops, "savers": self._savers}}
+
     # Ops registering
     def __add__(self, other):
         self._ops.append(other)
@@ -222,36 +219,6 @@ class _ProducerBase(StatefulPipe):
         self.feed()
         self.clear()
         return False
-
-    # Textual representation
-    def summary(self):
-        def format_component(components):
-            return "\n".join(
-                [
-                    "  - {}".format(component)
-                    for component in components
-                    if str(component) != ""
-                ]
-            )
-
-        string = "(arguments) -> {} -> (output)".format(self)
-        savers = format_component(self._savers)
-        if savers:
-            starting_point = "(saved)"
-            string += " -> {} ->\n{}".format(starting_point, savers)
-        else:
-            starting_point = "(nothing saved)"
-            string += ""
-        ops = format_component(self._ops)
-        if ops:
-            string += "\n{} ->\n{}".format(starting_point, ops)
-        return string
-
-    def after_repr(self):
-        pipes = " -> ".join(map(str, self.pipes))
-        if pipes != "":
-            return " -> {}".format(pipes)
-        return ""
 
     # Logic
     @abc.abstractmethod
