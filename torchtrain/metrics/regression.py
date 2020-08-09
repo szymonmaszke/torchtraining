@@ -52,6 +52,11 @@ class SquaredError(_MeanReduction):
         return functional.regression.squared_error(*data, self.reduction)
 
 
+class SquaredLogError(_MeanReduction):
+    def forward(self, data):
+        return functional.regression.squared_log_error(*data, self.reduction)
+
+
 class PairwiseDistance(_base.Op):
     def __init__(self, p: float = 2.0, eps: float = 1e-06, reduction=torch.mean):
         self.p = p
@@ -62,3 +67,8 @@ class PairwiseDistance(_base.Op):
         return functional.regression.pairwise_distance(
             *data, self.p, self.eps, self.reduction,
         )
+
+
+class MaxError(_base.Op):
+    def forward(self, data):
+        return functional.regression.max_error(*data)
