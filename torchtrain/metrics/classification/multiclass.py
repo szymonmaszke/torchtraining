@@ -4,8 +4,7 @@ import typing
 
 import torch
 
-from ... import _base
-from .. import functional
+from ... import _base, functional
 
 
 class _Reduction(_base.Op):
@@ -42,7 +41,7 @@ class TopK(_base.Op):
         self.reduction = reduction
 
     def forward(self, data):
-        return functional.classification.multiclass.accuracy(*data, self.reduction)
+        return functional.classification.multiclass.topk(*data, self.reduction)
 
 
 class Accuracy(_Reduction):

@@ -1,7 +1,6 @@
 import torch
 
-from .. import _base
-from . import functional
+from .. import _base, functional
 
 
 class Cosine(_base.Op):

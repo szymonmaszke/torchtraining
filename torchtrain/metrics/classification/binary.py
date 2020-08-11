@@ -4,14 +4,7 @@ import typing
 
 import torch
 
-from ... import _base
-from .. import functional
-
-# Useful interfaces
-
-# Precision, Recall, ConfusionMatrix, AbsoluteError, SquaredError, PairwiseDistance,
-# TopK, F2, FBeta, MCC, TruePositive, FalsePositive, TrueNegative, FalseNegative,
-# AreaUnderCurve, Dice
+from ... import _base, functional
 
 
 class _Threshold(_base.Op):
