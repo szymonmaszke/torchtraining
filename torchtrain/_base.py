@@ -7,6 +7,17 @@ import yaml
 
 
 class Base:
+    """Common base class for all `torchtrain` objects.
+
+    Defines default `__str__` and `__repr__`.
+    Most objects should customize `__str__` according to specific
+    needs.
+
+    Custom objects usually use `yaml.dump` to easily see parameters
+    and whole pipeline.
+
+    """
+
     def __str__(self) -> str:
         return f"{type(self).__module__}.{type(self).__name__}"
 
@@ -18,10 +29,6 @@ class Base:
         )
         return "{}({})".format(self, parameters)
 
-    # Add yaml-like pretty print
-    def __str__(self) -> str:
-        pass
-
 
 ###############################################################################
 #
@@ -31,6 +38,16 @@ class Base:
 
 
 class StatefulPipe(Base):
+    """Pipe-like component keeping other pipes as internal state.
+
+    Acts as a base for `savers` and `producers` to keep both working
+    coherently.
+
+    After using `__or__` same object is returned with right hand side
+    added as a sink for values.
+
+    """
+
     def __init__(self):
         self.pipes = []
 
@@ -60,6 +77,16 @@ class StatefulPipe(Base):
 
 
 class StatelessPipe(Base):
+    """Pipe-like component keeping other pipes as internal state.
+
+    Acts as a base for `savers` and `producers` to keep both working
+    coherently.
+
+    After using `__or__` same object is returned with right hand side
+    added as a sink for values.
+
+    """
+
     def __init__(self, first, second):
         self.first = first
         self.second = second
@@ -101,10 +128,14 @@ class StatelessPipe(Base):
 class Op(Base):
     """Base class for operations.
 
-    Processes data returned / yielded by `torchtrain.steps.Step` / `torchtrain.iterations.Iteration`
+    Usually processes data returned / yielded by `torchtrain.steps.Step` / `torchtrain.iterations.Iteration`
     instances.
 
-    Users should implement `forward` method.
+    Can also be used with `savers`, in this case those ops are used BEFORE
+    data is passed to `saver`.
+
+    Users should implement `forward` method which returns desired value
+    after transformation.
 
     """
 
@@ -137,6 +168,21 @@ class Op(Base):
 
 
 class Saver(StatefulPipe):
+    """Save values for further reuse.
+
+    Values can be saved after each step or iteration.
+    If any pipe is applied with `__or__`, values will be first transformed
+    by those pipes and saved as a last step.
+
+    Users should implement `forward` method which returns value(s) which
+    are saved after each step. As those values are only references,
+    it is a low-cost operation.
+
+    Users should also use `self.data` field in order to accumulate results
+    somehow. See `torchtrain.savers` for examples.
+
+    """
+
     def __init__(self):
         super().__init__()
         self.data = None
@@ -146,7 +192,7 @@ class Saver(StatefulPipe):
         return self.data
 
     def __str__(self):
-        if pipes:
+        if self.pipes:
             return yaml.dump(list(map(str, self.pipes)) + [super().__str__()])
         return super().__str__()
 
@@ -163,6 +209,14 @@ class Saver(StatefulPipe):
 
 
 class _ProducerBase(StatefulPipe):
+    """Produce values and process/save them.
+
+    This object is unique, as it has `__rshift__` in order to differentiate
+    between pipelines leading to saving values instead of merely processing
+    them.
+
+    """
+
     def __init__(self):
         super().__init__()
         self._savers = []
@@ -231,6 +285,13 @@ class _ProducerBase(StatefulPipe):
 
 
 class Producer(_ProducerBase):
+    """Producer returning values via `return` statement.
+
+    Differentiation is needed for smooth user experience
+    no matter generators (`iterations` or `epochs`) or simple returns
+    (usually `step`).
+
+    """
     def __call__(self, *args, **kwargs):
         with self:
             sample = self._apply_pipes(self.forward(*args, **kwargs))
@@ -243,6 +304,13 @@ class Producer(_ProducerBase):
 
 
 class GeneratorProducer(_ProducerBase):
+    """Producer yielding values via `yield` statement.
+
+    Differentiation is needed for smooth user experience
+    no matter generators (`iterations` or `epochs`) or simple returns
+    (usually `step`).
+
+    """
     def __call__(self, *args, **kwargs):
         with self:
             for sample in self.forward(*args, **kwargs):
