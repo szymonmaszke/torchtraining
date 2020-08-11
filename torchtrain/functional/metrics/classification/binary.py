@@ -4,8 +4,6 @@ import torch
 
 from . import utils
 
-# Useful interfaces
-
 
 def accuracy(
     output: torch.Tensor,
