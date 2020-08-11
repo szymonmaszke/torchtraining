@@ -1,27 +1,30 @@
 import typing
 
 import torch
+import yaml
 
-from loguru import logger
+import loguru
 
-from . import callbacks, epochs, iterations, metrics, ops, steps
+from . import (callbacks, cast, device, epochs, functional, iterations, loss,
+               metrics, operations, ops, quantization, savers, steps)
 from ._base import GeneratorProducer, Op, Producer, Saver
 from ._version import __version__
 
-logger.level("NONE", no=0)
+loguru.logger.level("NONE", no=0)
 
 
 class Select(Op):
     """Select output item returned from `step` or `iteration` objects.
 
     Allows users to focus on specific output from result generator and
-    post-process is (e.g. piping part of output to metric, loggers or a-like).
+    post-process it (e.g. piping part of output to metric, loggers or a-like).
 
     Parameters
     ----------
-    output_index : int
+    output_indices : *int
         Zero-based index into output tuple choosing part of output to propagate
         further down the pipeline.
+        At least one index has to be specified.
 
     """
 
@@ -37,15 +40,15 @@ class Select(Op):
         if len(self.output_indices) == 1:
             self._selection_method = lambda data: data[self.output_indices[0]]
         else:
-            self._selection_method = lambda data: tuple(
-                [data[index] for index in self.output_indices]
-            )
+            self._selection_method = lambda data: [
+                data[index] for index in self.output_indices
+            ]
 
     def forward(self, data):
         return self._selection_method(data)
 
-    def after_repr(self):
-        return "({})".format(", ".join([str(index) for index in self.output_indices]))
+    def __str__(self):
+        return yaml.dump({super().__str__(): self.output_indices})
 
 
 class Split(Op):
@@ -58,21 +61,23 @@ class Split(Op):
 
     Parameters
     ----------
-    *ops: int
+    *operations: int
         Operations to which results will be passed.
     return_modified: bool, optional
-        Return outputs from `ops` as a `list` if `True`. If `False`, returns
+        Return outputs from `operations` as a `list` if `True`. If `False`, returns
         original `data` passed into `Split`. Default: `False`
 
     """
 
-    def __init__(self, *ops, return_modified: bool = False):
-        self.ops = ops
+    def __init__(self, *operations, return_modified: bool = False):
+        if not operations:
+            raise ValueError("Split requires at least one operation.")
+        self.operations = operations
         self.return_modified = return_modified
 
     def forward(self, data):
         processed_data = []
-        for op in self.ops:
+        for op in self.operations:
             result = op(data)
             if self.return_modified:
                 processed_data.append(result)
@@ -80,23 +85,25 @@ class Split(Op):
             return processed_data
         return data
 
-    def after_repr(self):
-        return "(" + ", ".join(map(str, self.ops)) + ")"
+    def __str__(self):
+        return yaml.dump({super().__str__(): self.operations})
 
 
 class Flatten(Op):
     r"""Flatten arbitrarily nested data.
 
+    Single `tuple` with all elements (not being `tuple` or `list`).
+
     Parameters
     ----------
     types : Tuple[type], optional
-            Types to be considered non-flat. Those will be recursively flattened.
-            Default: `(list, tuple)`
+        Types to be considered non-flat. Those will be recursively flattened.
+        Default: `(list, tuple)`
 
     Returns
     -------
     Tuple[samples]
-            Tuple with elements flattened
+        Single `tuple` with all elements (not being `tuple` or `list`).
 
     """
 
@@ -148,23 +155,25 @@ class If(Op):
     def __str__(self):
         if self.condition:
             return str(self.op)
-        return ""
+        return "no-op"
 
 
 class IfElse(Op):
-    """Run operation1 only If `condition` is `True`, otherwise run operation2.
+    """Run `operation1` only if `condition` is `True`, otherwise run `operation2`.
 
     Parameters
     ----------
     condition: bool
         Boolean value. If `true`, run underlying Op (or other Callable).
-    op: torchtrain.Op | Callable
-        Operation or single argument callable to run in...
+    operation1: torchtrain.Op | Callable
+        Operation or callable getting single argument (`data`) and returning anything.
+    operation2: torchtrain.Op | Callable
+        Operation or callable getting single argument (`data`) and returning anything.
 
     Returns
     -------
     Any
-        If `true`, returns value from `op`, otherwise passes original `data`
+        If `true`, returns value from `operation1`, otherwise from `operation2`.
 
     """
 
