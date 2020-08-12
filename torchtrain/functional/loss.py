@@ -2,7 +2,7 @@ import torch
 
 
 # N, H, W
-def binary_focal_loss_with_logits(
+def binary_focal_loss(
     inputs,
     targets,
     gamma: float,
@@ -23,7 +23,7 @@ def binary_focal_loss_with_logits(
     return loss
 
 
-def multiclass_focal_loss_with_logits(
+def multiclass_focal_loss(
     inputs,
     targets,
     gamma: float,
@@ -45,7 +45,21 @@ def multiclass_focal_loss_with_logits(
     return loss
 
 
-def smooth_cross_entropy_loss(
+def smooth_binary_cross_entropy(
+    inputs,
+    targets,
+    alpha: float,
+    weight=None,
+    pos_weight=None,
+    reduction: str = "mean",
+):
+    inputs *= (1 - alpha) + alpha / 2
+    return torch.nn.functional.binary_cross_entropy_with_logits(
+        inputs, targets, weight, pos_weight=pos_weight, reduction=reduction
+    )
+
+
+def smooth_cross_entropy(
     inputs,
     targets,
     alpha: float,

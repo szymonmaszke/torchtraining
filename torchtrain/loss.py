@@ -7,7 +7,7 @@ from torch.nn.modules.loss import _WeightedLoss
 from . import functional
 
 
-class BinaryFocalLossWithLogits(_WeightedLoss):
+class BinaryFocal(_WeightedLoss):
     """Binary focal loss working with raw output from network (logits).
 
     See: https://arxiv.org/abs/1708.02002.
@@ -59,12 +59,12 @@ class BinaryFocalLossWithLogits(_WeightedLoss):
         self.pos_weight = pos_weight
 
     def __call__(self, inputs, targets):
-        return functional.loss.binary_focal_loss_with_logits(
+        return functional.loss.binary_focal_loss(
             inputs, targets, self.gamma, self.weight, self.reduction, self.pos_weights,
         )
 
 
-class MulticlassFocalLoss(_WeightedLoss):
+class MulticlassFocal(_WeightedLoss):
     """Multiclass focal loss working with raw output from network (logits).
 
     See: https://arxiv.org/abs/1708.02002.
@@ -126,14 +126,14 @@ class MulticlassFocalLoss(_WeightedLoss):
         self.ignore_index = ignore_index
 
     def __call__(self, inputs, targets):
-        return functional.loss.multiclass_focal_loss_with_logits(
+        return functional.loss.multiclass_focal_loss(
             inputs, targets, self.gamma, self.weight, self.ignore_index, self.reduction
         )
 
 
 # Inspired by: https://stackoverflow.com/questions/55681502/label-smoothing-in-pytorch
 # and fixed according to: https://arxiv.org/abs/1906.02629
-class SmoothCrossEntropyLoss(_WeightedLoss):
+class SmoothCrossEntropy(_WeightedLoss):
     def __init__(
         self,
         alpha: float,
@@ -150,6 +150,28 @@ class SmoothCrossEntropyLoss(_WeightedLoss):
         self.ignore_index = ignore_index
 
     def forward(self, inputs, targets):
-        return functional.loss.smooth_cross_entropy_loss(
+        return functional.loss.smooth_cross_entropy(
             inputs, targets, self.alpha, self.weight, self.ignore_index, self.reduction
+        )
+
+
+class SmoothBinaryCrossEntropy(_WeightedLoss):
+    def __init__(
+        self,
+        alpha: float,
+        weight=None,
+        pos_weight: int = None,
+        reduction: str = "mean",
+    ):
+        super().__init__(weight, reduction=reduction)
+
+        if not 0 <= alpha < 1:
+            raise ValueError("smoothing alpha should be in [0, 1) range.")
+
+        self.alpha = alpha
+        self.pos_weight = pos_weight
+
+    def forward(self, inputs, targets):
+        return functional.loss.smooth_binary_cross_entropy(
+            inputs, targets, self.alpha, self.weight, self.pos_weight, self.reduction
         )
