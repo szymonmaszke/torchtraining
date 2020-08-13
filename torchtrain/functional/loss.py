@@ -95,6 +95,7 @@ def quadruplet(
     metric: typing.Callable[
         [torch.Tensor, torch.Tensor], torch.Tensor
     ] = torch.nn.functional.pairwise_distance,
+    weight=None,
     reduction: str = "sum",
 ):
     """See `torchtrain.loss.Quadruplet`."""
@@ -104,5 +105,8 @@ def quadruplet(
     +torch.nn.functional.relu(
         metric(anchor, positive) ** 2 - metric(negative, negative2) ** 2 + alpha2
     )
+
+    if weight is not None:
+        loss *= weight.unsqueeze(dim=0)
 
     return _reduce(loss, reduction, anchor)
