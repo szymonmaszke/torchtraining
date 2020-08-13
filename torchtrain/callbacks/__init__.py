@@ -14,28 +14,27 @@ from . import tensorboard
 
 
 class Save(Op):
-    """
-    Save best module according to specified metric.
+    """Save best module according to specified metric.
 
     Parameters
     ----------
-    module : torch.nn.Module
+    module: torch.nn.Module
         Module to save.
-    path : pathlib.Path
+    path: pathlib.Path
         Path where module will be saved. Usually ends with `.pt` suffix,
         see PyTorch documentation.
-    comparator : Callable(Number, Number) -> bool, optional
+    comparator: Callable(Number, Number) -> bool, optional
         Function comparing two values - current metric and best metric.
         If ``true``, save new module and use current value as the best one.
         One can use Python's standard operator library for this argument.
         Default: `operator.gt` (`current` > `best`)
-    method : Callable(torch.nn.Module, path) -> None, optional
+    method: Callable(torch.nn.Module, pathlib.Path) -> None, optional
         Method to save `torch.nn.Module`. Takes module and path
         and returns anything (return value is discarded).
-        Might be useful to transform model (located under `module` attribute) into
+        Might be useful to transform model into
         `torch.jit.ScriptModule` or do some preprocessing before saving.
         Default: `torch.save` (whole model saving)
-    log : str | int, optional
+    log: str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
             NONE        0
@@ -80,17 +79,15 @@ class Save(Op):
 
 
 class TimeStopping(Op):
-    """
-    Exit program with status `0` if `duration` was reached.
+    """Exit program with status `0` if time `duration` was reached.
 
-    Used to stop training of neural network after desired duration.
     Python's `time.time()` functionality is used.
 
     Parameters
     ----------
-    duration : int | float
+    duration: int | float
         How long to run (in seconds) before exiting program.
-    log : str | int, optional
+    log: str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
             NONE        0
@@ -102,6 +99,7 @@ class TimeStopping(Op):
             ERROR 	40
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
+
     """
 
     def __init__(
@@ -119,12 +117,11 @@ class TimeStopping(Op):
 
 
 class TerminateOnNan(Op):
-    """
-    Exit program with status `1` if any `NaN` value encountered in provided `data`.
+    """Exit program with status `1` if any `NaN` value encountered in provided `data`.
 
     Parameters
     ----------
-    log : str | int, optional
+    log: str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
             NONE        0
@@ -136,6 +133,7 @@ class TerminateOnNan(Op):
             ERROR 	40
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
+
     """
 
     def __init__(
@@ -151,25 +149,24 @@ class TerminateOnNan(Op):
 
 
 class EarlyStopping(Op):
-    """
-    Exit program with status `0` if `patience` was reached without improvement.
+    """Exit program with status `0` if `patience` was reached without improvement.
 
     Used to stop training if neural network's desired value didn't improve
     after `patience` steps.
 
     Parameters
     ----------
-    patience : int
+    patience: int
         How long not to terminate if metric does not improve
-    delta : numbers.Number, optional
+    delta: Number, optional
         Difference between `best` value and current considered as an improvement.
         Default: `0`.
-    comparator : Callable, optional
+    comparator: Callable(Number, Number) -> bool, optional
         Function comparing two values - current metric and best metric.
         If ``true``, reset patience and use current value as the best one.
         One can use Python's standard `operator` library for this argument.
         Default: `operator.gt` (`current` > `best`)
-    log : str | int, optional
+    log: str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
             NONE        0
@@ -181,6 +178,7 @@ class EarlyStopping(Op):
             ERROR 	40
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
+
     """
 
     def __init__(
@@ -209,16 +207,15 @@ class EarlyStopping(Op):
 
 
 class Unfreeze(Op):
-    """
-    Unfreeze module's parameters after `n` steps.
+    """Unfreeze module's parameters after `n` steps.
 
     Parameters
     ----------
-    scaler : torch.cuda.amp.GradScaler
-        Gradient scaler used for automatic mixed precision mode.
-    n : int
-        Unfreeze module after `n` runs
-    log : str | int, optional
+    module: torch.nn.Module
+        Module whose `parameters` will be unfrozen (`grad` set to `True`).
+    n: int
+        Module will be unfrozen after this many steps.
+    log: str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
             NONE        0
@@ -233,16 +230,16 @@ class Unfreeze(Op):
 
     """
 
-    def __init__(self, module, steps: int = 0, log="NONE"):
+    def __init__(self, module, n: int = 0, log="NONE"):
         self.module = module
-        self.steps = steps
+        self.n = n
         self.log = log
 
         self._counter = -1
 
     def forward(self, data):
         self._counter += 1
-        if self._counter == self.steps:
+        if self._counter == self.n:
             loguru.log(self.log, "Unfreezing module's parameters")
             for param in self.module.parameters():
                 param.requires_grad_(True)
@@ -250,12 +247,13 @@ class Unfreeze(Op):
 
 
 class Logger(Op):
-    """Log data using `loguru`
+    """Log data using `loguru`.
 
     Parameters
     ----------
     name : str
-        How to name
+        Name under which data will be logged.
+        It will be of format "{name}: {data}"
     log : str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
@@ -271,7 +269,7 @@ class Logger(Op):
 
     """
 
-    def __init__(self, name: str, log="INFO", *args, **kwargs):
+    def __init__(self, name: str, log="INFO"):
         self.name = name
         self.log = log
 
