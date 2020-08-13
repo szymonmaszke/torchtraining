@@ -184,8 +184,8 @@ class SmoothBinaryCrossEntropy(_WeightedLoss):
 class QuadrupletLoss(_WeightedLoss):
     def __init__(
         self,
-        alpha1: float,
-        alpha2: float,
+        alpha1: float = 1.0,
+        alpha2: float = 0.5,
         metric: typing.Callable[
             [torch.Tensor, torch.Tensor], torch.Tensor
         ] = torch.nn.functional.pairwise_distance,
