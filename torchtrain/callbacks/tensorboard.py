@@ -6,17 +6,20 @@ from .. import _base
 
 
 class _Tensorboard(_base.Op):
-    """Log {function}.
+    """Log {function} to Tensorboard.
 
     User should specify single `writer` instance to all `torchtrain.callbacks.tensorboard`
-    objects.
+    objects used for training.
 
     Parameters
     ----------
-    writer : torch.utils.tensorboard.SummaryWriter
-            Writer responsible for logging values.
-    name : str
-            Named under which values will be logged into Tensorboard.
+    writer: torch.utils.tensorboard.SummaryWriter
+        Writer responsible for logging values.
+    name: str
+        Named under which values will be logged into Tensorboard.
+    flush: int
+        Flushes the event file to disk after `flush` steps.
+        Call this method to make sure that all pending events have been written to disk.
     log : str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
@@ -106,11 +109,10 @@ class Text(_Tensorboard):
 class Mesh(_Tensorboard):
     __doc__ = _Tensorboard.__doc__.format("mesh")
 
-class PRCurve(_Tensorboard)
+
+class PRCurve(_Tensorboard):
     __doc__ = _Tensorboard.__doc__.format("pr_curve")
 
     def forward(self, data):
         labels, predictions = data
         return super().forward(labels, predictions)
-
-# To add - graph, embedding, hparams
