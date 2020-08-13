@@ -1,10 +1,14 @@
-# DICE, Focal Loss, Quadruplet Loss, Label Smoothing
-
+import typing
 
 import torch
 from torch.nn.modules.loss import _WeightedLoss
 
 from . import functional
+
+# DICE
+
+
+# Dice loss
 
 
 class BinaryFocal(_WeightedLoss):
@@ -174,4 +178,35 @@ class SmoothBinaryCrossEntropy(_WeightedLoss):
     def forward(self, inputs, targets):
         return functional.loss.smooth_binary_cross_entropy(
             inputs, targets, self.alpha, self.weight, self.pos_weight, self.reduction
+        )
+
+
+class QuadrupletLoss(_WeightedLoss):
+    def __init__(
+        self,
+        alpha1: float,
+        alpha2: float,
+        metric: typing.Callable[
+            [torch.Tensor, torch.Tensor], torch.Tensor
+        ] = torch.nn.functional.pairwise_distance,
+        weight=None,
+        reduction: str = "sum",
+    ):
+        super().__init__(weight, reduction=reduction)
+
+        self.alpha1 = alpha1
+        self.alpha2 = alpha2
+        self.metric = metric
+
+    def forward(self, anchor, positive, negative, negative2):
+        return functional.loss.quadruplet(
+            anchor,
+            positive,
+            negative,
+            negative2,
+            self.alpha1,
+            self.alpha2,
+            self.metric,
+            self.weight,
+            self.reduction,
         )
