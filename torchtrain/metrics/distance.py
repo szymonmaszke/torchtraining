@@ -17,3 +17,13 @@ class Euclidean(_base.Op):
 
     def forward(self, data):
         return functional.distance.euclidean(*data, self.epsilon)
+
+
+class Pairwise(_base.Op):
+    def __init__(self, p: float = 2.0, eps: float = 1e-06, reduction=torch.mean):
+        self.p = p
+        self.eps = eps
+        self.reduction = reduction
+
+    def forward(self, data):
+        return functional.distance.pairwise(*data, self.p, self.eps, self.reduction,)

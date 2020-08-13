@@ -18,3 +18,7 @@ def cosine(output, target, epsilon: float = 1e-8):
 
 def euclidean(output, target):
     return torch.sqrt(output @ output - 2 * output @ target + target @ target)
+
+
+def pairwise(output, target, p: float = 2.0, eps: float = 1e-06, reduction=torch.mean):
+    return reduction(torch.nn.functional.pairwise_distance(output, target, p, eps))
