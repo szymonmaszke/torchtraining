@@ -1,1 +1,1 @@
-from . import classification, functional, regression
+from . import classification, distance, regression
