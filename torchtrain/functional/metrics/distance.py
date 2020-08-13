@@ -14,3 +14,7 @@ def cosine(output, target, epsilon: float = 1e-8):
             epsilon,
         )
     )
+
+
+def euclidean(output, target):
+    return torch.sqrt(output @ output - 2 * output @ target + target @ target)
