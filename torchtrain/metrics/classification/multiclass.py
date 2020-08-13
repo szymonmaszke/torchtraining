@@ -41,12 +41,14 @@ class TopK(_base.Op):
         self.reduction = reduction
 
     def forward(self, data):
-        return functional.classification.multiclass.topk(*data, self.reduction)
+        return functional.metrics.classification.multiclass.topk(*data, self.reduction)
 
 
 class Accuracy(_Reduction):
     def forward(self, data):
-        return functional.classification.multiclass.accuracy(*data, self.reduction)
+        return functional.metrics.classification.multiclass.accuracy(
+            *data, self.reduction
+        )
 
 
 # Basic cases
@@ -54,24 +56,28 @@ class Accuracy(_Reduction):
 
 class TruePositive(_Reduction):
     def forward(self, data):
-        return functional.classification.multiclass.true_positive(*data, self.reduction)
+        return functional.metrics.classification.multiclass.true_positive(
+            *data, self.reduction
+        )
 
 
 class FalsePositive(_Reduction):
     def forward(self, data):
-        return functional.classification.multiclass.false_positive(
+        return functional.metrics.classification.multiclass.false_positive(
             *data, self.reduction
         )
 
 
 class TrueNegative(_Reduction):
     def forward(self, data):
-        return functional.classification.multiclass.true_negative(*data, self.reduction)
+        return functional.metrics.classification.multiclass.true_negative(
+            *data, self.reduction
+        )
 
 
 class FalseNegative(_Reduction):
     def forward(self, data):
-        return functional.classification.multiclass.false_negative(
+        return functional.metrics.classification.multiclass.false_negative(
             *data, self.reduction
         )
 
@@ -81,73 +87,77 @@ class FalseNegative(_Reduction):
 
 class ConfusionMatrix(_Reduction):
     def forward(self, data):
-        return functional.classification.multiclass.confusion_matrix(
+        return functional.metrics.classification.multiclass.confusion_matrix(
             *data, self.reduction
         )
 
 
 class Recall(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.recall(*data)
+        return functional.metrics.classification.multiclass.recall(*data)
 
 
 class Specificity(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.specificity(*data)
+        return functional.metrics.classification.multiclass.specificity(*data)
 
 
 class Precision(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.precision(*data)
+        return functional.metrics.classification.multiclass.precision(*data)
 
 
 class NegativePredictiveValue(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.negative_predictive_value(*data)
+        return functional.metrics.classification.multiclass.negative_predictive_value(
+            *data
+        )
 
 
 class FalseNegativeRate(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.false_negative_rate(*data)
+        return functional.metrics.classification.multiclass.false_negative_rate(*data)
 
 
 class FalsePositiveRate(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.false_positive_rate(*data)
+        return functional.metrics.classification.multiclass.false_positive_rate(*data)
 
 
 class FalseDiscoveryRate(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.false_discovery_rate(*data)
+        return functional.metrics.classification.multiclass.false_discovery_rate(*data)
 
 
 class FalseOmissionRate(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.false_omission_rate(*data)
+        return functional.metrics.classification.multiclass.false_omission_rate(*data)
 
 
 class CriticalSuccessIndex(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.critical_success_index(*data)
+        return functional.metrics.classification.multiclass.critical_success_index(
+            *data
+        )
 
 
 class BalancedAccuracy(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.balanced_accuracy(*data)
+        return functional.metrics.classification.multiclass.balanced_accuracy(*data)
 
 
 class F1(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.f1(*data)
+        return functional.metrics.classification.multiclass.f1(*data)
 
 
 class FBeta(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.fbeta(*data)
+        return functional.metrics.classification.multiclass.fbeta(*data)
 
 
 class MatthewsCorrelationCoefficient(_base.Op):
     def forward(self, data):
-        return functional.classification.multiclass.matthews_correlation_coefficient(
+        return functional.metrics.classification.multiclass.matthews_correlation_coefficient(
             *data
         )

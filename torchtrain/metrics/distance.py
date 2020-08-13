@@ -8,7 +8,7 @@ class Cosine(_base.Op):
         self.epsilon = epsilon
 
     def forward(self, data):
-        return functional.distance.cosine(*data, self.epsilon)
+        return functional.metrics.distance.cosine(*data, self.epsilon)
 
 
 class Euclidean(_base.Op):
@@ -16,7 +16,7 @@ class Euclidean(_base.Op):
         self.epsilon = epsilon
 
     def forward(self, data):
-        return functional.distance.euclidean(*data, self.epsilon)
+        return functional.metrics.distance.euclidean(*data, self.epsilon)
 
 
 class Pairwise(_base.Op):
@@ -26,4 +26,6 @@ class Pairwise(_base.Op):
         self.reduction = reduction
 
     def forward(self, data):
-        return functional.distance.pairwise(*data, self.p, self.eps, self.reduction,)
+        return functional.metrics.distance.pairwise(
+            *data, self.p, self.eps, self.reduction,
+        )

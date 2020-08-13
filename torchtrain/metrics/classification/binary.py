@@ -74,7 +74,7 @@ class Accuracy(_ThresholdReduction):
     )
 
     def forward(self, data):
-        return functional.classification.binary.accuracy(
+        return functional.metrics.classification.binary.accuracy(
             *data, self.threshold, self.reduction,
         )
 
@@ -85,7 +85,7 @@ class Jaccard(_ThresholdReduction):
     )
 
     def forward(self, data):
-        return functional.classification.binary.jaccard(
+        return functional.metrics.classification.binary.jaccard(
             *data, self.threshold, self.reduction,
         )
 
@@ -95,28 +95,28 @@ class Jaccard(_ThresholdReduction):
 
 class TruePositive(_ThresholdReduction):
     def forward(self, data):
-        return functional.classification.binary.true_positive(
+        return functional.metrics.classification.binary.true_positive(
             *data, self.threshold, self.reduction
         )
 
 
 class FalsePositive(_ThresholdReduction):
     def forward(self, data):
-        return functional.classification.binary.false_positive(
+        return functional.metrics.classification.binary.false_positive(
             *data, self.threshold, self.reduction
         )
 
 
 class TrueNegative(_ThresholdReduction):
     def forward(self, data):
-        return functional.classification.binary.true_negative(
+        return functional.metrics.classification.binary.true_negative(
             *data, self.threshold, self.reduction
         )
 
 
 class FalseNegative(_ThresholdReduction):
     def forward(self, data):
-        return functional.classification.binary.false_negative(
+        return functional.metrics.classification.binary.false_negative(
             *data, self.threshold, self.reduction
         )
 
@@ -126,7 +126,7 @@ class FalseNegative(_ThresholdReduction):
 
 class ConfusionMatrix(_ThresholdReduction):
     def forward(self, data):
-        return functional.classification.binary.confusion_matrix(
+        return functional.metrics.classification.binary.confusion_matrix(
             *data, self.threshold, self.reduction
         )
 
@@ -136,57 +136,59 @@ class ConfusionMatrix(_ThresholdReduction):
 
 class Recall(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.recall(*data, self.threshold)
+        return functional.metrics.classification.binary.recall(*data, self.threshold)
 
 
 class Specificity(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.specificity(*data, self.threshold)
+        return functional.metrics.classification.binary.specificity(
+            *data, self.threshold
+        )
 
 
 class Precision(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.precision(*data, self.threshold)
+        return functional.metrics.classification.binary.precision(*data, self.threshold)
 
 
 class NegativePredictiveValue(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.negative_predictive_value(
+        return functional.metrics.classification.binary.negative_predictive_value(
             *data, self.threshold
         )
 
 
 class FalseNegativeRate(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.false_negative_rate(
+        return functional.metrics.classification.binary.false_negative_rate(
             *data, self.threshold
         )
 
 
 class FalsePositiveRate(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.false_positive_rate(
+        return functional.metrics.classification.binary.false_positive_rate(
             *data, self.threshold
         )
 
 
 class FalseDiscoveryRate(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.false_discovery_rate(
+        return functional.metrics.classification.binary.false_discovery_rate(
             *data, self.threshold
         )
 
 
 class FalseOmissionRate(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.false_omission_rate(
+        return functional.metrics.classification.binary.false_omission_rate(
             *data, self.threshold
         )
 
 
 class F1(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.f1(*data, self.threshold)
+        return functional.metrics.classification.binary.f1(*data, self.threshold)
 
 
 class FBeta(_base.Op):
@@ -195,11 +197,11 @@ class FBeta(_base.Op):
         self.threshold = threshold
 
     def forward(self, data):
-        return functional.classification.binary.fbeta(*data, self.threshold)
+        return functional.metrics.classification.binary.fbeta(*data, self.threshold)
 
 
 class MatthewsCorrelationCoefficient(_Threshold):
     def forward(self, data):
-        return functional.classification.binary.matthews_correlation_coefficient(
+        return functional.metrics.classification.binary.matthews_correlation_coefficient(
             *data, self.threshold
         )
