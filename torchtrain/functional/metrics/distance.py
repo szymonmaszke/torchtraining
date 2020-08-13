@@ -1,8 +1,12 @@
+import typing
+
 import torch
 
 
 # assert 2 size
-def cosine(output, target, epsilon: float = 1e-8):
+def cosine(
+    output: torch.Tensor, target: torch.Tensor, epsilon: float = 1e-8
+) -> torch.Tensor:
     return 1 - (
         output
         @ target.T
@@ -16,9 +20,15 @@ def cosine(output, target, epsilon: float = 1e-8):
     )
 
 
-def euclidean(output, target):
+def euclidean(output: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     return torch.sqrt(output @ output - 2 * output @ target + target @ target)
 
 
-def pairwise(output, target, p: float = 2.0, eps: float = 1e-06, reduction=torch.mean):
+def pairwise(
+    output: torch.Tensor,
+    target: torch.Tensor,
+    p: float = 2.0,
+    eps: float = 1e-06,
+    reduction: typing.Callable[[torch.Tensor,], torch.Tensor,] = torch.mean,
+) -> torch.Tensor:
     return reduction(torch.nn.functional.pairwise_distance(output, target, p, eps))
