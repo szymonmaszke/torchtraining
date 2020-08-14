@@ -5,8 +5,8 @@ import loguru
 from .. import _base
 
 
-class _Tensorboard(_base.Op):
-    """Log {function} to Tensorboard.
+def _docstring(klass):
+    klass.__doc__ = """Log {function} to Tensorboard.
 
     User should specify single `writer` instance to all `torchtrain.callbacks.tensorboard`
     objects used for training.
@@ -37,8 +37,13 @@ class _Tensorboard(_base.Op):
     **kwargs
         Keyword variable length arguments passed to `add_{function}` call.
 
-    """
+    """.format(
+        function=klass.__name__
+    )
+    return klass
 
+
+class _Tensorboard(_base.Op):
     def __init__(
         self,
         writer,
@@ -70,49 +75,58 @@ class _Tensorboard(_base.Op):
             self.writer.flush()
 
 
+@_docstring
 class Scalar(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("scalar")
+    pass
 
 
+@_docstring
 class Scalars(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("scalars")
+    pass
 
 
+@_docstring
 class Histogram(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("histogram")
+    pass
 
 
+@_docstring
 class Image(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("image")
+    pass
 
 
+@_docstring
 class Images(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("image")
+    pass
 
 
+@_docstring
 class Figure(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("figure")
+    pass
 
 
+@_docstring
 class Video(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("video")
+    pass
 
 
+@_docstring
 class Audio(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("audio")
+    pass
 
 
+@_docstring
 class Text(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("text")
+    pass
 
 
+@_docstring
 class Mesh(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("mesh")
+    pass
 
 
+@_docstring
 class PRCurve(_Tensorboard):
-    __doc__ = _Tensorboard.__doc__.format("pr_curve")
-
     def forward(self, data):
         labels, predictions = data
         return super().forward(labels, predictions)
