@@ -1,7 +1,7 @@
 import typing
 
 import torch
-from torch.nn.modules.loss import _WeightedLoss
+from torch.nn.modules.loss import _Loss
 
 from . import functional
 
@@ -11,7 +11,7 @@ from . import functional
 # Dice loss
 
 
-class BinaryFocal(_WeightedLoss):
+class BinaryFocal(_Loss):
     """Binary focal loss working with raw output from network (logits).
 
     See: https://arxiv.org/abs/1708.02002.
@@ -29,16 +29,16 @@ class BinaryFocal(_WeightedLoss):
     weight: Tensor, optional
         Manual rescaling weight, if provided it's repeated to match input
         tensor shape
-    reduction: str, optional
-        Specifies the reduction to apply to the output:
-        ``'none'`` | ``'mean'`` | ``'sum'``. ``'none'``: no reduction will be applied,
-        ``'mean'``: the sum of the output will be divided by the number of
-        elements in the output, ``'sum'``: the output will be summed.
-    alpha: Tensor, optional
+    pos_weight: Tensor, optional
         Weight of positive examples. Must be a vector with
         length equal to the number of classes.
-        In general `alpha` should be decreased slightly as `gamma` is increased
-        (for `gamma=2`, `alpha=0.25` works best).
+        In general `pos_weight` should be decreased slightly as `gamma` is increased
+        (for `gamma=2`, `pos_weight=0.25` was found to work best in original paper).
+    reduction: typing.Callable(torch.Tensor) -> torch.Tensor, optional
+        Specifies the reduction to apply to the output.
+        If user wants no reduction he should use: `lambda loss: loss`.
+        If user wants a summation he should use: `torch.sum`.
+        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
 
     Shape
     -----
@@ -48,28 +48,34 @@ class BinaryFocal(_WeightedLoss):
         is it's width.
     targets:
         :math:`(N, *)`, same shape as the input.
-    output: scalar
-        If :attr:`reduction` is ``'none'``, then :math:`(N, *)`, otherwise same
-        shape as input.
+    output:
+        If :attr:`reduction` is not specified then `mean` across sample is taken.
+        Otherwise whatever shape `reduction` returns.
 
     """
 
     def __init__(
-        self, gamma: float, weight=None, pos_weight=None, reduction: str = "mean",
+        self,
+        gamma: float,
+        weight=None,
+        pos_weight=None,
+        reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
     ):
-        super().__init__(weight, reduction=reduction)
+        super().__init__()
 
         self.gamma = gamma
+        self.weight = weight
         self.pos_weight = pos_weight
+        self.reduction = reduction
 
-    def __call__(self, inputs, targets):
+    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.binary_focal_loss(
             inputs, targets, self.gamma, self.weight, self.reduction, self.pos_weights,
         )
 
 
-class MulticlassFocal(_WeightedLoss):
-    """Multiclass focal loss working with raw output from network (logits).
+class MulticlassFocal(_Loss):
+    r"""Multiclass focal loss working with raw output from network (logits).
 
     See: https://arxiv.org/abs/1708.02002.
 
@@ -89,11 +95,11 @@ class MulticlassFocal(_WeightedLoss):
     ignore_index int, optional
         Specifies a target value that is ignored and does not contribute to the input gradient.
         When :attr:`size_average` is ``True``, the loss is averaged over non-ignored targets.
-    reduction: str, optional
-        Specifies the reduction to apply to the output:
-        ``'none'`` | ``'mean'`` | ``'sum'``. ``'none'``: no reduction will be applied,
-        ``'mean'``: the sum of the output will be divided by the number of
-        elements in the output, ``'sum'``: the output will be summed.
+    reduction: typing.Callable(torch.Tensor) -> torch.Tensor, optional
+        Specifies the reduction to apply to the output.
+        If user wants no reduction he should use: `lambda loss: loss`.
+        If user wants a summation he should use: `torch.sum`.
+        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
 
     Shape
     -----
@@ -110,10 +116,8 @@ class MulticlassFocal(_WeightedLoss):
         Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`
         is it's width and elements are of specified `C` classes.
     output:
-        If :attr:`reduction` is ``'none'``, then the same size as the target:
-        :math:`(N)`, or :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case
-        of K-dimensional loss. if :attr:`reduction` is ``'mean'`` or ``'sum'``
-        a scalar.
+        If :attr:`reduction` is not specified then `mean` across sample is taken.
+        Otherwise whatever shape `reduction` returns.
 
     """
 
@@ -122,66 +126,211 @@ class MulticlassFocal(_WeightedLoss):
         gamma: float,
         weight=None,
         ignore_index: int = -100,
-        reduction: str = "mean",
+        reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
     ):
-        super().__init__(weight, reduction=reduction)
+        super().__init__()
 
         self.gamma = gamma
+        self.weight = weight
         self.ignore_index = ignore_index
+        self.reduction = reduction
 
-    def __call__(self, inputs, targets):
+    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.multiclass_focal_loss(
             inputs, targets, self.gamma, self.weight, self.ignore_index, self.reduction
         )
 
 
 # Inspired by: https://stackoverflow.com/questions/55681502/label-smoothing-in-pytorch
-# and fixed according to: https://arxiv.org/abs/1906.02629
-class SmoothCrossEntropy(_WeightedLoss):
+# and adjusted to fit torchtrain API
+class SmoothCrossEntropy(_Loss):
+    r"""Run cross entropy with non-integer labels smoothed by `alpha`.
+
+    `targets` will be transformed to one-hot encoding and modified according
+    to formula:
+
+    .. math::
+        y = y(1 - \alpha) + \frac{\alpha}{C}
+
+    where :math:`C` is total number of classes.
+
+    See: https://arxiv.org/pdf/1906.02629.pdf for details about it's usage.
+
+    Arguments
+    ---------
+    alpha: float
+        Smoothing parameter in the range `[0, 1)`.
+    weight: Tensor, optional
+        Manual rescaling weight, if provided it's repeated to match input
+        tensor shape. Default: `None` (no weighting)
+    ignore_index int, optional
+        Specifies a target value that is ignored and does not contribute to the input gradient.
+        When :attr:`size_average` is ``True``, the loss is averaged over non-ignored targets.
+        Default: `-100`
+    reduction: typing.Callable(torch.Tensor) -> torch.Tensor, optional
+        Specifies the reduction to apply to the output.
+        If user wants no reduction he should use: `lambda loss: loss`.
+        If user wants a summation he should use: `torch.sum`.
+        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
+
+    Shape
+    -----
+    inputs:
+        :math:`(N, C)` where `C = number of classes`, or
+        :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
+        in the case of `K`-dimensional loss.
+    targets:
+        :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or
+        :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of
+        K-dimensional loss.
+    output:
+        If :attr:`reduction` is not specified then `mean` across sample is taken.
+        Otherwise whatever shape `reduction` returns.
+
+    """
+
     def __init__(
         self,
         alpha: float,
         weight=None,
         ignore_index: int = -100,
-        reduction: str = "mean",
+        reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
     ):
-        super().__init__(weight, reduction=reduction)
-
         if not 0 <= alpha < 1:
             raise ValueError("smoothing alpha should be in [0, 1) range.")
 
-        self.alpha = alpha
-        self.ignore_index = ignore_index
+        super().__init__()
 
-    def forward(self, inputs, targets):
+        self.alpha = alpha
+        self.weight = weight
+        self.ignore_index = ignore_index
+        self.reduction = reduction
+
+    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.smooth_cross_entropy(
             inputs, targets, self.alpha, self.weight, self.ignore_index, self.reduction
         )
 
 
 class SmoothBinaryCrossEntropy(_WeightedLoss):
+    r"""Run binary cross entropy with booleans smoothed by `alpha`.
+
+    `targets` will be transformed to one-hot encoding and modified according
+    to formula:
+
+    .. math::
+        y = y(1 - \alpha) + \frac{\alpha}{2}
+
+    where :math:`2` is total number of classes in binary case.
+
+    See: https://arxiv.org/pdf/1906.02629.pdf for details about it's usage.
+
+    Arguments
+    ---------
+    alpha: float
+        Smoothing parameter in the range `[0, 1)`.
+    weight: Tensor, optional
+        Manual rescaling weight, if provided it's repeated to match input
+        tensor shape. Default: `None` (no weighting)
+    pos_weight: Tensor, optional
+        Weight of positive examples. Must be a vector with
+        length equal to the number of classes.
+        In general `pos_weight` should be decreased slightly as `gamma` is increased
+        (for `gamma=2`, `pos_weight=0.25` was found to work best in original paper).
+    reduction: typing.Callable(torch.Tensor) -> torch.Tensor, optional
+        Specifies the reduction to apply to the output.
+        If user wants no reduction he should use: `lambda loss: loss`.
+        If user wants a summation he should use: `torch.sum`.
+        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
+
+    Shape
+    -----
+    inputs:
+        :math:`(N, *)` where :math:`*` means, any number of additional dimensions
+    targets:
+        :math:`(N, *)`, same shape as the input
+    output:
+        If :attr:`reduction` is not specified then `mean` across sample is taken.
+        Otherwise whatever shape `reduction` returns.
+
+    """
+
     def __init__(
         self,
         alpha: float,
         weight=None,
         pos_weight: int = None,
-        reduction: str = "mean",
+        reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
     ):
-        super().__init__(weight, reduction=reduction)
-
         if not 0 <= alpha < 1:
             raise ValueError("smoothing alpha should be in [0, 1) range.")
 
-        self.alpha = alpha
-        self.pos_weight = pos_weight
+        super().__init__()
 
-    def forward(self, inputs, targets):
+        self.alpha = alpha
+        self.weight = weight
+        self.pos_weight = pos_weight
+        self.reduction = reduction
+
+    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.smooth_binary_cross_entropy(
             inputs, targets, self.alpha, self.weight, self.pos_weight, self.reduction
         )
 
 
-class QuadrupletLoss(_WeightedLoss):
+class QuadrupletLoss(_Loss):
+    r"""Quadruplet loss pushing away samples belonging to different classes.
+
+    It is an extension of `torch.nn.TripletMarginLoss`, where samples
+    from two different `negative` (`negative` and `negative2`)
+    classes should be pushed further away
+    in space than those belonging to the same class (`anchor` and `positive`)
+
+    The loss function for each sample in the mini-batch is:
+
+    .. math::
+        L(a, p, n) = \max \{d(a, p) - d(a, n) + {\rm alpha1}, 0\} + \max \{d(a, p) - d(n, n2) + {\rm alpha2}, 0\}
+
+    See: https://arxiv.org/abs/1704.01719 for more details.
+
+    Arguments
+    ---------
+    alpha1: float, optional
+        Margin of standard `triplet` loss. Default: `1.0`
+    alpha2: float, optional
+        Margin of second part of loss (pushing negative1 and negative2 samples
+        more than positive and anchor). Default: `0.5`
+    metric: Callable(torch.Tensor, torch.Tensor) -> torch.Tensor, optional
+        Metric used to rate distance between samples. Fully Connected neural
+        network with one output and `sigmoid` could be used (as in original paper)
+        or anything else adhering to API.
+        Default: Euclidean distance.
+    weight: Tensor, optional
+        Manual rescaling weight, if provided it's repeated to match input
+        tensor shape. Default: `None` (no weighting)
+    reduction: typing.Callable(torch.Tensor) -> torch.Tensor, optional
+        Specifies the reduction to apply to the output.
+        If user wants no reduction he should use: `lambda loss: loss`.
+        If user wants a summation he should use: `torch.sum`.
+        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
+
+    Shape
+    -----
+    anchor:
+        :math:`(N, *)` where :math:`*` means, any number of additional dimensions
+        For images usually of shape :math:`(N, C, H, W)`.
+    positive:
+        Same as `anchor`
+    negative:
+        Same as `anchor`
+    negative2:
+        Same as `anchor`
+    output:
+        If :attr:`reduction` is not specified then `mean` across sample is taken.
+        Otherwise whatever shape `reduction` returns.
+
+    """
+
     def __init__(
         self,
         alpha1: float = 1.0,
@@ -192,13 +341,22 @@ class QuadrupletLoss(_WeightedLoss):
         weight=None,
         reduction: str = "sum",
     ):
-        super().__init__(weight, reduction=reduction)
+        super().__init__()
 
         self.alpha1 = alpha1
         self.alpha2 = alpha2
         self.metric = metric
 
-    def forward(self, anchor, positive, negative, negative2):
+        self.weight = weight
+        self.reduction = reduction
+
+    def forward(
+        self,
+        anchor: torch.Tensor,
+        positive: torch.Tensor,
+        negative: torch.Tensor,
+        negative2: torch.Tensor,
+    ) -> torch.Tensor:
         return functional.loss.quadruplet(
             anchor,
             positive,

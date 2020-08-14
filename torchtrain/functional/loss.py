@@ -3,15 +3,15 @@ import typing
 import torch
 
 
-def _get_reduction(reduction, inputs):
+def _get_reduction(reduction):
     if reduction is None:
-        return lambda loss: loss.sum() / inputs.shape[0]
+        return lambda loss: loss.sum() / loss.shape[0]
     return reduction
 
 
 def binary_focal_loss(
-    inputs,
-    targets,
+    inputs: torch.Tensor,
+    targets: torch.Tensor,
     gamma: float,
     weight=None,
     pos_weight=None,
@@ -19,7 +19,7 @@ def binary_focal_loss(
 ) -> torch.Tensor:
     """See `torchtrain.loss.BinaryFocalLoss`."""
 
-    reduce = _get_reduction(reduction, inputs)
+    reduce = _get_reduction(reduction)
     probabilities = (1 - torch.sigmoid(inputs)) ** gamma
     loss = probabilities * torch.nn.functional.binary_cross_entropy_with_logits(
         inputs, targets, weight, reduction="none", pos_weight=pos_weight
@@ -28,8 +28,8 @@ def binary_focal_loss(
 
 
 def multiclass_focal_loss(
-    inputs,
-    targets,
+    inputs: torch.Tensor,
+    targets: torch.Tensor,
     gamma: float,
     weight=None,
     ignore_index=-100,
@@ -37,7 +37,7 @@ def multiclass_focal_loss(
 ) -> torch.Tensor:
     """See `torchtrain.loss.MulticlassFocalLoss`."""
 
-    reduce = _get_reduction(reduction, inputs)
+    reduce = _get_reduction(reduction)
 
     inputs[:, ignore_index, ...] = 0
     probabilities = (1 - torch.nn.functional.softmax(inputs, dim=1)) ** gamma
@@ -49,25 +49,27 @@ def multiclass_focal_loss(
 
 
 def smooth_binary_cross_entropy(
-    inputs,
-    targets,
+    inputs: torch.Tensor,
+    targets: torch.Tensor,
     alpha: float,
     weight=None,
     pos_weight=None,
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
     """See `torchtrain.loss.SmoothBinaryCrossEntropy`."""
-    reduce = _get_reduction(reduction, inputs)
+    reduce = _get_reduction(reduction)
 
     inputs *= (1 - alpha) + alpha / 2
-    return reduce(torch.nn.functional.binary_cross_entropy_with_logits(
-        inputs, targets, weight, pos_weight=pos_weight, reduction="none"
-    ))
+    return reduce(
+        torch.nn.functional.binary_cross_entropy_with_logits(
+            inputs, targets, weight, pos_weight=pos_weight, reduction="none"
+        )
+    )
 
 
 def smooth_cross_entropy(
-    inputs,
-    targets,
+    inputs: torch.Tensor,
+    targets: torch.Tensor,
     alpha: float,
     weight=None,
     ignore_index: int = -100,
@@ -75,7 +77,7 @@ def smooth_cross_entropy(
 ) -> torch.Tensor:
     """See `torchtrain.loss.SmoothCrossEntropy`."""
 
-    reduce = _get_reduction(reduction, inputs)
+    reduce = _get_reduction(reduction)
 
     one_hot_targets = torch.nn.functional.one_hot(targets, num_classes=inputs.shape[-1])
     one_hot_targets *= (1 - alpha) + alpha / inputs.shape[-1]
@@ -88,21 +90,21 @@ def smooth_cross_entropy(
 
 
 def quadruplet(
-    anchor,
-    positive,
-    negative,
-    negative2,
+    anchor: torch.Tensor,
+    positive: torch.Tensor,
+    negative: torch.Tensor,
+    negative2: torch.Tensor,
     alpha1: float = 1.0,
     alpha2: float = 0.5,
     metric: typing.Callable[
         [torch.Tensor, torch.Tensor], torch.Tensor
     ] = torch.nn.functional.pairwise_distance,
     weight=None,
-    reduction: typing.Callable[[torch.Tensor], torch.Tensor],
+    reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
     """See `torchtrain.loss.Quadruplet`."""
 
-    reduce = _get_reduction(reduction, inputs)
+    reduce = _get_reduction(reduction)
 
     loss = torch.nn.functional.relu(
         metric(anchor, positive) ** 2 - metric(anchor, negative) ** 2 + alpha1
