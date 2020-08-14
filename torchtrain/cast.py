@@ -12,6 +12,27 @@ import torch
 from ._base import Op
 
 
+def _docstring(klass) -> str:
+    klass.__doc__ = """Cast `torch.Tensor` instance to {cast}.
+
+Other castable types (e.g. `torch.nn.Module`) can be provided as well.
+
+Arguments
+---------
+data: Any
+    Data which will be passed to provided `operations`.
+
+Returns
+-------
+{cast}
+    Casted `data`
+
+""".format(
+        cast=klass.__name__
+    )
+    return klass
+
+
 class _Cast(Op):
     """Shared base class amongst most casting operations."""
 
@@ -23,100 +44,86 @@ class _Cast(Op):
         pass
 
 
+@_docstring
 class BFloat16(_Cast):
-    """Cast `torch.Tensor` instance to Google's `bfloat16` format."""
-
     def forward(self, data):
         return data.bfloat16(self.memory_format)
 
 
+@_docstring
 class Bool(_Cast):
-    """Cast `torch.Tensor` instance to `bool`."""
-
     def forward(self, data):
         return data.bool(self.memory_format)
 
 
+@_docstring
 class Byte(_Cast):
-    """Cast `torch.Tensor` instance to `byte` (`uint8`)."""
-
     def forward(self, data):
         return data.byte(self.memory_format)
 
 
+@_docstring
 class Char(_Cast):
-    """Cast `torch.Tensor` instance to `char` (`int8`)."""
-
     def forward(self, data):
         return data.char(self.memory_format)
 
 
+@_docstring
 class Double(_Cast):
-    """Cast `torch.Tensor` instance to `double` (`float64`)."""
-
     def forward(self, data):
         return data.double(self.memory_format)
 
 
+@_docstring
 class Float(_Cast):
-    """Cast `torch.Tensor` instance to `float32`."""
-
     def forward(self, data):
         return data.float(self.memory_format)
 
 
+@_docstring
 class Half(_Cast):
-    """Cast `torch.Tensor` instance to `half` (`float16`)."""
-
     def forward(self, data):
         return data.half(self.memory_format)
 
 
+@_docstring
 class Int(_Cast):
-    """Cast `torch.Tensor` instance to `int32`."""
-
     def forward(self, data):
         return data.int(self.memory_format)
 
 
+@_docstring
 class Long(_Cast):
-    """Cast `torch.Tensor` instance to `long` (`int64`)."""
-
     def forward(self, data):
         return data.long(self.memory_format)
 
 
+@_docstring
 class Short(_Cast):
-    """Cast `torch.Tensor` instance to `short` (`int16`)."""
-
     def forward(self, data):
         return data.short(self.memory_format)
 
 
+@_docstring
 class Item(Op):
-    """Cast `0/1` dimensional single value `torch.Tensor` to it's Python counterpart."""
-
     def forward(self, data):
         return data.item()
 
 
+@_docstring
 class Numpy(Op):
-    """Cast `torch.Tensor` to `numpy.array`."""
-
     def forward(self, data):
         return data.numpy()
 
 
+@_docstring
 class List(Op):
-    """Cast `torch.Tensor` to Python's `list`."""
-
     def forward(self, data):
         return data.to_list()
 
 
+@_docstring
 class MKLDNN(Op):
-    """Cast `torch.Tensor` to MKLDNN format."""
-
     def forward(self, data):
         return data.to_mkldnn()
 
