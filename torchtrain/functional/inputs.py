@@ -1,3 +1,11 @@
+"""
+
+
+This module has no object oriented counterpart and should be used
+in a functional fashion when writing `forward` of `torchtrain.steps`.
+
+"""
+
 import typing
 
 import torch
@@ -10,6 +18,11 @@ def mixup(
 
     See [mixup: Beyond Empirical Risk Minimization](https://arxiv.org/abs/1710.09412)
     for explanation of the method.
+
+    Users sho
+
+    Arguments
+    ---------
     """
     perm = torch.randperm(inputs.shape[0])
     perm_inputs = inputs[perm]

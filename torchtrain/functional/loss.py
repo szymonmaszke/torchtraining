@@ -2,6 +2,8 @@ import typing
 
 import torch
 
+from . import utils
+
 
 def _get_reduction(reduction):
     if reduction is None:
@@ -9,6 +11,7 @@ def _get_reduction(reduction):
     return reduction
 
 
+@utils.docstring
 def binary_focal_loss(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -17,16 +20,18 @@ def binary_focal_loss(
     pos_weight=None,
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
-    """See `torchtrain.loss.BinaryFocalLoss`."""
 
     reduce = _get_reduction(reduction)
+
     probabilities = (1 - torch.sigmoid(inputs)) ** gamma
     loss = probabilities * torch.nn.functional.binary_cross_entropy_with_logits(
         inputs, targets, weight, reduction="none", pos_weight=pos_weight
     )
+
     return reduce(loss)
 
 
+@utils.docstring
 def multiclass_focal_loss(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -35,7 +40,6 @@ def multiclass_focal_loss(
     ignore_index=-100,
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
-    """See `torchtrain.loss.MulticlassFocalLoss`."""
 
     reduce = _get_reduction(reduction)
 
@@ -48,6 +52,7 @@ def multiclass_focal_loss(
     return reduce(loss)
 
 
+@utils.docstring
 def smooth_binary_cross_entropy(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -56,10 +61,11 @@ def smooth_binary_cross_entropy(
     pos_weight=None,
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
-    """See `torchtrain.loss.SmoothBinaryCrossEntropy`."""
+
     reduce = _get_reduction(reduction)
 
     inputs *= (1 - alpha) + alpha / 2
+
     return reduce(
         torch.nn.functional.binary_cross_entropy_with_logits(
             inputs, targets, weight, pos_weight=pos_weight, reduction="none"
@@ -67,6 +73,7 @@ def smooth_binary_cross_entropy(
     )
 
 
+@utils.docstring
 def smooth_cross_entropy(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -75,7 +82,6 @@ def smooth_cross_entropy(
     ignore_index: int = -100,
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
-    """See `torchtrain.loss.SmoothCrossEntropy`."""
 
     reduce = _get_reduction(reduction)
 
@@ -89,6 +95,7 @@ def smooth_cross_entropy(
     return reduce(loss)
 
 
+@utils.docstring
 def quadruplet(
     anchor: torch.Tensor,
     positive: torch.Tensor,
@@ -102,7 +109,6 @@ def quadruplet(
     weight=None,
     reduction: typing.Callable[[torch.Tensor], torch.Tensor] = None,
 ) -> torch.Tensor:
-    """See `torchtrain.loss.Quadruplet`."""
 
     reduce = _get_reduction(reduction)
 

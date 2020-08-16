@@ -2,8 +2,11 @@ import typing
 
 import torch
 
+from . import utils
+
 
 # assert 2 size
+@utils.docstring
 def cosine(
     output: torch.Tensor, target: torch.Tensor, epsilon: float = 1e-8
 ) -> torch.Tensor:
@@ -20,10 +23,12 @@ def cosine(
     )
 
 
+@utils.docstring
 def euclidean(output: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     return torch.sqrt(output @ output - 2 * output @ target + target @ target)
 
 
+@utils.docstring
 def pairwise(
     output: torch.Tensor,
     target: torch.Tensor,

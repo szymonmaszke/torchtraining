@@ -2,16 +2,18 @@ import typing
 
 import torch
 
-from . import utils
+from .. import utils
+from . import utils as multiclass_utils
 
 
+@utils.docstring
 def topk(
     output: torch.Tensor,
     target: torch.Tensor,
     k: int,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor] = torch.mean,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
+    multiclass_utils.multiclass.check(output, target)
 
     biggest_indices = torch.topk(output, k, dim=1)[1]
     equal = target.expand(*(target.shape), k) == biggest_indices
@@ -19,13 +21,14 @@ def topk(
     return reduction(equal.sum(dim=-1))
 
 
+@utils.docstring
 def accuracy(
     output: torch.Tensor,
     target: torch.Tensor,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor] = torch.mean,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.categorical(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.categorical(output, target)
 
     return reduction((output == target).float())
 
@@ -33,57 +36,59 @@ def accuracy(
 # Basic cases
 
 
+@utils.docstring
 def true_positive(
     output: torch.Tensor,
     target: torch.Tensor,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor] = torch.sum,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return reduction((output & target).float(), dim=-1)
 
 
+@utils.docstring
 def false_positive(
     output: torch.Tensor,
     target: torch.Tensor,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor] = torch.sum,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return reduction((output & ~target).float(), dim=-1)
 
 
+@utils.docstring
 def true_negative(
     output: torch.Tensor,
     target: torch.Tensor,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor] = torch.sum,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return reduction((~output & ~target).float(), dim=-1)
 
 
+@utils.docstring
 def false_negative(
     output: torch.Tensor,
     target: torch.Tensor,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor] = torch.sum,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return reduction((~output & target).float(), dim=-1)
 
 
-# Confusion matrix
-
-
+@utils.docstring
 def confusion_matrix(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    num_classes = utils.multiclass.get_num_classes(output, target)
-    output, target = utils.multiclass.categorical(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    num_classes = multiclass_utils.multiclass.get_num_classes(output, target)
+    output, target = multiclass_utils.multiclass.categorical(output, target)
 
     unique_labels = target * num_classes + output
 
@@ -92,87 +97,90 @@ def confusion_matrix(output: torch.Tensor, target: torch.Tensor,) -> torch.Tenso
     )
 
 
-# Rate metrics
-
-
+@utils.docstring
 def recall(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return (output & target).sum().float() / target.sum()
 
 
+@utils.docstring
 def specificity(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
     inverse_target = ~target
 
     return (~output & inverse_target).sum().float() / inverse_target.sum()
 
 
+@utils.docstring
 def precision(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return (output & target).sum().float() / output.sum()
 
 
+@utils.docstring
 def negative_predictive_value(
     output: torch.Tensor, target: torch.Tensor,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
     inverse_output = ~output
 
     return (inverse_output & ~target).sum().float() / inverse_output.sum()
 
 
+@utils.docstring
 def false_negative_rate(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return (~output & target).sum().float() / target.sum()
 
 
+@utils.docstring
 def false_positive_rate(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
     inverse_target = ~target
 
     return (output & inverse_target).sum().float() / inverse_target.sum()
 
 
+@utils.docstring
 def false_discovery_rate(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     return (output & ~target).sum().float() / output.sum()
 
 
+@utils.docstring
 def false_omission_rate(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
     inverse_output = ~output
 
     return (inverse_output & target).sum().float() / inverse_output.sum()
 
 
-# Other related to above metrics
-
-
-# Like F1-score almost
+@utils.docstring
 def critical_success_index(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
 
     tp = (output & target).sum().float()
 
     return tp / tp + (output != target).sum()
 
 
+@utils.docstring
 def balanced_accuracy(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
     inverse_target = ~target
 
     return (
@@ -181,29 +189,32 @@ def balanced_accuracy(output: torch.Tensor, target: torch.Tensor,) -> torch.Tens
     ) / 2
 
 
+@utils.docstring
 def f1(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target,)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target,)
 
     tp = 2 * (output & target).sum().float()
 
     return tp / (tp + (output != target).sum())
 
 
+@utils.docstring
 def fbeta(output: torch.Tensor, target: torch.Tensor, beta: float) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target,)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target,)
 
     tp = (1 + beta) ** 2 * (output & target).sum().float()
 
     return tp / (tp + (beta ** 2) * (output != target).sum())
 
 
+@utils.docstring
 def matthews_correlation_coefficient(
     output: torch.Tensor, target: torch.Tensor,
 ) -> torch.Tensor:
-    utils.multiclass.check(output, target)
-    output, target = utils.multiclass.one_hot(output, target,)
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target,)
     inverse_output = ~output
     inverse_target = ~target
 
