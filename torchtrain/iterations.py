@@ -4,68 +4,19 @@ import torch
 
 from rich import progress
 
-from . import _base
+from . import _base, utils
 
 
-def _docstring(header, body, add_train: bool = False):
-    body = r"""{}.
-
-    {}
-
-    Parameters
-    ----------
-    step: torchtrain.steps.Step
-        Single step to run. Usually subclass of `torchtrain.steps.Step`, but could be
-        any `Callable` taking `module` and `data` arguments and returning anything.
-    module : torch.nn.Module
-        Torch module (or modules) passed to `step` during each call.
-    data : [torch.utils.data.Dataset | torch.utils.data.DataLoader]
-        Iterable object (usually data or dataloader) yielding data passed
-        to `step`.
-    """.format(
-        header, body
-    )
-
-    if add_train:
-        body += r"""
-        train: bool
-            Whether `module` should be in training state (`module.train()`)
-            with enabled gradient or in evaluation mode (`module.eval()`) with
-            disabled gradient
-        """
-
-    return (
-        body
-        + r"""
-    log : str | int, optional
-        Severity level for logging object's actions.
-        Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
-        Default: `NONE` (no logging, `0` priority)
-
-    """
-    )
-
-
+@utils.iterations.docs(
+    header="Perform `step` (`train` or `eval`) until `data` is exhausted",
+    body="Provided `module` will be passed to every `step`.",
+)
 class Iteration(_base.GeneratorProducer):
-    __doc__ = _docstring(
-        header="Perform training `step`s until `data` is exhausted",
-        body="Provided `module` will be passed to every `step`.",
-        add_train=True,
-    )
-
     def __init__(
         self,
         step: typing.Any,
         module: torch.nn.Module,
-        data: torch.utils.data.Dataset,
+        data: typing.Union[torch.utils.data.Dataset, torch.utils.data.DataLoader],
         train: bool,
         log: typing.Union[int, str] = "NONE",
         *args,
@@ -94,17 +45,16 @@ class Iteration(_base.GeneratorProducer):
             yield self.step(self.module, sample, *args, **kwargs)
 
 
+@utils.iterations.docs(
+    header="Perform training `step`s until `data` is exhausted",
+    body="Provided `module` will be passed to every `step`.",
+)
 class Train(Iteration):
-    __doc__ = _docstring(
-        header="Perform training `step`s until `data` is exhausted",
-        body="Provided `module` will be passed to every `step`.",
-    )
-
     def __init__(
         self,
         step: typing.Any,
         module: torch.nn.Module,
-        data: torch.utils.data.Dataset,
+        data: typing.Union[torch.utils.data.Dataset, torch.utils.data.DataLoader],
         log: typing.Union[int, str] = "NONE",
         *args,
         **kwargs,
@@ -112,17 +62,16 @@ class Train(Iteration):
         super().__init__(step, module, data, True, log, *args, **kwargs)
 
 
+@utils.iterations.docs(
+    header="Perform evaluation `step`s until `data` is exhausted",
+    body="Provided `module` will be passed to every `step`.",
+)
 class Eval(Iteration):
-    __doc__ = _docstring(
-        header="Perform evaluation `step`s until `data` is exhausted",
-        body="Provided `module` will be passed to every `step`.",
-    )
-
     def __init__(
         self,
         step: typing.Any,
         module: torch.nn.Module,
-        data: torch.utils.data.Dataset,
+        data: typing.Union[torch.utils.data.Dataset, torch.utils.data.DataLoader],
         log: typing.Union[int, str] = "NONE",
         *args,
         **kwargs,
