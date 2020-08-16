@@ -6,7 +6,7 @@ from .. import utils
 from . import utils as binary_utils
 
 
-@utils.docstring
+@utils.docs
 def accuracy(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -19,7 +19,7 @@ def accuracy(
     return reduction((output == target).float())
 
 
-@utils.docstring
+@utils.docs
 def jaccard(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -41,7 +41,7 @@ def jaccard(
 # Basic cases
 
 
-@utils.docstring
+@utils.docs
 def true_positive(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -54,7 +54,7 @@ def true_positive(
     return reduction((output & target).float())
 
 
-@utils.docstring
+@utils.docs
 def false_positive(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -67,7 +67,7 @@ def false_positive(
     return reduction((output & ~target).float())
 
 
-@utils.docstring
+@utils.docs
 def true_negative(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -80,7 +80,7 @@ def true_negative(
     return reduction((~output & ~target).float())
 
 
-@utils.docstring
+@utils.docs
 def false_negative(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -96,7 +96,7 @@ def false_negative(
 # Confusion matrix
 
 
-@utils.docstring
+@utils.docs
 def confusion_matrix(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -117,7 +117,7 @@ def confusion_matrix(
 # Rate metrics
 
 
-@utils.docstring
+@utils.docs
 def recall(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -127,7 +127,7 @@ def recall(
     return (output & target).sum().float() / target.sum()
 
 
-@utils.docstring
+@utils.docs
 def specificity(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -138,7 +138,7 @@ def specificity(
     return (~output & inverse_target).sum().float() / inverse_target.sum()
 
 
-@utils.docstring
+@utils.docs
 def precision(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -148,7 +148,7 @@ def precision(
     return (output & target).sum().float() / output.sum()
 
 
-@utils.docstring
+@utils.docs
 def negative_predictive_value(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -159,7 +159,7 @@ def negative_predictive_value(
     return (inverse_output & ~target).sum().float() / inverse_output.sum()
 
 
-@utils.docstring
+@utils.docs
 def false_negative_rate(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -169,7 +169,7 @@ def false_negative_rate(
     return (~output & target).sum().float() / target.sum()
 
 
-@utils.docstring
+@utils.docs
 def false_positive_rate(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -180,7 +180,7 @@ def false_positive_rate(
     return (output & inverse_target).sum().float() / inverse_target.sum()
 
 
-@utils.docstring
+@utils.docs
 def false_discovery_rate(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -190,7 +190,7 @@ def false_discovery_rate(
     return (output & ~target).sum().float() / output.sum()
 
 
-@utils.docstring
+@utils.docs
 def false_omission_rate(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -201,7 +201,7 @@ def false_omission_rate(
     return (inverse_output & target).sum().float() / inverse_output.sum()
 
 
-@utils.docstring
+@utils.docs
 def critical_success_index(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -212,7 +212,7 @@ def critical_success_index(
     return tp / tp + (output != target).sum()
 
 
-@utils.docstring
+@utils.docs
 def balanced_accuracy(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -226,7 +226,7 @@ def balanced_accuracy(
     ) / 2
 
 
-@utils.docstring
+@utils.docs
 def f1(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -238,7 +238,7 @@ def f1(
     return tp / (tp + (output != target).sum())
 
 
-@utils.docstring
+@utils.docs
 def f_beta(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:
@@ -250,7 +250,7 @@ def f_beta(
     return tp / (tp + (beta ** 2) * (output != target).sum())
 
 
-@utils.docstring
+@utils.docs
 def matthews_correlation_coefficient(
     output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
 ) -> torch.Tensor:

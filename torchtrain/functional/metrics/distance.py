@@ -6,7 +6,7 @@ from . import utils
 
 
 # assert 2 size
-@utils.docstring
+@utils.docs
 def cosine(
     output: torch.Tensor, target: torch.Tensor, epsilon: float = 1e-8
 ) -> torch.Tensor:
@@ -23,12 +23,12 @@ def cosine(
     )
 
 
-@utils.docstring
+@utils.docs
 def euclidean(output: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     return torch.sqrt(output @ output - 2 * output @ target + target @ target)
 
 
-@utils.docstring
+@utils.docs
 def pairwise(
     output: torch.Tensor,
     target: torch.Tensor,

@@ -6,7 +6,7 @@ from .. import _base
 from . import utils
 
 
-@utils.docstring
+@utils.docs
 def total_of_squares(
     target: torch.Tensor,
     reduction: typing.Callable[[torch.Tensor,], torch.Tensor,] = torch.sum,
@@ -14,7 +14,7 @@ def total_of_squares(
     return reduction(target - torch.mean(target)) ** 2
 
 
-@utils.docstring
+@utils.docs
 def regression_of_squares(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -23,7 +23,7 @@ def regression_of_squares(
     return reduction(output - torch.mean(target)) ** 2
 
 
-@utils.docstring
+@utils.docs
 def squares_of_residuals(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -32,18 +32,18 @@ def squares_of_residuals(
     return reduction(output - target) ** 2
 
 
-@utils.docstring
+@utils.docs
 def r2(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
     return 1 - squares_of_residuals(output, target) / total_of_squares(target)
 
 
-@utils.docstring
+@utils.docs
 def adjusted_r2(output: torch.Tensor, target: torch.Tensor, p: int) -> torch.Tensor:
     numel = output.numel()
     return 1 - (1 - r2(output, target)) * ((numel - 1) / (numel - p - 1))
 
 
-@utils.docstring
+@utils.docs
 def absolute_error(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -52,7 +52,7 @@ def absolute_error(
     return reduction(torch.nn.functional.l1_loss(output, target, reduction="none"))
 
 
-@utils.docstring
+@utils.docs
 def squared_error(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -61,7 +61,7 @@ def squared_error(
     return reduction(torch.nn.functional.mse_loss(output, target, reduction="none"))
 
 
-@utils.docstring
+@utils.docs
 def squared_log_error(
     output: torch.Tensor,
     target: torch.Tensor,
@@ -70,6 +70,6 @@ def squared_log_error(
     return reduction((torch.log(1 + target) - torch.log(1 + output)) ** 2)
 
 
-@utils.docstring
+@utils.docs
 def max_error(output: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     return torch.max(torch.abs(output - target))

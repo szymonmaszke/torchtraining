@@ -11,7 +11,7 @@ def _get_reduction(reduction):
     return reduction
 
 
-@utils.docstring
+@utils.docs
 def binary_focal_loss(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -31,7 +31,7 @@ def binary_focal_loss(
     return reduce(loss)
 
 
-@utils.docstring
+@utils.docs
 def multiclass_focal_loss(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -52,7 +52,7 @@ def multiclass_focal_loss(
     return reduce(loss)
 
 
-@utils.docstring
+@utils.docs
 def smooth_binary_cross_entropy(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -73,7 +73,7 @@ def smooth_binary_cross_entropy(
     )
 
 
-@utils.docstring
+@utils.docs
 def smooth_cross_entropy(
     inputs: torch.Tensor,
     targets: torch.Tensor,
@@ -95,7 +95,7 @@ def smooth_cross_entropy(
     return reduce(loss)
 
 
-@utils.docstring
+@utils.docs
 def quadruplet(
     anchor: torch.Tensor,
     positive: torch.Tensor,

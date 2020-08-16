@@ -1,4 +1,4 @@
-def docstring(function):
+def docs(function):
     """Get module and function name and point users to non-functional counter-part.
 
     Gets functions name, splits on "_" and transforms to UpperCase class name.
