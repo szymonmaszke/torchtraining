@@ -125,11 +125,11 @@ class StatelessPipe(Base):
 ###############################################################################
 
 
-class Op(Base):
+class Operation(Base):
     """Base class for operations.
 
-    Usually processes data returned / yielded by `torchtrain.steps.Step` / `torchtrain.iterations.Iteration`
-    instances.
+    Usually processes data returned / yielded by
+    `torchtrain.steps.Step` / `torchtrain.iterations.Iteration` instances.
 
     Can also be used with `savers`, in this case those ops are used BEFORE
     data is passed to `saver`.
@@ -269,10 +269,9 @@ class _ProducerBase(StatefulPipe):
     def __enter__(self):
         return self
 
+    @abc.abstractmethod
     def __exit__(self, *args):
-        self.feed()
-        self.clear()
-        return False
+        pass
 
     # Logic
     @abc.abstractmethod
@@ -292,6 +291,7 @@ class Producer(_ProducerBase):
     (usually `step`).
 
     """
+
     def __call__(self, *args, **kwargs):
         with self:
             sample = self._apply_pipes(self.forward(*args, **kwargs))
@@ -311,6 +311,7 @@ class GeneratorProducer(_ProducerBase):
     (usually `step`).
 
     """
+
     def __call__(self, *args, **kwargs):
         with self:
             for sample in self.forward(*args, **kwargs):
