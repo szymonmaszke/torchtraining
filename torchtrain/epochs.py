@@ -11,11 +11,19 @@ import typing
 
 import loguru
 
-from . import _base
+from . import _base, exceptions
 
 
-# Add repeat for GANs?
-class Epoch(_base.GeneratorProducer):
+class EpochsBase(_base.GeneratorProducer):
+    def __exit__(self, _, exc_val, __):
+        if isinstance(exc_val, exceptions.EpochsException):
+            return True
+        self.feed()
+        self.clear()
+        return False
+
+
+class Epoch(EpochsBase):
     """
     Loop over specified `iterations` until `epochs` number is reached.
 

@@ -5,15 +5,16 @@ import yaml
 
 import loguru
 
-from . import (callbacks, cast, device, epochs, functional, iterations, loss,
-               metrics, operations, ops, quantization, savers, steps)
-from ._base import GeneratorProducer, Op, Producer, Saver
+from . import (callbacks, cast, device, epochs, exceptions, functional,
+               iterations, loss, metrics, operations, quantization, savers,
+               steps)
+from ._base import GeneratorProducer, Operation, Producer, Saver
 from ._version import __version__
 
 loguru.logger.level("NONE", no=0)
 
 
-class Select(Op):
+class Select(Operation):
     """Select output item returned from `step` or `iteration` objects.
 
     Allows users to focus on specific output from result generator and
@@ -62,7 +63,7 @@ class Select(Op):
         return yaml.dump({super().__str__(): self.output_indices})
 
 
-class Split(Op):
+class Split(Operation):
     """Split pipe with data to multiple components.
 
     Useful when users wish to log results of runner to multiple places.
@@ -117,7 +118,7 @@ class Split(Op):
         return yaml.dump({super().__str__(): self.operations})
 
 
-class Flatten(Op):
+class Flatten(Operation):
     r"""Flatten arbitrarily nested data.
 
     Single `tuple` with all elements (not being `tuple` or `list`).
@@ -161,7 +162,7 @@ class Flatten(Op):
         return items
 
 
-class If(Op):
+class If(Operation):
     """Run operation only If `condition` is `True`.
 
     Parameters
@@ -198,7 +199,7 @@ class If(Op):
         return "no-op"
 
 
-class IfElse(Op):
+class IfElse(Operation):
     """Run `operation1` only if `condition` is `True`, otherwise run `operation2`.
 
     Parameters
@@ -243,7 +244,7 @@ class IfElse(Op):
         return str(self.op2)
 
 
-class Lambda(Op):
+class Lambda(Operation):
     """Run user specified function on single item.
 
     Parameters

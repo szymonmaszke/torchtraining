@@ -4,14 +4,23 @@ import torch
 
 from rich import progress
 
-from . import _base, utils
+from . import _base, exceptions, utils
+
+
+class IterationBase(_base.GeneratorProducer):
+    def __exit__(self, _, exc_val, __):
+        if isinstance(exc_val, exceptions.IterationsException):
+            return True
+        self.feed()
+        self.clear()
+        return False
 
 
 @utils.iterations.docs(
     header="Perform `step` (`train` or `eval`) until `data` is exhausted",
     body="Provided `module` will be passed to every `step`.",
 )
-class Iteration(_base.GeneratorProducer):
+class Iteration(IterationBase):
     def __init__(
         self,
         step: typing.Any,

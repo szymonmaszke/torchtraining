@@ -9,11 +9,11 @@ import torch
 
 import loguru
 
-from .._base import Op
+from .. import _base, exceptions
 from . import tensorboard
 
 
-class Save(Op):
+class Save(_base.Operation):
     """Save best module according to specified metric.
 
     Parameters
@@ -47,6 +47,10 @@ class Save(Op):
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
 
+    Arguments
+    ---------
+    data: Any
+
     """
 
     def __init__(
@@ -67,7 +71,7 @@ class Save(Op):
 
         self.best = None
 
-    def forward(self, data):
+    def forward(self, data: typing.Any) -> typing.Any:
         if self.best is None or self.comparator(data, self.best):
             self.best = data
             self.method(self.module, self.path)
@@ -78,8 +82,8 @@ class Save(Op):
         return data
 
 
-class TimeStopping(Op):
-    """Exit program with status `0` if time `duration` was reached.
+class TimeStopping(_base.Operation):
+    """Stop `epoch` after specified duration.
 
     Python's `time.time()` functionality is used.
 
@@ -112,12 +116,12 @@ class TimeStopping(Op):
     def forward(self, data):
         if time.time() - self._start > self.duration:
             loguru.log(self.log, "Stopping after {} seconds.".format(self.duration))
-            sys.exit(0)
+            raise exceptions.TimeStopping()
         return data
 
 
-class TerminateOnNan(Op):
-    """Exit program with status `1` if any `NaN` value encountered in provided `data`.
+class TerminateOnNan(_base.Operation):
+    """Stop `epoch` if any `NaN` value encountered in `data`.
 
     Parameters
     ----------
@@ -144,12 +148,12 @@ class TerminateOnNan(Op):
     def forward(self, data):
         if torch.any(torch.isnan(data)):
             loguru.log(self.log, "NaN values found, exiting with 1.")
-            sys.exit(1)
+            raise exceptions.TerminateOnNan()
         return data
 
 
-class EarlyStopping(Op):
-    """Exit program with status `0` if `patience` was reached without improvement.
+class EarlyStopping(_base.Operation):
+    """Stop `epoch` if `patience` was reached without improvement.
 
     Used to stop training if neural network's desired value didn't improve
     after `patience` steps.
@@ -203,10 +207,10 @@ class EarlyStopping(Op):
             self._counter += 1
         if self._counter == self.patience:
             loguru.log(self.log, "Stopping early, best found: {}".format(self.best))
-            sys.exit(0)
+            raise exceptions.EarlyStopping()
 
 
-class Unfreeze(Op):
+class Unfreeze(_base.Operation):
     """Unfreeze module's parameters after `n` steps.
 
     Parameters
@@ -246,7 +250,7 @@ class Unfreeze(Op):
         return data
 
 
-class Logger(Op):
+class Logger(_base.Operation):
     """Log data using `loguru`.
 
     Parameters
