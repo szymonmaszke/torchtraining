@@ -7,9 +7,7 @@ from . import utils
 
 # assert 2 size
 @utils.docs
-def cosine(
-    output: torch.Tensor, target: torch.Tensor, epsilon: float = 1e-8
-) -> torch.Tensor:
+def cosine(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
     return 1 - (
         output
         @ target.T
@@ -18,7 +16,6 @@ def cosine(
                 torch.nn.functional.norm(output, p=2, dim=0),
                 torch.nn.functional.norm(target, p=2, dim=0),
             ),
-            epsilon,
         )
     )
 

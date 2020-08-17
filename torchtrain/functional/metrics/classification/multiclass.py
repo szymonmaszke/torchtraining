@@ -15,7 +15,7 @@ def topk(
 ) -> torch.Tensor:
     multiclass_utils.multiclass.check(output, target)
 
-    biggest_indices = torch.topk(output, k, dim=1)[1]
+    biggest_indices = torch.topk(output, k, dim=-1)[1]
     equal = target.expand(*(target.shape), k) == biggest_indices
 
     return reduction(equal.sum(dim=-1))
@@ -200,7 +200,7 @@ def f1(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
 
 
 @utils.docs
-def fbeta(output: torch.Tensor, target: torch.Tensor, beta: float) -> torch.Tensor:
+def f_beta(output: torch.Tensor, target: torch.Tensor, beta: float) -> torch.Tensor:
     multiclass_utils.multiclass.check(output, target)
     output, target = multiclass_utils.multiclass.one_hot(output, target,)
 

@@ -5,29 +5,17 @@ import typing
 import torch
 
 from ... import _base, functional
+from . import utils
+
+###############################################################################
+#
+#                           COMMON BASE CLASSES
+#
+###############################################################################
 
 
-class _Reduction(_base.Op):
-    """{header}
-
-    Works for both logits and probabilities of `output`.
-
-    If `output` is tensor after activation (e.g. `sigmoid` or `softmax` as last neural network layer),
-    user should change `threshold` to `0.5` for
-    correct results (default `0.0` corresponds to unnormalized probability a.k.a logits).
-
-    Parameters
-    ----------
-    reduction : Callable, optional
-        One argument callable getting tensor and outputing some value.
-        Default: `torch.sum` (use `torchtrain.Mean` for correct results after saving).
-    threshold : float, optional
-        Threshold above which prediction is considered to be positive.
-        Default: `0.0`
-
-    """
-
-    def __init__(self, reduction=torch.mean):
+class _ReductionSum(_base.Operation):
+    def __init__(self, reduction=torch.sum):
         self.reduction = reduction
 
     @abc.abstractmethod
@@ -35,129 +23,274 @@ class _Reduction(_base.Op):
         pass
 
 
-class TopK(_base.Op):
-    def __init__(self, k: int, reduction=torch.mean):
-        self.k = k
+###############################################################################
+#
+#                          CONCRETE IMPLEMENTATIONS
+#
+###############################################################################
+
+
+###############################################################################
+#
+#                           MEAN DEFAULT REDUCTION
+#
+###############################################################################
+
+
+@utils.multiclass.docstring(
+    header="""Calculate accuracy score between `output` and `target`.""",
+    reduction="mean",
+)
+class Accuracy(_base.Operation):
+    def __init__(self, reduction=torch.mean):
         self.reduction = reduction
 
-    def forward(self, data):
-        return functional.metrics.classification.multiclass.topk(*data, self.reduction)
-
-
-class Accuracy(_Reduction):
     def forward(self, data):
         return functional.metrics.classification.multiclass.accuracy(
             *data, self.reduction
         )
 
 
+###############################################################################
+#
+#                           SUM DEFAULT REDUCTION
+#
+###############################################################################
+
+
 # Basic cases
-
-
-class TruePositive(_Reduction):
+@utils.multiclass.docstring(
+    header="""Number of false positives between `output` and `target`.""",
+    reduction="sum",
+)
+class TruePositive(_ReductionSum):
     def forward(self, data):
         return functional.metrics.classification.multiclass.true_positive(
             *data, self.reduction
         )
 
 
-class FalsePositive(_Reduction):
+@utils.multiclass.docstring(
+    header="""Number of false positives between `output` and `target`.""",
+    reduction="sum",
+)
+class FalsePositive(_ReductionSum):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_positive(
             *data, self.reduction
         )
 
 
-class TrueNegative(_Reduction):
+@utils.multiclass.docstring(
+    header="""Number of true negatives between `output` and `target`.""",
+    reduction="sum",
+)
+class TrueNegative(_ReductionSum):
     def forward(self, data):
         return functional.metrics.classification.multiclass.true_negative(
             *data, self.reduction
         )
 
 
-class FalseNegative(_Reduction):
+@utils.multiclass.docstring(
+    header="""Number of false negatives between `output` and `target`.""",
+    reduction="sum",
+)
+class FalseNegative(_ReductionSum):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_negative(
             *data, self.reduction
         )
 
 
-# Confusion matrix
-
-
-class ConfusionMatrix(_Reduction):
+@utils.multiclass.docstring(
+    header="""Confusion matrix between `output` and `target`.""", reduction="sum",
+)
+class ConfusionMatrix(_ReductionSum):
     def forward(self, data):
         return functional.metrics.classification.multiclass.confusion_matrix(
             *data, self.reduction
         )
 
 
-class Recall(_base.Op):
+###############################################################################
+#
+#                               NO REDUCTION
+#
+###############################################################################
+
+
+@utils.multiclass.docstring(header="""Recall between `output` and `target`.""",)
+class Recall(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.recall(*data)
 
 
-class Specificity(_base.Op):
+@utils.multiclass.docstring(header="""Specificity between `output` and `target`.""",)
+class Specificity(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.specificity(*data)
 
 
-class Precision(_base.Op):
+@utils.multiclass.docstring(header="""Precision between `output` and `target`.""",)
+class Precision(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.precision(*data)
 
 
-class NegativePredictiveValue(_base.Op):
+@utils.multiclass.docstring(
+    header="""Negative predictive value between `output` and `target`.""",
+)
+class NegativePredictiveValue(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.negative_predictive_value(
             *data
         )
 
 
-class FalseNegativeRate(_base.Op):
+@utils.multiclass.docstring(
+    header="""False negative rate between `output` and `target`.""",
+)
+class FalseNegativeRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_negative_rate(*data)
 
 
-class FalsePositiveRate(_base.Op):
+@utils.multiclass.docstring(
+    header="""False positive rate between `output` and `target`.""",
+)
+class FalsePositiveRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_positive_rate(*data)
 
 
-class FalseDiscoveryRate(_base.Op):
+@utils.multiclass.docstring(
+    header="""False discovery rate between `output` and `target`.""",
+)
+class FalseDiscoveryRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_discovery_rate(*data)
 
 
-class FalseOmissionRate(_base.Op):
+@utils.multiclass.docstring(
+    header="""False omission rate between `output` and `target`.""",
+)
+class FalseOmissionRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_omission_rate(*data)
 
 
-class CriticalSuccessIndex(_base.Op):
+@utils.multiclass.docstring(
+    header="""Critical success index between `output` and `target`.""",
+)
+class CriticalSuccessIndex(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.critical_success_index(
             *data
         )
 
 
-class BalancedAccuracy(_base.Op):
+@utils.multiclass.docstring(
+    header="""Critical success index between `output` and `target`.""",
+)
+class BalancedAccuracy(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.balanced_accuracy(*data)
 
 
-class F1(_base.Op):
+@utils.multiclass.docstring(header="""F1 score between `output` and `target`.""",)
+class F1(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.f1(*data)
 
 
-class FBeta(_base.Op):
-    def forward(self, data):
-        return functional.metrics.classification.multiclass.fbeta(*data)
-
-
-class MatthewsCorrelationCoefficient(_base.Op):
+@utils.multiclass.docstring(
+    header="""Matthews correlation coefficient between `output` and `target`.""",
+)
+class MatthewsCorrelationCoefficient(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.matthews_correlation_coefficient(
             *data
         )
+
+
+###############################################################################
+#
+#                               OTHER METRICS
+#
+###############################################################################
+
+
+class FBeta(_base.Operation):
+    r"""Get f-beta score between `outputs` and `targets`.
+
+    Works for both logits and probabilities of `output` out of the box.
+
+    Parameters
+    ----------
+    beta: float
+        Beta coefficient of `f-beta` score.
+
+    Arguments
+    ---------
+    data: Tuple[torch.Tensor, torch.Tensor]
+        Tuple containing `outputs` from neural network and `targets` (ground truths).
+        `outputs` should be of shape :math:`(N, *, C-1)`, where :math:`C` is the number of classes.
+        Should contain `logits` (unnormalized probabilities) or `probabilities` after
+        `softmax` activation or similar.
+        `targets` should be of shape :math:`(N, *)` and contain integers in the range
+        :math:`[0, C-1]`
+
+
+    Returns
+    -------
+    torch.Tensor
+        Scalar `tensor`
+
+    """
+
+    def __init__(self, beta: float):
+        self.beta = beta
+
+    def forward(self, data):
+        return functional.metrics.classification.multiclass.f_beta(*data, self.beta)
+
+
+class TopK(_base.Operation):
+    r"""Get top-k accuracy score between `outputs` and `targets`.
+
+    Works for both logits and probabilities of `output` out of the box.
+
+    Parameters
+    ----------
+    k: int
+        How many top results should be chosen.
+    reduction: Callable, optional
+        One argument callable getting `torch.Tensor` and returning `torch.Tensor`.
+        Default: `torch.sum` (sum of all elements, user can use `torchtrain.savers.Sum`
+        to get sum across iterations/epochs).
+
+    Arguments
+    ---------
+    data: Tuple[torch.Tensor, torch.Tensor]
+        Tuple containing `outputs` from neural network and `targets` (ground truths).
+        `outputs` should be of shape :math:`(N, *, C-1)`, where :math:`C` is the number of classes.
+        Should contain `logits` (unnormalized probabilities) or `probabilities` after
+        `softmax` activation or similar.
+        `targets` should be of shape :math:`(N, *)` and contain integers in the range
+        :math:`[0, C-1]`
+
+    Returns
+    -------
+    torch.Tensor
+        If `reduction` is left as default mean is taken and single value returned.
+        Otherwise whatever `reduction` returns.
+
+    """
+
+    def __init__(self, k: int, reduction=torch.mean):
+        self.k = k
+        self.reduction = reduction
+
+    def forward(self, data):
+        return functional.metrics.classification.multiclass.topk(*data, self.reduction)

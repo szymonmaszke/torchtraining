@@ -240,7 +240,7 @@ def f1(
 
 @utils.docs
 def f_beta(
-    output: torch.Tensor, target: torch.Tensor, threshold: float = 0.0
+    output: torch.Tensor, target: torch.Tensor, beta: float, threshold: float = 0.0,
 ) -> torch.Tensor:
     binary_utils.binary.check(output, target)
     output, target = binary_utils.binary.threshold(output, target, threshold)
