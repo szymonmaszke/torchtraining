@@ -50,6 +50,7 @@ class Save(_base.Operation):
     Arguments
     ---------
     data: Any
+        Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
 
     """
 
@@ -104,6 +105,10 @@ class TimeStopping(_base.Operation):
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
 
+    Arguments
+    ---------
+    data: Any
+
     """
 
     def __init__(
@@ -137,6 +142,11 @@ class TerminateOnNan(_base.Operation):
             ERROR 	40
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
+
+    Arguments
+    ---------
+    data: torch.Tensor
+        Tensor possibly containing `NaN` values.
 
     """
 
@@ -182,6 +192,11 @@ class EarlyStopping(_base.Operation):
             ERROR 	40
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
+
+    Arguments
+    ---------
+    data: Any
+        Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
 
     """
 
@@ -232,6 +247,10 @@ class Unfreeze(_base.Operation):
             CRITICAL 	50
         Default: `NONE` (no logging, `0` priority)
 
+    Arguments
+    ---------
+    data: Any
+
     """
 
     def __init__(self, module, n: int = 0, log="NONE"):
@@ -270,6 +289,11 @@ class Logger(_base.Operation):
             ERROR 	40
             CRITICAL 	50
         Default: `INFO`
+
+    Arguments
+    ---------
+    data: Any
+        Anything which can be sensibly represented with `__str__` magic method.
 
     """
 
