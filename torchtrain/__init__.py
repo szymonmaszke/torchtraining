@@ -15,15 +15,12 @@ loguru.logger.level("NONE", no=0)
 
 
 class Select(Operation):
-    """Select output item returned from `step` or `iteration` objects.
+    """Select output item(s) returned from `step` or `iteration` objects.
 
     Allows users to focus on specific part of output and pipe this specific
     values to other operations (like metrics, loggers etc.).
 
     Example::
-
-        import torchtrain as tt
-
 
         class TrainStep(tt.steps.Train):
             def forward(self, module, sample):
@@ -64,13 +61,15 @@ class Select(Operation):
                     self, len(output_selection)
                 )
             )
-        self.output_selection = output_selection.values()
+        self.output_selection = output_selection
 
         if len(self.output_selection) == 1:
-            self._selection_method = lambda data: data[self.output_selection[0]]
+            self._selection_method = lambda data: data[
+                self.output_selection.values()[0]
+            ]
         else:
             self._selection_method = lambda data: [
-                data[index] for index in self.output_selection
+                data[index] for index in self.output_selection.values()
             ]
 
     def forward(self, data: typing.Iterable[typing.Any]) -> typing.Any:
@@ -83,10 +82,27 @@ class Select(Operation):
 class Split(Operation):
     """Split pipe with data to multiple components.
 
-    Useful when users wish to log results of runner to multiple places.
-    Example output logging to `tensorboard`, `stdout` and `file`::
+    Useful when users wish to use results in multiple places.
+    Example calculating metrics and logging them::
 
-        import torchtrain as tt
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                # Generate loss and other necessary items
+                ...
+                # Assume binary classification
+                return loss, logits, targets
+
+
+        step = TrainStep(criterion, device)
+
+        # Push (logits, targets) to Precision and Recall
+        # and log those values
+        step > tt.Select(logits=1, targets=2) > tt.Split(
+            tt.metrics.classification.binary.Precision() > tt.callbacks.Logger("Precision"),
+            tt.metrics.classification.binary.Recall() > tt.callbacks.Logger("Recall"),
+        )
+
 
     Parameters
     ----------
@@ -140,6 +156,20 @@ class Flatten(Operation):
 
     Single `tuple` with all elements (not being `tuple` or `list`).
 
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                module1, module2 = module
+                ...
+                return ((logits1, targets1), (logits2, targets2), module1, module2)
+
+
+        step = TrainStep(criterion, device)
+
+        # Tuple (logits1, targets1, logits2, targets2, module1, module2)
+        step > tt.Flatten()
+
     Parameters
     ----------
     types : Tuple[type], optional
@@ -179,14 +209,27 @@ class Flatten(Operation):
         return items
 
 
-# Make it dynamic and static
 class If(Operation):
     """Run operation only If `condition` is `True`.
 
+    `condition` can also be a single argument callable, in this case it can be
+    dependent on data, see below::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss
+
+
+        step = TrainStep(criterion, device)
+        step > tt.If(lambda loss: loss > 10, tt.callbacks.Logger("VERY HIGH LOSS!!!"))
+
     Parameters
     ----------
-    condition: bool
-        Boolean value. If `true`, run underlying Op (or other Callable).
+    condition: bool | Callable(Any) -> bool
+        If boolean value and if `true`, run underlying Op (or other Callable).
+        If Callable, should take data as argument and return decision based on
+        that as single `bool`.
     op: torchtrain.Op | Callable
         Operation or single argument callable to run in...
 
@@ -202,12 +245,21 @@ class If(Operation):
 
     """
 
-    def __init__(self, condition: bool, op: typing.Callable[[typing.Any,], typing.Any]):
+    def __init__(
+        self,
+        condition: typing.Union[bool, typing.Callable[[typing.Any], bool,]],
+        op: typing.Callable[[typing.Any,], typing.Any],
+    ):
+        if isinstance(condition, bool):
+            self._choice_method = lambda data: condition
+        else:
+            self._choice_method = lambda data: condition(data)
+
         self.condition = condition
         self.op = op
 
     def forward(self, data: typing.Any) -> typing.Any:
-        if self.condition:
+        if self.condition(data):
             return self.op(data)
         return data
 
@@ -220,6 +272,23 @@ class If(Operation):
 # Make it dynamic and static
 class IfElse(Operation):
     """Run `operation1` only if `condition` is `True`, otherwise run `operation2`.
+
+    `condition` can also be a single argument callable, in this case it can be
+    dependent on data, see below::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss
+
+
+        step = TrainStep(criterion, device)
+
+        step > tt.If(
+            lambda loss: loss > 10,
+            tt.callbacks.Logger("VERY HIGH LOSS!!!"),
+            tt.callbacks.Logger("LOSS IS NOT THAT HIGH..."),
+        )
 
     Parameters
     ----------
@@ -263,179 +332,74 @@ class IfElse(Operation):
         return str(self.op2)
 
 
-class Drop(_Choice):
-    r"""**Return sample without selected elements.**
-
-    Sample has to be indexable object (has `__getitem__` method implemented).
+class ToAll(Operation):
+    r"""Apply pipe to each element of sample.**
 
     **Important:**
 
-    - Negative indexing is supported if supported by sample object.
-    - This function is **slower** than `Select` and the latter should be preffered.
-    - If you want to select sample from nested `tuple`, please use `Flatten` first
-    - Returns single element if only one element is left
-    - Returns `None` if all elements are dropped
+    If you want to apply pipe to all nested elements (e.g. in nested `tuple`),
+    please use `torchtrain.Flatten` object first.
 
     Example::
 
-        # Sample-wise concatenate dataset three times
-        new_dataset = dataset | dataset | dataset
-        # Zeroth and last samples dropped
-        selected = new_dataset.map(td.maps.Drop(0, 2))
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss
+
+
+        step = TrainStep(criterion, device)
+
+        step > tt.If(
+            lambda loss: loss > 10,
+            tt.callbacks.Logger("VERY HIGH LOSS!!!"),
+            tt.callbacks.Logger("LOSS IS NOT THAT HIGH..."),
+        )
+
 
     Parameters
     ----------
-    *indices : int
-            Indices of objects to remove from the sample. If left empty, tuple containing
-            all elements will be returned.
+    pipe : Callable
+        Pipe to apply to each element of sample.
+
+    Arguments
+    ---------
+    data: Any
+        Anything you want (usually `torch.Tensor` like stuff).
 
     Returns
     -------
-    Tuple[samples]
-            Tuple without selected elements
+    Tuple[pipe(subsample)]
+        Tuple consisting of subsamples with pipe applied.
 
     """
 
-    def __call__(self, sample):
-        return self._magic_unpack(
-            tuple(
-                sample[index]
-                for index, _ in enumerate(sample)
-                if index not in self.indices
-            )
-        )
+    def __init__(self, pipe: typing.Callable):
+        self.pipe = pipe
 
-
-class ToAll(Base):
-    r"""**Apply function to each element of sample.**
-
-    Sample has to be `iterable` object.
-
-    **Important:**
-
-    If you want to apply function to all nested elements (e.g. in nested `tuple`),
-    please use `torchdata.maps.Flatten` object first.
-
-    Example::
-
-        # Sample-wise concatenate dataset three times
-        new_dataset = dataset | dataset | dataset
-        # Each concatenated sample will be increased by 1
-        selected = new_dataset.map(td.maps.ToAll(lambda x: x+1))
-
-    Attributes
-    ----------
-    function : Callable
-            Function to apply to each element of sample.
-
-    Returns
-    -------
-    Tuple[function(subsample)]
-            Tuple consisting of subsamples with function applied.
-
-    """
-
-    def __init__(self, function: typing.Callable):
-        self.function = function
-
-    def __call__(self, sample):
-        return tuple(self.function(subsample) for subsample in sample)
-
-
-class To(Base):
-    """**Apply function to specified elements of sample.**
-
-    Sample has to be `iterable` object.
-
-    **Important:**
-
-    If you want to apply function to all nested elements (e.g. in nested `tuple`),
-    please use `torchdata.maps.Flatten` object first.
-
-    Example::
-
-        # Sample-wise concatenate dataset three times
-        new_dataset = dataset | dataset | dataset
-        # Zero and first subsamples will be increased by one, last one left untouched
-        selected = new_dataset.map(td.maps.To(lambda x: x+1, 0, 1))
-
-    Attributes
-    ----------
-    function : Callable
-            Function to apply to specified elements of sample.
-
-    *indices : int
-            Indices to which function will be applied. If left empty,
-            function will not be applied to anything.
-
-    Returns
-    -------
-    Tuple[function(subsample)]
-            Tuple consisting of subsamples with some having the function applied.
-
-    """
-
-    def __init__(self, function: typing.Callable, *indices):
-        self.function = function
-        self.indices = set(indices)
-
-    def __call__(self, sample):
-        return tuple(
-            self.function(subsample) if index in self.indices else subsample
-            for index, subsample in enumerate(sample)
-        )
-
-
-class Except(Base):
-    r"""**Apply function to all elements of sample except the ones specified.**
-
-    Sample has to be `iterable` object.
-
-    **Important:**
-
-    If you want to apply function to all nested elements (e.g. in nested `tuple`),
-    please use `torchdata.maps.Flatten` object first.
-
-    Example::
-
-        # Sample-wise concatenate dataset three times
-        dataset |= dataset
-        # Every element increased by one except the first one
-        selected = new_dataset.map(td.maps.Except(lambda x: x+1, 0))
-
-    Attributes
-    ----------
-    function: Callable
-            Function to apply to chosen elements of sample.
-
-    *indices: int
-            Indices of objects to which function will not be applied. If left empty,
-            function will be applied to every element of sample.
-
-    Returns
-    -------
-    Tuple[function(subsample)]
-            Tuple with subsamples where some have the function applied.
-
-    """
-
-    def __init__(self, function: typing.Callable, *indices):
-        self.function = function
-        self.indices = set(indices)
-
-    def __call__(self, sample):
-        return tuple(
-            self.function(subsample) if index not in self.indices else subsample
-            for index, subsample in enumerate(sample)
-        )
+    def forward(self, sample):
+        return tuple(self.pipe(subsample) for subsample in sample)
 
 
 class Lambda(Operation):
-    """Run user specified function on `data`.
+    """Run user specified pipe on `data`.
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return accuracy
+
+
+        step = TrainStep(criterion, device)
+
+        # If you want to get that SOTA badly, we got ya covered
+        step > tt.Lambda(lambda accuracy: accuracy * 2)
 
     Parameters
     ----------
-    function : Callable(Any) -> Any
+    pipe : Callable(Any) -> Any
         Single argument callable getting data and returning some value.
     name : str, optional
         `string` representation of this operation (if any).
@@ -449,20 +413,20 @@ class Lambda(Operation):
     Returns
     -------
     Any
-        Value returned from `function`
+        Value returned from `pipe`
 
     """
 
     def __init__(
         self,
-        function: typing.Callable[[typing.Any,], typing.Any],
+        pipe: typing.Callable[[typing.Any,], typing.Any],
         name: str = "torchtrain.Lambda",
     ):
-        self.function = function
+        self.pipe = pipe
         self.name = name
 
     def __str__(self) -> str:
         return self.name
 
     def forward(self, data: typing.Any) -> typing.Any:
-        return self.function(data)
+        return self.pipe(data)
