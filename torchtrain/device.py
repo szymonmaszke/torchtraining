@@ -5,7 +5,7 @@ PyTorch's defaults (as of `1.6.0` CPU and GPU) are forwarded for easier usage.
 If you wish to use other (non-standard) devices (like TPUs), please use
 `Device` class and explicitly, for example (TPU)::
 
-    impor torchtrain as tt
+    import torchtrain as tt
     import torch_xla.core.xla_model as xm
 
     device = tt.device.Device(xm.xla_device())
@@ -22,6 +22,23 @@ from ._base import Op
 
 class CPU(Op):
     """Cast `object` (usually `torch.Tensor`) to `cpu`.
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss, accuracy
+
+
+        step = TrainStep(criterion, device)
+        iteration = tt.iterations.Train(step, module, dataloader)
+
+        # Cast to CPU in order not to inflate GPU memory with `list`
+        # You shouldn't use tt.accumulators.List though, just saying
+        iteration > tt.Select(
+            accuracy=1
+        ) > tt.device.CPU() > tt.accumulators.List() > tt.callbacks.Logger("Accuracy")
 
     Parameters
     ----------
@@ -40,6 +57,9 @@ class CPU(Op):
 
 class CUDA(Op):
     """Cast `object` (usually `torch.Tensor`) to cuda enabled device.
+
+    Example can be the same as the one presented in `CPU`, though definitely
+    this cast shouldn't be used too often.
 
     Parameters
     ----------
@@ -69,6 +89,8 @@ class CUDA(Op):
 
 class Device(Op):
     """Cast `object` to any device (for example `TPU` with `torch_xla` package).
+
+    See `example` at the beginning of this section.
 
     Parameters
     ----------
