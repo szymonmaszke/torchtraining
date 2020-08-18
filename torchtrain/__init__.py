@@ -5,10 +5,10 @@ import yaml
 
 import loguru
 
-from . import (callbacks, cast, device, epochs, exceptions, functional,
-               iterations, loss, metrics, operations, quantization, savers,
+from . import (accumulators, callbacks, cast, device, epochs, exceptions,
+               functional, iterations, loss, metrics, pytorch, quantization,
                steps)
-from ._base import GeneratorProducer, Operation, Producer, Saver
+from ._base import Accumulator, GeneratorProducer, Operation, Producer
 from ._version import __version__
 
 loguru.logger.level("NONE", no=0)
@@ -17,15 +17,32 @@ loguru.logger.level("NONE", no=0)
 class Select(Operation):
     """Select output item returned from `step` or `iteration` objects.
 
-    Allows users to focus on specific output from result generator and
-    post-process it (e.g. piping part of output to metric, loggers or a-like).
+    Allows users to focus on specific part of output and pipe this specific
+    values to other operations (like metrics, loggers etc.).
+
+    Example::
+
+        import torchtrain as tt
+
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                # Generate loss and other necessary items
+                ...
+                return loss, predictions, targets
+
+
+        step = TrainStep(criterion, device)
+        # Select `loss` and perform backpropagation
+        step > tt.Select(loss=0) > tt.pytorch.Backward()
+
 
     Parameters
     ----------
-    output_indices : *int
-        Zero-based index into output tuple choosing part of output to propagate
-        further down the pipeline.
-        At least one index has to be specified.
+    output_selection : **output_selection
+        `name`: output_index mapping selecting which element from step returned `tuple`
+        to choose. `name` can be arbitrary, but should be named like the variable
+        returned from `step`. See example above.
 
     Arguments
     ---------
@@ -35,32 +52,32 @@ class Select(Operation):
     Returns
     -------
     Any | List[Any]
-        If single int is passed `output_indices` return single element from `Iterable`.
+        If single int is passed `output_selection` return single element from `Iterable`.
         Otherwise returns chosen elements as `list`
 
     """
 
-    def __init__(self, *output_indices: int):
-        if len(output_indices) > 0:
+    def __init__(self, **output_selection: int):
+        if len(output_selection) > 0:
             raise ValueError(
                 "{}: At least one output index has to be specified, got {} output indices.".format(
-                    self, len(output_indices)
+                    self, len(output_selection)
                 )
             )
-        self.output_indices = output_indices
+        self.output_selection = output_selection.values()
 
-        if len(self.output_indices) == 1:
-            self._selection_method = lambda data: data[self.output_indices[0]]
+        if len(self.output_selection) == 1:
+            self._selection_method = lambda data: data[self.output_selection[0]]
         else:
             self._selection_method = lambda data: [
-                data[index] for index in self.output_indices
+                data[index] for index in self.output_selection
             ]
 
     def forward(self, data: typing.Iterable[typing.Any]) -> typing.Any:
         return self._selection_method(data)
 
     def __str__(self) -> str:
-        return yaml.dump({super().__str__(): self.output_indices})
+        return yaml.dump({super().__str__(): self.output_selection})
 
 
 class Split(Operation):
@@ -162,6 +179,7 @@ class Flatten(Operation):
         return items
 
 
+# Make it dynamic and static
 class If(Operation):
     """Run operation only If `condition` is `True`.
 
@@ -199,6 +217,7 @@ class If(Operation):
         return "no-op"
 
 
+# Make it dynamic and static
 class IfElse(Operation):
     """Run `operation1` only if `condition` is `True`, otherwise run `operation2`.
 
@@ -244,8 +263,175 @@ class IfElse(Operation):
         return str(self.op2)
 
 
+class Drop(_Choice):
+    r"""**Return sample without selected elements.**
+
+    Sample has to be indexable object (has `__getitem__` method implemented).
+
+    **Important:**
+
+    - Negative indexing is supported if supported by sample object.
+    - This function is **slower** than `Select` and the latter should be preffered.
+    - If you want to select sample from nested `tuple`, please use `Flatten` first
+    - Returns single element if only one element is left
+    - Returns `None` if all elements are dropped
+
+    Example::
+
+        # Sample-wise concatenate dataset three times
+        new_dataset = dataset | dataset | dataset
+        # Zeroth and last samples dropped
+        selected = new_dataset.map(td.maps.Drop(0, 2))
+
+    Parameters
+    ----------
+    *indices : int
+            Indices of objects to remove from the sample. If left empty, tuple containing
+            all elements will be returned.
+
+    Returns
+    -------
+    Tuple[samples]
+            Tuple without selected elements
+
+    """
+
+    def __call__(self, sample):
+        return self._magic_unpack(
+            tuple(
+                sample[index]
+                for index, _ in enumerate(sample)
+                if index not in self.indices
+            )
+        )
+
+
+class ToAll(Base):
+    r"""**Apply function to each element of sample.**
+
+    Sample has to be `iterable` object.
+
+    **Important:**
+
+    If you want to apply function to all nested elements (e.g. in nested `tuple`),
+    please use `torchdata.maps.Flatten` object first.
+
+    Example::
+
+        # Sample-wise concatenate dataset three times
+        new_dataset = dataset | dataset | dataset
+        # Each concatenated sample will be increased by 1
+        selected = new_dataset.map(td.maps.ToAll(lambda x: x+1))
+
+    Attributes
+    ----------
+    function : Callable
+            Function to apply to each element of sample.
+
+    Returns
+    -------
+    Tuple[function(subsample)]
+            Tuple consisting of subsamples with function applied.
+
+    """
+
+    def __init__(self, function: typing.Callable):
+        self.function = function
+
+    def __call__(self, sample):
+        return tuple(self.function(subsample) for subsample in sample)
+
+
+class To(Base):
+    """**Apply function to specified elements of sample.**
+
+    Sample has to be `iterable` object.
+
+    **Important:**
+
+    If you want to apply function to all nested elements (e.g. in nested `tuple`),
+    please use `torchdata.maps.Flatten` object first.
+
+    Example::
+
+        # Sample-wise concatenate dataset three times
+        new_dataset = dataset | dataset | dataset
+        # Zero and first subsamples will be increased by one, last one left untouched
+        selected = new_dataset.map(td.maps.To(lambda x: x+1, 0, 1))
+
+    Attributes
+    ----------
+    function : Callable
+            Function to apply to specified elements of sample.
+
+    *indices : int
+            Indices to which function will be applied. If left empty,
+            function will not be applied to anything.
+
+    Returns
+    -------
+    Tuple[function(subsample)]
+            Tuple consisting of subsamples with some having the function applied.
+
+    """
+
+    def __init__(self, function: typing.Callable, *indices):
+        self.function = function
+        self.indices = set(indices)
+
+    def __call__(self, sample):
+        return tuple(
+            self.function(subsample) if index in self.indices else subsample
+            for index, subsample in enumerate(sample)
+        )
+
+
+class Except(Base):
+    r"""**Apply function to all elements of sample except the ones specified.**
+
+    Sample has to be `iterable` object.
+
+    **Important:**
+
+    If you want to apply function to all nested elements (e.g. in nested `tuple`),
+    please use `torchdata.maps.Flatten` object first.
+
+    Example::
+
+        # Sample-wise concatenate dataset three times
+        dataset |= dataset
+        # Every element increased by one except the first one
+        selected = new_dataset.map(td.maps.Except(lambda x: x+1, 0))
+
+    Attributes
+    ----------
+    function: Callable
+            Function to apply to chosen elements of sample.
+
+    *indices: int
+            Indices of objects to which function will not be applied. If left empty,
+            function will be applied to every element of sample.
+
+    Returns
+    -------
+    Tuple[function(subsample)]
+            Tuple with subsamples where some have the function applied.
+
+    """
+
+    def __init__(self, function: typing.Callable, *indices):
+        self.function = function
+        self.indices = set(indices)
+
+    def __call__(self, sample):
+        return tuple(
+            self.function(subsample) if index not in self.indices else subsample
+            for index, subsample in enumerate(sample)
+        )
+
+
 class Lambda(Operation):
-    """Run user specified function on single item.
+    """Run user specified function on `data`.
 
     Parameters
     ----------
