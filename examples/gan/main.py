@@ -63,12 +63,16 @@ def prepare_iteration(
         log="INFO",
     )
 
-    iteration | tt.Select(0) | tt.device.CPU() | tt.accumulators.Mean() | tt.Split(
+    iteration | tt.Select(0) | tt.device.CPU() | tt.Except(
+        tt.accumulators.Mean(), 1
+    ) | tt.Split(
         tt.callbacks.tensorboard.Scalar(writer, "Generator/Loss"),
         tt.callbacks.Logger(name="Generator Mean"),
         tt.callbacks.Save(generator, "generator.pt", comparator=operator.lt),
     )
-    iteration | tt.Select(0) | tt.device.CPU() | tt.accumulators.Mean() | tt.Split(
+    iteration | tt.Select(0) | tt.device.CPU() | tt.Except(
+        tt.accumulators.Mean(), end=4
+    ) | tt.Split(
         tt.callbacks.tensorboard.Scalar(writer, "Discriminator/Loss"),
         tt.callbacks.Logger(name="Generator Mean"),
         tt.callbacks.Save(discriminator, "generator.pt", comparator=operator.lt),
