@@ -15,6 +15,8 @@ def _docs(data_type, data_description, body=None):
 
         See `torch.utils.tensorboard.writer.add_{function}` for more details.
 
+        Can be used similarly to `torchtrain.callbacks.Logger`
+
         """.format(
             function=function,
         )
@@ -28,6 +30,8 @@ def _docs(data_type, data_description, body=None):
             Writer responsible for logging values.
         name: str
             Name (tag) under which values will be logged into Tensorboard.
+            Can be "/" separated to group values together, e.g. "Classifier/Loss"
+            and "Classifier/Accuracy"
         flush: int
             Flushes the event file to disk after `flush` steps.
             Call this method to make sure that all pending events have been written to disk.

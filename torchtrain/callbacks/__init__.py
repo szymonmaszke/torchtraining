@@ -13,8 +13,27 @@ from .. import _base, exceptions
 from . import tensorboard
 
 
-class Save(_base.Operation):
+class Saver(_base.Operation):
     """Save best module according to specified metric.
+
+    Example::
+
+        import operator
+
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss
+
+
+        step = TrainStep(criterion, device)
+        iteration = tt.iterations.Train(step, module, dataloader)
+
+        # Lower (operator.lt) loss than current best -> save the model
+        iteration > tt.accumulators.Mean() > tt.callbacks.Save(
+            module, "my_model.pt", comparator=operator.lt
+        )
 
     Parameters
     ----------
@@ -52,6 +71,11 @@ class Save(_base.Operation):
     data: Any
         Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
 
+    Returns
+    -------
+    Any
+        Data passed in forward
+
     """
 
     def __init__(
@@ -88,6 +112,23 @@ class TimeStopping(_base.Operation):
 
     Python's `time.time()` functionality is used.
 
+    Can be placed anywhere (e.g. `step > TimeStopping(60 * 60)`) as it's
+    not data dependent.
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss
+
+
+        step = TrainStep(criterion, device)
+        iteration = tt.iterations.Train(step, module, dataloader)
+
+        # Stop after 30 minutes
+        iteration > tt.callbacks.TimeStopping(duration=60 * 30)
+
     Parameters
     ----------
     duration: int | float
@@ -109,6 +150,11 @@ class TimeStopping(_base.Operation):
     ---------
     data: Any
 
+    Returns
+    -------
+    Any
+        Data passed in forward
+
     """
 
     def __init__(
@@ -127,6 +173,17 @@ class TimeStopping(_base.Operation):
 
 class TerminateOnNan(_base.Operation):
     """Stop `epoch` if any `NaN` value encountered in `data`.
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss, targets
+
+
+        step = TrainStep(criterion, device)
+        step > tt.Select(loss=0) > tt.callbacks.TerminateOnNan()
 
     Parameters
     ----------
@@ -148,6 +205,11 @@ class TerminateOnNan(_base.Operation):
     data: torch.Tensor
         Tensor possibly containing `NaN` values.
 
+    Returns
+    -------
+    Any
+        Data passed in forward
+
     """
 
     def __init__(
@@ -167,6 +229,22 @@ class EarlyStopping(_base.Operation):
 
     Used to stop training if neural network's desired value didn't improve
     after `patience` steps.
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss, accuracy
+
+
+        step = TrainStep(criterion, device)
+        iteration = tt.iterations.Train(step, module, dataloader)
+
+        # Stop if accuracy does not improve for `5` iterations
+        iteration > tt.Select(accuracy=1) > tt.accumulators.Mean() > tt.callbacks.EarlyStopping(
+            patience=5
+        )
 
     Parameters
     ----------
@@ -198,6 +276,11 @@ class EarlyStopping(_base.Operation):
     data: Any
         Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
 
+    Returns
+    -------
+    Any
+        Data passed in forward
+
     """
 
     def __init__(
@@ -228,6 +311,25 @@ class EarlyStopping(_base.Operation):
 class Unfreeze(_base.Operation):
     """Unfreeze module's parameters after `n` steps.
 
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss, accuracy
+
+
+        step = TrainStep(criterion, device)
+        iteration = tt.iterations.Train(step, module, dataloader)
+
+        # Assume `module`'s parameters are frozen
+
+        # Doesn't matter what data goes it, so you can unfreeze however you wish
+        # And it doesn't matter what the accumulated value is
+        iteration > tt.Select(accuracy=1) > tt.accumulators.Sum() > tt.callbacks.Unfreeze(
+            module
+        )
+
     Parameters
     ----------
     module: torch.nn.Module
@@ -251,6 +353,11 @@ class Unfreeze(_base.Operation):
     ---------
     data: Any
 
+    Returns
+    -------
+    Any
+        Data passed in forward
+
     """
 
     def __init__(self, module, n: int = 0, log="NONE"):
@@ -271,6 +378,20 @@ class Unfreeze(_base.Operation):
 
 class Logger(_base.Operation):
     """Log data using `loguru`.
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                ...
+                return loss, accuracy
+
+
+        step = TrainStep(criterion, device)
+        iteration = tt.iterations.Train(step, module, dataloader)
+
+        # Log with loguru accuracy
+        iteration > tt.Select(accuracy=1) > tt.callbacks.Logger("Accuracy")
 
     Parameters
     ----------
