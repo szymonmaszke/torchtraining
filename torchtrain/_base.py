@@ -5,6 +5,8 @@ import typing
 
 import yaml
 
+from . import exceptions
+
 
 class Base:
     """Common base class for all `torchtrain` objects.
@@ -296,6 +298,8 @@ class ReturnProducer(_Producer):
     no matter generators (`iterations` or `epochs`) or simple returns
     (usually `step`).
 
+    Applies pipes added via ">" and return UNMODIFIED data.
+
     """
 
     def __call__(self, *args, **kwargs):
@@ -315,12 +319,80 @@ class GeneratorProducer(_Producer):
     no matter generators (`iterations` or `epochs`) or simple returns
     (usually `step`).
 
+    Applies pipes added via ">" and yields UNMODIFIED data at each step.
+
     """
 
     def __call__(self, *args, **kwargs):
         for data in self.forward(*args, **kwargs):
             self._apply(data, self._next)
             yield data
+
+    @abc.abstractmethod
+    def forward(self, *args, **kwargs):
+        pass
+
+
+class Epoch(GeneratorProducer):
+    """Base class for epoch-like structures.
+
+    Works like GeneratorProducer, but handles exceptions.EpochsException
+    in case earlier exit is required.
+
+    Applies pipes added via ">" and yields UNMODIFIED data at each step.
+
+    """
+
+    def __call__(self, *args, **kwargs):
+        with self:
+            yield from super().__call__(*args, **kwargs)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, _, exc_val, __):
+        if isinstance(exc_val, exceptions.EpochsException):
+            return True
+        return False
+
+    @abc.abstractmethod
+    def forward(self, *args, **kwargs):
+        pass
+
+
+class Iteration(GeneratorProducer):
+    """Base class for iteration-like structures.
+
+    Works like GeneratorProducer, but handles exceptions.IterationsException
+    in case earlier exit is required from `iteration`.
+
+    Applies pipes added via ">" and yields UNMODIFIED data at each step.
+
+    """
+
+    def __call__(self, *args, **kwargs):
+        with self:
+            yield from super().__call__(*args, **kwargs)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, _, exc_val, __):
+        if isinstance(exc_val, exceptions.IterationsException):
+            return True
+        return False
+
+    @abc.abstractmethod
+    def forward(self, *args, **kwargs):
+        pass
+
+
+class Step(ReturnProducer):
+    """Base class for step-like structures.
+
+    Works like ReturnProducer, is here to provide unified API across
+    `steps`, `iterations` and `epochs`.
+    """
 
     @abc.abstractmethod
     def forward(self, *args, **kwargs):

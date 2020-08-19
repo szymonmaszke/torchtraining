@@ -14,16 +14,7 @@ import loguru
 from . import _base, exceptions
 
 
-class EpochsBase(_base.GeneratorProducer):
-    def __exit__(self, _, exc_val, __):
-        if isinstance(exc_val, exceptions.EpochsException):
-            return True
-        self.feed()
-        self.clear()
-        return False
-
-
-class Epoch(EpochsBase):
+class Epoch(_base.Epoch):
     """
     Loop over specified `iterations` until `epochs` number is reached.
 

@@ -12,7 +12,7 @@ from . import _base, utils
     header="General `step`, usable both in training & evaluation.",
     body="User should override `forward` method.",
 )
-class Step(_base.Producer):
+class Step(_base.Step):
     def __init__(
         self, criterion: typing.Callable, gradient, device=None,
     ):
