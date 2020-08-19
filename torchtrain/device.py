@@ -5,11 +5,21 @@ PyTorch's defaults (as of `1.6.0` CPU and GPU) are forwarded for easier usage.
 If you wish to use other (non-standard) devices (like TPUs), please use
 `Device` class and explicitly, for example (TPU)::
 
-    import torchtrain as tt
+
     import torch_xla.core.xla_model as xm
 
-    device = tt.device.Device(xm.xla_device())
+    class TrainStep(tt.steps.Train):
+        def forward(self, module, sample):
+            # Generate loss and other necessary items
+            ...
+            return loss, predictions, targets
 
+
+    step = TrainStep(criterion, device)
+    # Select `loss` and perform backpropagation
+    step > tt.Select(loss=0) > tt.device.Device(xm.xla_device())
+
+Users should use `CPU` class mainly, rest is provided for convenience.
 
 """
 
