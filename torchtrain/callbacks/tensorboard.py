@@ -1,3 +1,19 @@
+"""Special type of callbacks focused on `tensorboard` integration.
+
+Example::
+
+    # Assume iteration was defined and loss is 0th element of step
+    iteration = (
+        tt.iterations.Iteration(...)
+        > tt.Select(loss=0)
+        > tt.device.CPU()
+        > tt.accumulators.Mean()
+        > tt.callbacks.tensorboard.Scalar(writer, "Network/Loss")
+    )
+
+
+"""
+
 import typing
 
 import loguru
