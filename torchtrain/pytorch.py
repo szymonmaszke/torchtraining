@@ -1,9 +1,41 @@
+"""This module provides standard PyTorch operations (like `backward`)
+in functional manner.
+
+It allows users to use single `step` for both training and evaluation, see below::
+
+
+    class Step(tt.steps.Step):
+        def forward(self, module, sample):
+            # Your forward step here
+            ...
+            return loss, predictions
+
+    training = (
+        Step(criterion, gradient=True, device=device)
+        > tt.Select(loss=0)
+        > tt.pytorch.ZeroGrad(network)
+        > tt.pytorch.Backward()
+        > tt.pytorch.Optimize(optimizer)
+        > tt.pytorch.Detach()
+    )
+
+    evaluation = (
+        Step(criterion, gradient=False, device=device)
+        > tt.Select(predictions=1)
+        > tt.callbacks.Log(writer, "Predicted")
+    )
+
+Some other operations are also simplified (e.g. gradient accumulation),
+see ``
+
+"""
+
 import torch
 
-from ._base import Op
+from ._base import Operation
 
 
-class Detach(Op):
+class Detach(Operation):
     """Returns a new Tensor, detached from the current graph.
 
     Usually should be placed after each `step` in order not
@@ -15,7 +47,7 @@ class Detach(Op):
         return data.detach()
 
 
-class Scheduler(Op):
+class Schedule(Operation):
     """Run single step of given scheduler.
 
     Usually placed after each `step` or `iteration` (depending on provided
@@ -43,7 +75,7 @@ class Scheduler(Op):
         return data
 
 
-class Backward(Op):
+class Backward(Operation):
     """Run backpropagation on output tensor.
 
     Parameters
@@ -77,7 +109,7 @@ class Backward(Op):
         return output
 
 
-class Optimizer(Op):
+class Optimize(Operation):
     """Perform optimization step on `parameters` stored by `optimizer`.
 
     Currently specifying `closure` and `scaler` is mutually exclusive.
@@ -87,6 +119,10 @@ class Optimizer(Op):
     optimizer: torch.optim.Optimizer
         Instance of optimizer-like object with interface aligned with
         `torch.optim.Optimizer`.
+    accumulate: int, optional
+        Divide loss by ``accumulate`` if gradient accumulation is used.
+        This approach averages gradient from multiple batches.
+        Default: `1` (no accumulation)
     closure : Callable, optional
         A closure that reevaluates the model and returns the loss.
         Optional for most optimizers. Default: `None`
@@ -100,25 +136,34 @@ class Optimizer(Op):
 
     """
 
-    def __init__(self, optimizer, closure=None, scaler=None, *args, **kwargs):
+    def __init__(
+        self, optimizer, accumulate: int = 1, closure=None, scaler=None, *args, **kwargs
+    ):
         self.optimizer = optimizer
+        self.accumulate = accumulate
+
         if scaler is not None and closure is not None:
             raise ValueError("Closure use with scaler is not currently supported.")
+
         self.scaler = scaler
         self.closure = closure
         self.args = args
         self.kwargs = kwargs
 
+        self._counter = -1
+
     def forward(self, data):
-        if self.scaler is not None:
-            self.scaler.step(self.optimizer, *self.args, **self.kwargs)
-        else:
-            self.optimizer.step(self.closure, *self.args, **self.kwargs)
+        self._counter += 1
+        if self._counter % self.accumulate:
+            if self.scaler is not None:
+                self.scaler.step(self.optimizer, *self.args, **self.kwargs)
+            else:
+                self.optimizer.step(self.closure, *self.args, **self.kwargs)
 
         return data
 
 
-class ZeroGrad(Op):
+class ZeroGrad(Operation):
     """Zero model or optimizer gradients.
 
     Function `zero_grad()` will be run on the provided object.
@@ -140,15 +185,15 @@ class ZeroGrad(Op):
         self.accumulate = accumulate
         self._counter = -1
 
-    def forward(self, data):
         self._counter += 1
         if self._counter % self.accumulate:
             self.obj.zero_grad()
         return data
 
 
-class GradScalerUpdate(Op):
+class UpdateGradScaler(Operation):
     """Update gradient scaler used with automatic mixed precision.
+    def forward(self, data):
 
     Parameters
     ----------
@@ -157,9 +202,9 @@ class GradScalerUpdate(Op):
 
     """
 
-    def __init__(self, scaler):
         self.scaler = scaler
 
+    def __init__(self, scaler):
     def forward(self, data):
         self.scaler.update()
         return data
