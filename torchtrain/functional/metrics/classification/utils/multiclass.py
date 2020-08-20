@@ -90,7 +90,7 @@ def categorical(
 
 
 def one_hot(
-    output: torch.Tensor, target: torch.Tensor, num_classes: int = None
+    output: torch.Tensor, target: torch.Tensor, num_classes: int = -1
 ) -> typing.Tuple[torch.Tensor, torch.Tensor]:
     """
     Transform output and target to one hot encoding.
