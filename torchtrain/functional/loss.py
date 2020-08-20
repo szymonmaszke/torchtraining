@@ -5,6 +5,12 @@ import torch
 from . import utils
 
 
+def _to_tensor(value):
+    if value is None or torch.is_tensor(value):
+        return value
+    return torch.tensor(value)
+
+
 def _get_reduction(reduction):
     if reduction is None:
         return lambda loss: loss.sum() / loss.shape[0]
@@ -13,7 +19,7 @@ def _get_reduction(reduction):
 
 @utils.docs
 def binary_focal_loss(
-    inputs: torch.Tensor,
+    outputs: torch.Tensor,
     targets: torch.Tensor,
     gamma: float,
     weight=None,
@@ -22,10 +28,11 @@ def binary_focal_loss(
 ) -> torch.Tensor:
 
     reduce = _get_reduction(reduction)
+    weight, pos_weight = _to_tensor(weight), _to_tensor(pos_weight)
 
-    probabilities = (1 - torch.sigmoid(inputs)) ** gamma
+    probabilities = (1 - torch.sigmoid(outputs)) ** gamma
     loss = probabilities * torch.nn.functional.binary_cross_entropy_with_logits(
-        inputs, targets, weight, reduction="none", pos_weight=pos_weight
+        outputs, targets.float(), weight, reduction="none", pos_weight=pos_weight,
     )
 
     return reduce(loss)
@@ -33,7 +40,7 @@ def binary_focal_loss(
 
 @utils.docs
 def multiclass_focal_loss(
-    inputs: torch.Tensor,
+    outputs: torch.Tensor,
     targets: torch.Tensor,
     gamma: float,
     weight=None,
@@ -43,18 +50,19 @@ def multiclass_focal_loss(
 
     reduce = _get_reduction(reduction)
 
-    inputs[:, ignore_index, ...] = 0
-    probabilities = (1 - torch.nn.functional.softmax(inputs, dim=1)) ** gamma
+    if ignore_index >= 0:
+        outputs[:, ignore_index, ...] = 0
+    probabilities = (1 - torch.nn.functional.softmax(outputs, dim=1)) ** gamma
     loss = probabilities * torch.nn.functional.cross_entropy(
-        inputs, targets, weight, ignore_index=ignore_index, reduction="none"
-    )
+        outputs, targets, weight, ignore_index=ignore_index, reduction="none"
+    ).unsqueeze(dim=1)
 
     return reduce(loss)
 
 
 @utils.docs
 def smooth_binary_cross_entropy(
-    inputs: torch.Tensor,
+    outputs: torch.Tensor,
     targets: torch.Tensor,
     alpha: float,
     weight=None,
@@ -64,18 +72,19 @@ def smooth_binary_cross_entropy(
 
     reduce = _get_reduction(reduction)
 
-    inputs *= (1 - alpha) + alpha / 2
+    weight, pos_weight = _to_tensor(weight), _to_tensor(pos_weight)
+    targets = targets * (1 - alpha) + alpha / 2
 
     return reduce(
         torch.nn.functional.binary_cross_entropy_with_logits(
-            inputs, targets, weight, pos_weight=pos_weight, reduction="none"
+            outputs, targets, weight, pos_weight=pos_weight, reduction="none"
         )
     )
 
 
 @utils.docs
 def smooth_cross_entropy(
-    inputs: torch.Tensor,
+    outputs: torch.Tensor,
     targets: torch.Tensor,
     alpha: float,
     weight=None,
@@ -85,10 +94,19 @@ def smooth_cross_entropy(
 
     reduce = _get_reduction(reduction)
 
-    one_hot_targets = torch.nn.functional.one_hot(targets, num_classes=inputs.shape[-1])
-    one_hot_targets *= (1 - alpha) + alpha / inputs.shape[-1]
-    one_hot_targets[..., ignore_index] = inputs[..., ignore_index]
-    loss = -(one_hot_targets * torch.nn.functional.log_softmax(inputs, dim=-1))
+    # All classes may not occur in loss, specify num_classes explicitly
+    one_hot_targets = torch.nn.functional.one_hot(targets, num_classes=outputs.shape[1])
+    permutation = list(range(len(one_hot_targets.shape)))
+    permutation.insert(1, permutation[-1])
+
+    # We leave last dimension as it's inserted at correct 1 position
+    one_hot_targets = one_hot_targets.permute(permutation[:-1])
+
+    smoothed_targets = one_hot_targets * (1 - alpha) + alpha / outputs.shape[1]
+    if ignore_index >= 0:
+        smoothed_targets[:, ignore_index, ...] = outputs[:, ignore_index, ...]
+    log_softmax = torch.nn.functional.log_softmax(outputs, dim=1).unsqueeze(dim=1)
+    loss = -(smoothed_targets * log_softmax)
     if weight is not None:
         loss *= weight.unsqueeze(dim=0)
 

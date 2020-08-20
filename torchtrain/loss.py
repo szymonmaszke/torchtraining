@@ -42,7 +42,7 @@ class BinaryFocal(_Loss):
 
     Shape
     -----
-    inputs:
+    outputs:
         :math:`(N, *)` where :math:`*` means, any number of additional dimensions.
         Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`
         is it's width.
@@ -68,9 +68,9 @@ class BinaryFocal(_Loss):
         self.pos_weight = pos_weight
         self.reduction = reduction
 
-    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.binary_focal_loss(
-            inputs, targets, self.gamma, self.weight, self.reduction, self.pos_weights,
+            outputs, targets, self.gamma, self.weight, self.pos_weight, self.reduction,
         )
 
 
@@ -103,7 +103,7 @@ class MulticlassFocal(_Loss):
 
     Shape
     -----
-    inputs:
+    outputs:
         :math:`(N, C)` where `C = number of classes`, or
         :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
         in the case of `K`-dimensional loss.
@@ -135,9 +135,9 @@ class MulticlassFocal(_Loss):
         self.ignore_index = ignore_index
         self.reduction = reduction
 
-    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.multiclass_focal_loss(
-            inputs, targets, self.gamma, self.weight, self.ignore_index, self.reduction
+            outputs, targets, self.gamma, self.weight, self.ignore_index, self.reduction
         )
 
 
@@ -175,7 +175,7 @@ class SmoothCrossEntropy(_Loss):
 
     Shape
     -----
-    inputs:
+    outputs:
         :math:`(N, C)` where `C = number of classes`, or
         :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
         in the case of `K`-dimensional loss.
@@ -206,9 +206,9 @@ class SmoothCrossEntropy(_Loss):
         self.ignore_index = ignore_index
         self.reduction = reduction
 
-    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.smooth_cross_entropy(
-            inputs, targets, self.alpha, self.weight, self.ignore_index, self.reduction
+            outputs, targets, self.alpha, self.weight, self.ignore_index, self.reduction
         )
 
 
@@ -245,7 +245,7 @@ class SmoothBinaryCrossEntropy(_Loss):
 
     Shape
     -----
-    inputs:
+    outputs:
         :math:`(N, *)` where :math:`*` means, any number of additional dimensions
     targets:
         :math:`(N, *)`, same shape as the input
@@ -272,9 +272,9 @@ class SmoothBinaryCrossEntropy(_Loss):
         self.pos_weight = pos_weight
         self.reduction = reduction
 
-    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return functional.loss.smooth_binary_cross_entropy(
-            inputs, targets, self.alpha, self.weight, self.pos_weight, self.reduction
+            outputs, targets, self.alpha, self.weight, self.pos_weight, self.reduction
         )
 
 
