@@ -3,24 +3,26 @@ import torch
 import pytest
 import torchtrain as tt
 
-# @pytest.mark.parametrize("inputs")
-# def test_sum(inputs, expected):
-#     accumulator = tt.accumulators.Sum()
-#     pass
+
+@pytest.mark.parametrize("inputs", [range(5), range(0), range(20)])
+def test_sum(inputs):
+    accumulator = tt.accumulators.Sum()
+    for i in inputs:
+        accumulator(i)
+    assert accumulator.calculate() == sum(inputs)
 
 
-# @pytest.mark.parametrize("inputs")
-# def test_mean(inputs, expected):
-#     accumulator = tt.accumulators.Mean()
-#     pass
+@pytest.mark.parametrize("inputs", [range(5), range(1), range(20)])
+def test_mean(inputs):
+    accumulator = tt.accumulators.Mean()
+    for i in inputs:
+        accumulator(i)
+    assert accumulator.calculate() == sum(inputs) / len(inputs)
 
 
-# @pytest.mark.parametrize("inputs")
-# def test_list(inputs, expected):
-#     accumulator = tt.accumulators.List()
-#     pass
-
-
-# @pytest.mark.parametrize("obj,inputs,expected")
-# def test_except(obj, inputs, expected):
-#     pass
+@pytest.mark.parametrize("inputs", [range(5), range(0), range(20)])
+def test_list(inputs):
+    accumulator = tt.accumulators.List()
+    for i in inputs:
+        accumulator(i)
+    assert accumulator.calculate() == list(inputs)

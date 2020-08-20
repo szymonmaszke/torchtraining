@@ -40,8 +40,8 @@ class Sum(Accumulator):
     def forward(self, data) -> None:
         self.data += data
 
-    def calculate(self, data) -> typing.Any:
-        self.data
+    def calculate(self) -> typing.Any:
+        return self.data
 
 
 class Mean(Accumulator):
