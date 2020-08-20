@@ -1,0 +1,7 @@
+[run]
+source=torchtrain
+branch=True
+omit=
+  *tox*
+  *tests*
+  setup.py
