@@ -1,3 +1,10 @@
+"""Module containing base classes shared amongst most (all?) classes in `torchtrain`.
+
+Shouldn't be a concern to users, see docs of each if you want to help with
+development.
+
+"""
+
 import abc
 import functools
 import inspect

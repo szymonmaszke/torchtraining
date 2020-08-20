@@ -9,7 +9,7 @@ import torchtrain as tt
 
 
 @pytest.mark.parametrize(
-    "functions,scikit",
+    "functions,data",
     list(
         itertools.product(
             (

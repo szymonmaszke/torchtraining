@@ -1,3 +1,5 @@
+import os
+
 import setuptools
 
 exec(open("torchtrain/_version.py").read())  # get __version__
@@ -14,7 +16,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/pypa/torchtrain",
     packages=setuptools.find_packages(),
-    install_requires=open("requirements.txt").read().split(),
+    install_requires=["torch>=1.3.0", "loguru>=0.5.1", "rich>=2.3.0", "pyyaml>=5.3.1"],
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

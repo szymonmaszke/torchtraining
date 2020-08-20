@@ -9,13 +9,13 @@ import abc
 
 import torch
 
-from ._base import Op
+from ._base import Operation
 
 
 def _docstring(klass) -> str:
     klass.__doc__ = """Cast `torch.Tensor` instance to {cast}.
 
-Other castable types (e.g. `torch.nn.Module`) can be provided as well.
+Other castable types (e.g. `torch.nn.Module`) could be provided as well.
 
 Arguments
 ---------
@@ -33,7 +33,7 @@ Returns
     return klass
 
 
-class _Cast(Op):
+class _Cast(Operation):
     """Shared base class amongst most casting operations."""
 
     def __init__(self, memory_format=torch.preserve_format):
@@ -105,30 +105,30 @@ class Short(_Cast):
 
 
 @_docstring
-class Item(Op):
+class Item(Operation):
     def forward(self, data):
         return data.item()
 
 
 @_docstring
-class Numpy(Op):
+class Numpy(Operation):
     def forward(self, data):
         return data.numpy()
 
 
 @_docstring
-class List(Op):
+class List(Operation):
     def forward(self, data):
         return data.to_list()
 
 
 @_docstring
-class MKLDNN(Op):
+class MKLDNN(Operation):
     def forward(self, data):
         return data.to_mkldnn()
 
 
-class Sparse(Op):
+class Sparse(Operation):
     """Cast `torch.Tensor` to sparse format.
 
     Parameters
@@ -147,7 +147,7 @@ class Sparse(Op):
 
 
 # As another tensor
-class As(Op):
+class As(Operation):
     """Cast `torch.Tensor` to the same type as `other`.
 
     Parameters

@@ -2,8 +2,7 @@ import typing
 
 import torch
 
-from .. import _base
-from . import utils
+from .. import utils
 
 
 @utils.docs

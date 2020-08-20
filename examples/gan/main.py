@@ -15,17 +15,16 @@ def prepare_generator(writer, dataset, device):
     optimizer = torch.optim.SGD(generator.parameters(), lr=0.0001)
     step = (
         steps.Generator(tt.loss.SmoothBinaryCrossEntropy(alpha=0.1), device)
-        # Choose loss (0-th element of tuple)
-        | tt.Select(0)
-        | tt.pytorch.ZeroGrad(optimizer)
-        | tt.pytorch.Backward()
-        | tt.pytorch.Optimize(optimizer)
-        | tt.pytorch.Detach()
+        > tt.Select(loss=0)
+        > tt.pytorch.ZeroGrad(optimizer)
+        > tt.pytorch.Backward()
+        > tt.pytorch.Optimize(optimizer)
+        > tt.pytorch.Detach()
     )
 
-    step | tt.Select(generated_images=2) | tt.callbacks.tensorboard.Images(
+    step > tt.Select(generated_images=2) > tt.callbacks.tensorboard.Images(
         writer, "Generator/Images"
-    ) | operations.AddFakeImages(dataset)
+    ) > operations.AddFakeImages(dataset)
 
     return generator, step
 
@@ -35,12 +34,11 @@ def prepare_discriminator(device):
     optimizer = torch.optim.SGD(discriminator.parameters(), lr=0.0004)
     step = (
         steps.Discriminator(tt.loss.SmoothBinaryCrossEntropy(alpha=0.1), device)
-        # Choose loss (0-th element of tuple)
-        | tt.Select(loss=0)
-        | tt.pytorch.ZeroGrad(optimizer)
-        | tt.pytorch.Backward()
-        | tt.pytorch.Optimize(optimizer)
-        | tt.pytorch.Detach()
+        > tt.Select(loss=0)
+        > tt.pytorch.ZeroGrad(optimizer)
+        > tt.pytorch.Backward()
+        > tt.pytorch.Optimize(optimizer)
+        > tt.pytorch.Detach()
     )
 
     return discriminator, step
@@ -63,16 +61,16 @@ def prepare_iteration(
         log="INFO",
     )
 
-    iteration | tt.Select(loss=0) | tt.device.CPU() | tt.Except(
-        tt.accumulators.Mean(), 1
-    ) | tt.Split(
+    iteration > tt.Select(loss=0) > tt.device.CPU() > tt.Except(
+        tt.accumulators.Mean(), 4
+    ) > tt.Split(
         tt.callbacks.tensorboard.Scalar(writer, "Generator/Loss"),
         tt.callbacks.Logger(name="Generator Mean"),
         tt.callbacks.Save(generator, "generator.pt", comparator=operator.lt),
     )
-    iteration | tt.Select(loss=0) | tt.device.CPU() | tt.Except(
-        tt.accumulators.Mean(), end=4
-    ) | tt.Split(
+    iteration > tt.Select(loss=0) > tt.device.CPU() > tt.Except(
+        tt.accumulators.Mean(), begin=0, end=4
+    ) > tt.Split(
         tt.callbacks.tensorboard.Scalar(writer, "Discriminator/Loss"),
         tt.callbacks.Logger(name="Generator Mean"),
         tt.callbacks.Save(discriminator, "generator.pt", comparator=operator.lt),

@@ -12,7 +12,7 @@ import torchtrain.metrics.classification.multiclass as M
 
 
 @pytest.mark.parametrize(
-    "metrics,scikit",
+    "metrics,data",
     list(
         itertools.product(
             (
@@ -32,7 +32,7 @@ import torchtrain.metrics.classification.multiclass as M
         ),
     ),
 )
-def test_binary(metrics, data):
+def test_multiclass(metrics, data):
     package, scikit = metrics
     outputs, targets = data
     our = package(data).numpy()
@@ -60,7 +60,7 @@ def test_binary(metrics, data):
                 M.NegativePredictiveValue(),
                 M.FalseNegativeRate(),
                 M.FalsePositiveRate(),
-                M.FalseDiscovertRate(),
+                M.FalseDiscoveryRate(),
                 M.FalseOmissionRate(),
                 M.CriticalSuccessIndex(),
                 M.BalancedAccuracy(),

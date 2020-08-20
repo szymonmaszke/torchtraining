@@ -23,6 +23,15 @@ class _ReductionSum(_base.Operation):
         pass
 
 
+class _ReductionMean(_base.Operation):
+    def __init__(self, reduction=torch.mean):
+        self.reduction = reduction
+
+    @abc.abstractmethod
+    def forward(self, data):
+        pass
+
+
 ###############################################################################
 #
 #                          CONCRETE IMPLEMENTATIONS
@@ -41,12 +50,20 @@ class _ReductionSum(_base.Operation):
     header="""Calculate accuracy score between `output` and `target`.""",
     reduction="mean",
 )
-class Accuracy(_base.Operation):
-    def __init__(self, reduction=torch.mean):
-        self.reduction = reduction
-
+class Accuracy(_ReductionMean):
     def forward(self, data):
         return functional.metrics.classification.multiclass.accuracy(
+            *data, self.reduction
+        )
+
+
+@utils.multiclass.docstring(
+    header="""Calculate Jaccard score between `output` and `target`.""",
+    reduction="mean",
+)
+class Jaccard(_ReductionMean):
+    def forward(self, data):
+        return functional.metrics.classification.multiclass.jaccard(
             *data, self.reduction
         )
 

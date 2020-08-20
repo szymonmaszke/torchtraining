@@ -1,4 +1,4 @@
-from . import general_docstring
+from . import docs_general
 
 
 def docstring(header, reduction=None):
@@ -23,8 +23,8 @@ def docstring(header, reduction=None):
             Parameters
             ----------
             """
-            docstring += general_docstring.reduction_parameter(reduction)
-        docstring += arguments() + general_docstring.returned(reduction)
+            docstring += docs_general.reduction_parameter(reduction)
+        docstring += arguments() + docs_general.returned(reduction)
 
         klass.__doc__ = docstring
         return klass

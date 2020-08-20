@@ -1,9 +1,9 @@
 import torch
 
-from ._base import Op
+from ._base import Operation
 
 
-class Dequantize(Op):
+class Dequantize(Operation):
     """Given a quantized Tensor, dequantize it and return an fp32 Tensor.
 
     Arguments

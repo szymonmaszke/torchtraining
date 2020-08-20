@@ -1,2 +1,2 @@
 # torchtrain
-Easy &amp; extensible functional training of PyTorch neural network
+[WIP] PyTorch training library

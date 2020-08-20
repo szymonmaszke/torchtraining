@@ -11,7 +11,7 @@ import torchtrain as tt
 
 
 @pytest.mark.parametrize(
-    "metrics,scikit",
+    "metrics,data",
     list(
         itertools.product(
             (
@@ -49,13 +49,13 @@ def test_regression(metrics, data):
         itertools.product(
             (
                 tt.metrics.regression.AbsoluteError(),
-                tt.metrics.SquaredError(),
+                tt.metrics.regression.SquaredError(),
                 tt.metrics.regression.SquaredLogError(),
                 tt.metrics.regression.R2(),
                 tt.metrics.regression.MaxError(),
                 tt.metrics.regression.RegressionOfSquares(),
                 tt.metrics.regression.SquaresOfResiduals(),
-                tt.metrics.regression.AdjustedR2(),
+                tt.metrics.regression.AdjustedR2(p=6),
             ),
             (
                 (torch.randn(8, 1), torch.randn(8, 1)),

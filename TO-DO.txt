@@ -1,0 +1,12 @@
+- Integrate rich for visualization (done?)
+- Beautiful pipe visualization with YAML's pretty print (TBD)
+- MLFlow/Neptune/WandDB/CometML (TBD)
+- Callbacks - EarlyStopping, TimeStopping, Timer (done)
+- Easy support for Multi-GPU, Distributed and torch-xla (torch-xla done, Multi-GPU?)
+- Implement basic metrics (WIP)
+- Make readable documentation (TBD)
+- Create examples
+- Test everything
+
+- Another project - torchexperiment (?) use https://github.com/google/python-fire,
+integration with project handler DVC preferably

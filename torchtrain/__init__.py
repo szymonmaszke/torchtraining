@@ -1,3 +1,10 @@
+"""Welcome to `torchtrain` root module!
+
+
+
+
+"""
+
 import typing
 
 import torch
@@ -8,7 +15,8 @@ import loguru
 from . import (accumulators, callbacks, cast, device, epochs, exceptions,
                functional, iterations, loss, metrics, pytorch, quantization,
                steps)
-from ._base import Accumulator, GeneratorProducer, Operation, Producer
+from ._base import (Accumulator, Epoch, GeneratorProducer, Iteration,
+                    Operation, ReturnProducer, Step)
 from ._version import __version__
 
 loguru.logger.level("NONE", no=0)
@@ -17,7 +25,7 @@ loguru.logger.level("NONE", no=0)
 class Select(Operation):
     """Select output item(s) returned from `step` or `iteration` objects.
 
-    Allows users to focus on specific part of output and pipe this specific
+    Allows users to focus on specific part of output and operation this specific
     values to other operations (like metrics, loggers etc.).
 
     Example::
@@ -80,7 +88,7 @@ class Select(Operation):
 
 
 class Split(Operation):
-    """Split pipe with data to multiple components.
+    """Split operation with data to multiple components.
 
     Useful when users wish to use results in multiple places.
     Example calculating metrics and logging them::
@@ -139,8 +147,8 @@ class Split(Operation):
         self, data: typing.Any
     ) -> typing.Union[typing.Any, typing.List[typing.Any]]:
         processed_data = []
-        for op in self.operations:
-            result = op(data)
+        for operation in self.operations:
+            result = operation(data)
             if self.return_modified:
                 processed_data.append(result)
         if self.return_modified:
@@ -227,10 +235,10 @@ class If(Operation):
     Parameters
     ----------
     condition: bool | Callable(Any) -> bool
-        If boolean value and if `true`, run underlying Op (or other Callable).
+        If boolean value and if `true`, run underlying Operation (or other Callable).
         If Callable, should take data as argument and return decision based on
         that as single `bool`.
-    op: torchtrain.Op | Callable
+    operation: torchtrain.Operation | Callable
         Operation or single argument callable to run in...
 
     Arguments
@@ -241,14 +249,14 @@ class If(Operation):
     Returns
     -------
     Any
-        If `true`, returns value from `op`, otherwise passes original `data`
+        If `true`, returns value from `operation`, otherwise passes original `data`
 
     """
 
     def __init__(
         self,
         condition: typing.Union[bool, typing.Callable[[typing.Any], bool,]],
-        op: typing.Callable[[typing.Any,], typing.Any],
+        operation: typing.Callable[[typing.Any,], typing.Any],
     ):
         if isinstance(condition, bool):
             self._choice_method = lambda data: condition
@@ -256,17 +264,17 @@ class If(Operation):
             self._choice_method = lambda data: condition(data)
 
         self.condition = condition
-        self.op = op
+        self.operation = operation
 
     def forward(self, data: typing.Any) -> typing.Any:
         if self.condition(data):
-            return self.op(data)
+            return self.operation(data)
         return data
 
     def __str__(self) -> str:
         if self.condition:
-            return str(self.op)
-        return "no-op"
+            return str(self.operation)
+        return "no-operation"
 
 
 # Make it dynamic and static
@@ -314,30 +322,30 @@ class IfElse(Operation):
     def __init__(
         self,
         condition: bool,
-        op1: typing.Callable[[typing.Any,], typing.Any],
-        op2: typing.Callable[[typing.Any,], typing.Any],
+        operation1: typing.Callable[[typing.Any,], typing.Any],
+        operation2: typing.Callable[[typing.Any,], typing.Any],
     ):
         self.condition = condition
-        self.op1 = op1
-        self.op2 = op2
+        self.operation1 = operation1
+        self.operation2 = operation2
 
     def forward(self, data: typing.Any) -> typing.Any:
         if self.condition:
-            return self.op1(data)
-        return self.op2(data)
+            return self.operation1(data)
+        return self.operation2(data)
 
     def __str__(self) -> str:
         if self.condition:
-            return str(self.op1)
-        return str(self.op2)
+            return str(self.operation1)
+        return str(self.operation2)
 
 
 class ToAll(Operation):
-    r"""Apply pipe to each element of sample.**
+    r"""Apply operation to each element of sample.**
 
     **Important:**
 
-    If you want to apply pipe to all nested elements (e.g. in nested `tuple`),
+    If you want to apply operation to all nested elements (e.g. in nested `tuple`),
     please use `torchtrain.Flatten` object first.
 
     Example::
@@ -359,7 +367,7 @@ class ToAll(Operation):
 
     Parameters
     ----------
-    pipe : Callable
+    operation: Callable
         Pipe to apply to each element of sample.
 
     Arguments
@@ -369,20 +377,20 @@ class ToAll(Operation):
 
     Returns
     -------
-    Tuple[pipe(subsample)]
-        Tuple consisting of subsamples with pipe applied.
+    Tuple[operation(subsample)]
+        Tuple consisting of subsamples with operation applied.
 
     """
 
-    def __init__(self, pipe: typing.Callable):
-        self.pipe = pipe
+    def __init__(self, operation: typing.Callable):
+        self.operation = operation
 
     def forward(self, sample):
-        return tuple(self.pipe(subsample) for subsample in sample)
+        return tuple(self.operation(subsample) for subsample in sample)
 
 
 class Lambda(Operation):
-    """Run user specified pipe on `data`.
+    """Run user specified operation on `data`.
 
     Example::
 
@@ -399,9 +407,9 @@ class Lambda(Operation):
 
     Parameters
     ----------
-    pipe : Callable(Any) -> Any
+    operation: Callable(Any) -> Any
         Single argument callable getting data and returning some value.
-    name : str, optional
+    name: str, optional
         `string` representation of this operation (if any).
         Default: `torchtrain.metrics.Lambda`
 
@@ -413,20 +421,20 @@ class Lambda(Operation):
     Returns
     -------
     Any
-        Value returned from `pipe`
+        Value returned from `operation`
 
     """
 
     def __init__(
         self,
-        pipe: typing.Callable[[typing.Any,], typing.Any],
+        operation: typing.Callable[[typing.Any,], typing.Any],
         name: str = "torchtrain.Lambda",
     ):
-        self.pipe = pipe
+        self.operation = operation
         self.name = name
 
     def __str__(self) -> str:
         return self.name
 
     def forward(self, data: typing.Any) -> typing.Any:
-        return self.pipe(data)
+        return self.operation(data)

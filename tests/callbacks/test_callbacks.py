@@ -12,7 +12,7 @@ import torchfunc
 import torchtrain as tt
 
 
-@pytest.mark_parametrize(
+@pytest.mark.parametrize(
     "iterations,comparator", itertools.product((1, 5), (operator.ge, operator.le))
 )
 def test_save(iterations, comparator):
@@ -41,7 +41,7 @@ def test_time_stopping():
             stopper(1)
 
 
-@pytest.mark_parametrize("iterations,nan", itertools.product((1, 5), (True, False)))
+@pytest.mark.parametrize("iterations,nan", itertools.product((1, 5), (True, False)))
 def test_terminate_nan(iterations, nan):
     if nan:
         inputs = torch.tensor([1, float("nan"), 2])
@@ -62,27 +62,28 @@ def test_terminate_nan(iterations, nan):
     assert expected == value
 
 
-@pytest.mark_parametrize(
+@pytest.mark.parametrize(
     "iterations,patience,delta,comparator",
     itertools.product((1, 5), (5, 10), (1, 5, 100), (operator.ge, operator.le)),
 )
-def test_early_stopping(iterations, patience, comparator):
+def test_early_stopping(iterations, patience, delta, comparator):
     if comparator == operator.ge:
         expected = iterations
     else:
-        expected = 0
+        expected = 1
+    if delta >= iterations:
+        expected = 1
 
     stopper = tt.callbacks.EarlyStopping(
-        patience, directory / "module.py", comparator=comparator
+        patience, directory / "module.py", comparator=comparator, delta=delta
     )
     for _ in range(iterations):
         terminator(inputs)
         value += 1
 
 
-@pytest.mark_parametrize(
-    "n,iterations,freeze",
-    itertools.product((0, 3), (5, 10), (1, 5, 100), (operator.ge, operator.le)),
+@pytest.mark.parametrize(
+    "n,iterations,freeze", itertools.product((0, 10), (5, 10), (True, False)),
 )
 def test_unfreeze(n, iterations, freeze):
     expected = n < iterations

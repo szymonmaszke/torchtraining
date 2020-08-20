@@ -2,7 +2,7 @@ import typing
 
 import torch
 
-from . import utils
+from .. import utils
 
 
 # assert 2 size

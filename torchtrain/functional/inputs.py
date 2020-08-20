@@ -1,6 +1,6 @@
 """
 This module has no object oriented counterpart and should be used
-in a functional fashion inside `forward` of `torchtrain.steps`.
+in a functional fashion inside `forward` of `torchtrain.steps` (as the only one currently).
 
 See `examples` for specific user cases
 

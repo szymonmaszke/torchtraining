@@ -10,13 +10,13 @@ def returned(reduction):
             """.format(
             reduction
         )
-        return """
-            Returns
-            -------
-            torch.Tensor
-                Scalar `tensor`
+    return """
+        Returns
+        -------
+        torch.Tensor
+            Scalar `tensor`
 
-            """
+        """
 
 
 def reduction_parameter(reduction):

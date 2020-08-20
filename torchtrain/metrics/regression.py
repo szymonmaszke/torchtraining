@@ -10,12 +10,12 @@ from . import utils
 ###############################################################################
 
 
-class _MeanReduction(_base.Op):
+class _MeanReduction(_base.Operation):
     def __init__(self, reduction=torch.mean):
         self.reduction = reduction
 
 
-class _SumReduction(_base.Op):
+class _SumReduction(_base.Operation):
     def __init__(self, reduction=torch.sum):
         self.reduction = reduction
 
@@ -92,7 +92,7 @@ class SquaresOfResiduals(_SumReduction):
 
 
 @utils.regression.docstring(header="""R2 score between `outputs` and `targets`.""",)
-class R2(_base.Op):
+class R2(_base.Operation):
     def forward(self, data):
         return functional.metrics.regression.r2(*data)
 
@@ -100,7 +100,7 @@ class R2(_base.Op):
 @utils.regression.docstring(
     header="""Maximum error between `outputs` and `targets`.""",
 )
-class MaxError(_base.Op):
+class MaxError(_base.Operation):
     def forward(self, data):
         return functional.metrics.regression.max_error(*data)
 
@@ -140,7 +140,7 @@ class TotalOfSquares(_SumReduction):
         return functional.metrics.regression.total_of_squares(data, self.reduction)
 
 
-class AdjustedR2(_base.Op):
+class AdjustedR2(_base.Operation):
     """Adjusted R2 score between `outputs` and `targets`.
 
     Parameters

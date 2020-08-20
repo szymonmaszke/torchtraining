@@ -6,9 +6,10 @@ import typing
 import torch
 
 from . import _base, utils
+from .utils import steps as steps_utils
 
 
-@utils.steps.docstring(
+@steps_utils.docstring(
     header="General `step`, usable both in training & evaluation.",
     body="User should override `forward` method.",
 )
@@ -32,7 +33,7 @@ class Step(_base.Step):
         pass
 
 
-@utils.steps.docstring(
+@steps_utils.docstring(
     header="Perform user specified training step with enabled gradient.",
     body="Users should override forward method.",
 )
@@ -43,7 +44,7 @@ class Train(Step):
         super().__init__(criterion, True, device)
 
 
-@utils.steps.docstring(
+@steps_utils.docstring(
     header="Perform user specified evaluation step with disabled gradient.",
     body="Users should override forward method.",
 )

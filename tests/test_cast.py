@@ -12,8 +12,8 @@ import torchtrain as tt
         [
             (tt.cast.BFloat16(), torch.bfloat16),
             (tt.cast.Bool(), torch.bool),
-            (tt.cast.Byte(), torch.byte),
-            (tt.cast.Char(), torch.char),
+            (tt.cast.Byte(), torch.uint8),
+            (tt.cast.Char(), torch.int8),
             (tt.cast.Double(), torch.double),
             (tt.cast.Float(), torch.float),
             (tt.cast.Half(), torch.half),

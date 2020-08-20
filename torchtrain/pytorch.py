@@ -185,6 +185,7 @@ class ZeroGrad(Operation):
         self.accumulate = accumulate
         self._counter = -1
 
+    def forward(self, data):
         self._counter += 1
         if self._counter % self.accumulate:
             self.obj.zero_grad()
@@ -202,9 +203,9 @@ class UpdateGradScaler(Operation):
 
     """
 
+    def __init__(self, scaler):
         self.scaler = scaler
 
-    def __init__(self, scaler):
     def forward(self, data):
         self.scaler.update()
         return data

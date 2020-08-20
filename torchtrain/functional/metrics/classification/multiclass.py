@@ -2,7 +2,7 @@ import typing
 
 import torch
 
-from .. import utils
+from ... import utils
 from . import utils as multiclass_utils
 
 
@@ -31,6 +31,24 @@ def accuracy(
     output, target = multiclass_utils.multiclass.categorical(output, target)
 
     return reduction((output == target).float())
+
+
+@utils.docs
+def jaccard(
+    output: torch.Tensor,
+    target: torch.Tensor,
+    reduction: typing.Callable[[torch.Tensor], torch.Tensor] = torch.mean,
+) -> torch.Tensor:
+    multiclass_utils.multiclass.check(output, target)
+    output, target = multiclass_utils.multiclass.one_hot(output, target)
+
+    union = (output | target).sum(axis=-1)
+    intersection = (target & output).sum(axis=-1)
+    empty = union <= 0
+    union[empty] = 1
+    intersection[empty] = 1
+
+    return reduction(intersection.float() / union)
 
 
 # Basic cases

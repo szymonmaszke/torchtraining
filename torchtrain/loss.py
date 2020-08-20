@@ -212,7 +212,7 @@ class SmoothCrossEntropy(_Loss):
         )
 
 
-class SmoothBinaryCrossEntropy(_WeightedLoss):
+class SmoothBinaryCrossEntropy(_Loss):
     r"""Run binary cross entropy with booleans smoothed by `alpha`.
 
     `targets` will be transformed to one-hot encoding and modified according

@@ -27,10 +27,10 @@ import importlib
 
 import torch
 
-from ._base import Op
+from ._base import Operation
 
 
-class CPU(Op):
+class CPU(Operation):
     """Cast `object` (usually `torch.Tensor`) to `cpu`.
 
     Example::
@@ -65,7 +65,7 @@ class CPU(Op):
         return data.cpu(self.memory_format)
 
 
-class CUDA(Op):
+class CUDA(Operation):
     """Cast `object` (usually `torch.Tensor`) to cuda enabled device.
 
     Example can be the same as the one presented in `CPU`, though definitely
@@ -97,7 +97,7 @@ class CUDA(Op):
         return data.cuda(self.device, self.non_blocking, self.memory_format,)
 
 
-class Device(Op):
+class Device(Operation):
     """Cast `object` to any device (for example `TPU` with `torch_xla` package).
 
     See `example` at the beginning of this section.

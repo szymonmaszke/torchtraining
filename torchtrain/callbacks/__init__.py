@@ -1,3 +1,12 @@
+"""Traditionally known callback-like pipes.
+
+This module allows user to `save` their best model, terminate training
+earlier or Log `data` into `loguru`.
+
+See `examples` of specific `classes`.
+
+"""
+
 import numbers
 import operator
 import pathlib
@@ -13,7 +22,7 @@ from .. import _base, exceptions
 from . import tensorboard
 
 
-class Saver(_base.Operation):
+class Save(_base.Operation):
     """Save best module according to specified metric.
 
     Example::
@@ -376,7 +385,7 @@ class Unfreeze(_base.Operation):
         return data
 
 
-class Logger(_base.Operation):
+class Log(_base.Operation):
     """Log data using `loguru`.
 
     Example::
