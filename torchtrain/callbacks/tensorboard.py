@@ -105,11 +105,11 @@ class _Tensorboard(_base.Operation):
         getattr(self.writer, "add_{}".format(class_name.lower()))(
             self.name, *data, self._step, *self.args, **self.kwargs
         )
-        loguru.log(
+        loguru.logger.log(
             self.log, "{} added to Tensorboard.".format(class_name),
         )
         if (self.flush is not None) and (self.flush % self._step == 0):
-            loguru.log(self.log, "Events flushed to disk.")
+            loguru.logger.log(self.log, "Events flushed to disk.")
             self.writer.flush()
 
 
