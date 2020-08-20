@@ -8,7 +8,7 @@ import torchtrain.pytorch as P
 def test_detach():
     detach = P.Detach()
     x = torch.randn(10, requires_grad=True)
-    y = detach(x) ** 2
+    x = detach(x) ** 2
     assert not x.requires_grad
 
 
