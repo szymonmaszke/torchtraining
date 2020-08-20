@@ -20,3 +20,6 @@ and `tensorboard`.
 ## Contributing
 
 This project is currently in it's infancy and help would be appreciated.
+You can find current ideas inside `issues` tagged by `[DISCUSSION]` (see [here](https://github.com/szymonmaszke/torchtrain/issues?q=DISCUSSION)).
+
+- [`accelerators.py` module for distributed training](https://github.com/szymonmaszke/torchtrain/issues/1)
