@@ -47,61 +47,61 @@ class _Cast(Operation):
 @_docstring
 class BFloat16(_Cast):
     def forward(self, data):
-        return data.bfloat16(self.memory_format)
+        return data.bfloat16(memory_format=self.memory_format)
 
 
 @_docstring
 class Bool(_Cast):
     def forward(self, data):
-        return data.bool(self.memory_format)
+        return data.bool(memory_format=self.memory_format)
 
 
 @_docstring
 class Byte(_Cast):
     def forward(self, data):
-        return data.byte(self.memory_format)
+        return data.byte(memory_format=self.memory_format)
 
 
 @_docstring
 class Char(_Cast):
     def forward(self, data):
-        return data.char(self.memory_format)
+        return data.char(memory_format=self.memory_format)
 
 
 @_docstring
 class Double(_Cast):
     def forward(self, data):
-        return data.double(self.memory_format)
+        return data.double(memory_format=self.memory_format)
 
 
 @_docstring
 class Float(_Cast):
     def forward(self, data):
-        return data.float(self.memory_format)
+        return data.float(memory_format=self.memory_format)
 
 
 @_docstring
 class Half(_Cast):
     def forward(self, data):
-        return data.half(self.memory_format)
+        return data.half(memory_format=self.memory_format)
 
 
 @_docstring
 class Int(_Cast):
     def forward(self, data):
-        return data.int(self.memory_format)
+        return data.int(memory_format=self.memory_format)
 
 
 @_docstring
 class Long(_Cast):
     def forward(self, data):
-        return data.long(self.memory_format)
+        return data.long(memory_format=self.memory_format)
 
 
 @_docstring
 class Short(_Cast):
     def forward(self, data):
-        return data.short(self.memory_format)
+        return data.short(memory_format=self.memory_format)
 
 
 @_docstring
@@ -143,7 +143,7 @@ class Sparse(Operation):
         self.sparse_dims = sparse_dims
 
     def forward(self, data):
-        return data.to_sparse(self.sparse_dims)
+        return data.to_sparse(sparse_dims=self.sparse_dims)
 
 
 # As another tensor

@@ -21,14 +21,9 @@ import torchtrain as tt
             (tt.cast.Long(), torch.long),
             (tt.cast.Short(), torch.short),
         ],
-        [torch.nn.Linear(10, 20), torch.randn(2, 3, 4)],
+        [torch.randn(2, 3, 4)],
     ),
 )
 def test_cast(cast, inputs):
     caster, desired = cast
-    if not isinstance(inputs, torch.nn.Module):
-        assert cast(inputs).dtype == desired
-    else:
-        module = cast(inputs)
-        for param in module.parameters():
-            assert param.dtype == desired
+    assert caster(inputs).dtype == desired
