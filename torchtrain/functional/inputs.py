@@ -37,9 +37,9 @@ def mixup(
     Arguments
     ---------
     inputs: torch.Tensor
-        `torch.Tensor` of any shape and numerical `dtype`.
+        `torch.Tensor` of shape :math:`(N, *)` and numerical `dtype`.
     labels: torch.Tensor
-        `torch.Tensor` of any shape and numerical `dtype`.
+        `torch.Tensor` of shape :math:`(N, *)` and numerical `dtype`.
     gamma: float
         Level of mixing between inputs and labels. The smaller the value,
         the more "concrete" examples are (e.g. for  `0.1` and `cat`, `dog` labels
@@ -51,6 +51,13 @@ def mixup(
         Inputs and labels after mixup (linear mix with `gamma` strength).
 
     """
+    if inputs.shape[0] != targets.shape[0]:
+        raise ValueError(
+            "inputs and labels 0 dimension (batch) has to be equal, "
+            "got {} for inputs and {} for labels".format(
+                inputs.shape[0], targets.shape[0]
+            )
+        )
     perm = torch.randperm(inputs.shape[0])
     perm_inputs = inputs[perm]
     perm_targets = targets[perm]
