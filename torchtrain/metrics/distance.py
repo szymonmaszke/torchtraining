@@ -12,14 +12,40 @@ from . import utils
 
 @utils.distance.docstring(header="Cosine distance between `outputs` and `targets`")
 class Cosine(_base.Operation):
-    def forward(self, data):
-        return functional.metrics.distance.cosine(*data)
+    """Returns cosine distance between :math:`x_1` and :math:`x_2`, computed along dim.
+
+    It is equal to :math:`1 - S`, where :math:`S` is cosine similarity.
+
+    .. math ::
+        \text{distance} = 1 - \dfrac{x_1 \cdot x_2}{\max(\Vert x_1 \Vert _2 \cdot \Vert x_2 \Vert _2, \epsilon)}.
+
+    Parameters
+    ----------
+    dim: int, optional
+        Dimension where cosine similarity is computed. Default: 1
+        Degree of `norm`. Default: `2`
+    eps: float, optional
+        Epsilon to avoid division by zero. Default: `1e-08`
+    reduction: Callable(torch.Tensor) -> Any, optional
+        One argument callable getting `torch.Tensor` and returning argument
+        after specified reduction.
+        Default: `torch.mean` (mean across batch, user can use `torchtrain.savers.Mean`
+        to get mean across iterations/epochs).
 
 
-@utils.distance.docstring(header="Euclidean distance between `outputs` and `targets`")
-class Euclidean(_base.Operation):
+    """
+
+    def __init__(
+        self, dim: int = 1, eps: float = 1e-08, reduction=torch.mean,
+    ):
+        self.dim = dim
+        self.eps = eps
+        self.reduction = reduction
+
     def forward(self, data):
-        return functional.metrics.distance.euclidean(*data)
+        return functional.metrics.distance.cosine(
+            *data, self.dim, self.eps, self.reduction
+        )
 
 
 ###############################################################################
