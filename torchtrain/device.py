@@ -62,7 +62,7 @@ class CPU(Operation):
         self.memory_format = memory_format
 
     def forward(self, data):
-        return data.cpu(self.memory_format)
+        return data.cpu(memory_format=self.memory_format)
 
 
 class CUDA(Operation):
@@ -94,7 +94,9 @@ class CUDA(Operation):
         self.memory_format = memory_format
 
     def forward(self, data):
-        return data.cuda(self.device, self.non_blocking, self.memory_format,)
+        return data.cuda(
+            self.device, self.non_blocking, memory_format=self.memory_format,
+        )
 
 
 class Device(Operation):
