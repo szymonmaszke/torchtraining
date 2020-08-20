@@ -7,22 +7,16 @@ from .. import utils
 
 # assert 2 size
 @utils.docs
-def cosine(output: torch.Tensor, target: torch.Tensor,) -> torch.Tensor:
-    return 1 - (
-        output
-        @ target.T
-        / torch.max(
-            torch.dot(
-                torch.nn.functional.norm(output, p=2, dim=0),
-                torch.nn.functional.norm(target, p=2, dim=0),
-            ),
-        )
+def cosine(
+    output: torch.Tensor,
+    target: torch.Tensor,
+    dim: int = 1,
+    eps: float = 1e-08,
+    reduction=torch.mean,
+) -> torch.Tensor:
+    return reduction(
+        1 - torch.nn.functional.cosine_similarity(output, target, dim, eps)
     )
-
-
-@utils.docs
-def euclidean(output: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-    return torch.sqrt(output @ output - 2 * output @ target + target @ target)
 
 
 @utils.docs
