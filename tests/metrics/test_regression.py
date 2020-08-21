@@ -9,38 +9,37 @@ from sklearn.metrics import (max_error, mean_absolute_error,
 import pytest
 import torchtrain as tt
 
-
-@pytest.mark.parametrize(
-    "metrics,data",
-    list(
-        itertools.product(
-            (
-                (tt.metrics.regression.AbsoluteError(), mean_absolute_error),
-                (tt.metrics.regression.SquaredError(), mean_squared_error),
-                (tt.metrics.regression.SquaredLogError(), mean_squared_log_error),
-                (tt.metrics.regression.R2(), r2_score),
-                (tt.metrics.regression.MaxError(), max_error),
-            ),
-            list(
-                itertools.permutations(
-                    (
-                        torch.randn(10),
-                        torch.ones(10),
-                        torch.zeros(10),
-                        torch.randn(10),
-                    ),
-                    r=2,
-                )
-            ),
-        ),
-    ),
-)
-def test_regression(metrics, data):
-    package, scikit = metrics
-    outputs, targets = data
-    our = package(data).numpy()
-    their = scikit(targets.numpy(), outputs.numpy())
-    assert np.isclose(our, their)
+# @pytest.mark.parametrize(
+#     "metrics,data",
+#     list(
+#         itertools.product(
+#             (
+#                 (tt.metrics.regression.AbsoluteError(), mean_absolute_error),
+#                 (tt.metrics.regression.SquaredError(), mean_squared_error),
+#                 (tt.metrics.regression.SquaredLogError(), mean_squared_log_error),
+#                 (tt.metrics.regression.R2(), r2_score),
+#                 (tt.metrics.regression.MaxError(), max_error),
+#             ),
+#             list(
+#                 itertools.permutations(
+#                     (
+#                         torch.randn(10),
+#                         torch.ones(10),
+#                         torch.zeros(10),
+#                         torch.randn(10),
+#                     ),
+#                     r=2,
+#                 )
+#             ),
+#         ),
+#     ),
+# )
+# def test_regression(metrics, data):
+#     package, scikit = metrics
+#     outputs, targets = data
+#     our = package(data).numpy()
+#     their = scikit(targets.numpy(), outputs.numpy())
+#     assert np.isclose(our, their)
 
 
 @pytest.mark.parametrize(

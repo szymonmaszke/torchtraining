@@ -298,6 +298,6 @@ class FBeta(_base.Operation):
         self.threshold = threshold
 
     def forward(self, data):
-        return functional.metrics.classification.binary.fbeta(
+        return functional.metrics.classification.binary.f_beta(
             *data, self.beta, self.threshold
         )

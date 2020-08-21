@@ -123,11 +123,9 @@ class FalseNegative(_ReductionSum):
 @utils.multiclass.docstring(
     header="""Confusion matrix between `output` and `target`.""", reduction="sum",
 )
-class ConfusionMatrix(_ReductionSum):
+class ConfusionMatrix(_base.Operation):
     def forward(self, data):
-        return functional.metrics.classification.multiclass.confusion_matrix(
-            *data, self.reduction
-        )
+        return functional.metrics.classification.multiclass.confusion_matrix(*data,)
 
 
 ###############################################################################

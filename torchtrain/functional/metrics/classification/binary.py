@@ -111,7 +111,7 @@ def confusion_matrix(
     tn = reduction((~output & ~target).float())
     fn = reduction((~output & target).float())
 
-    return torch.tensor([tp, fn, fp, tn]).reshape(2, 2)
+    return torch.tensor([tp, fn, fp, tn]).reshape(2, 2, -1).squeeze()
 
 
 # Rate metrics
@@ -260,10 +260,12 @@ def matthews_correlation_coefficient(
     inverse_output = ~output
     inverse_target = ~target
 
-    tp = (output & target).float()
-    tn = (inverse_output & inverse_target).float()
-    fp = (output & inverse_target).float()
-    fn = (inverse_output & target).float()
+    dimensions = tuple(range(len(inverse_output.shape)))
+
+    tp = (output & target).float().sum(dim=dimensions[1:])
+    tn = (inverse_output & inverse_target).float().sum(dim=dimensions[1:])
+    fp = (output & inverse_target).float().sum(dim=dimensions[1:])
+    fn = (inverse_output & target).float().sum(dim=dimensions[1:])
 
     numerator = torch.dot(tp, tn) - torch.dot(fp, fn)
     denominator = (

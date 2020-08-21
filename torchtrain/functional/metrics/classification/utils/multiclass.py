@@ -39,10 +39,12 @@ def shape_check(output: torch.Tensor, target: torch.Tensor) -> None:
         Usually desired target
 
     """
-    if output.shape[:-1] != target.shape:
+    output_shape = list(output.shape)
+    output_shape.pop(1)
+    if output_shape != list(target.shape):
         raise ValueError(
             "Got {} shape for output and {} for target. "
-            "Shape should be equal except for last dimension of output.".format(
+            "Shape should be equal except for 1 dimension of output (specifying classes).".format(
                 output.shape, target.shape
             )
         )
@@ -86,7 +88,7 @@ def categorical(
         Categorical `output` and `target`.
 
     """
-    return torch.argmax(output, dim=-1), target.long()
+    return torch.argmax(output, dim=1).long(), target.long()
 
 
 def one_hot(
@@ -112,28 +114,6 @@ def one_hot(
     """
     categorical_output, categorical_target = categorical(output, target)
     return (
-        torch.nn.functional.one_hot(output, num_classes),
-        torch.nn.functional.one_hot(target, num_classes),
+        torch.nn.functional.one_hot(categorical_output, num_classes),
+        torch.nn.functional.one_hot(categorical_target, num_classes),
     )
-
-
-def get_num_classes(output: torch.Tensor, target: torch.Tensor) -> int:
-    """
-    Get number of classes present in output & target.
-
-    Used only by `confusion_matrix` (for now...)
-
-    Parameters
-    ----------
-    output : torch.Tensor
-        Usually neural network output
-    target : torch.Tensor
-        Usually desired target
-
-    Returns
-    -------
-    int
-        Total number of classes (maximum from `output` and `target`)
-
-    """
-    return max(output.shape[-1], torch.max(target).item())
