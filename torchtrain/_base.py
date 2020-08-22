@@ -262,6 +262,25 @@ class Accumulator(_Stateful):
         pass
 
 
+class Accelerator:
+    """Base accelerator class.
+
+    Currently IS NOT involved in any pipe'ing or operations
+    (though this might be subject to change).
+
+    Supports following as a syntactic sugar::
+
+        accelerator > step
+        step < accelerator
+
+    Always returns the passed object unchanged
+
+    """
+
+    def __gt__(self, other):
+        return other
+
+
 ###############################################################################
 #
 #                                   PRODUCERS
@@ -286,8 +305,12 @@ class _Producer(_Stateful):
             if isinstance(pipe, Accumulator):
                 pipe.calculate(data)
 
-    def __lt__(self, _):
-        raise ValueError("Producers do not support < as they produce values.")
+    def __lt__(self, other):
+        if not isinstance(other, Accelerator):
+            raise ValueError(
+                "Producers do not support < as they produce values. User can only apply < with `Accelerators` as a syntactic sugar."
+            )
+        return self
 
     @abc.abstractmethod
     def __call__(self, *args, **kwargs):
@@ -365,6 +388,10 @@ class Epoch(GeneratorProducer):
     @abc.abstractmethod
     def forward(self, *args, **kwargs):
         pass
+
+    def run(self, *args, **kwargs):
+        for _ in self(*args, **kwargs):
+            pass
 
 
 class Iteration(GeneratorProducer):
