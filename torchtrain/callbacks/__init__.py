@@ -23,6 +23,10 @@ if utils.module_exists("torch.utils.tensorboard"):
     from . import tensorboard
 
 
+if utils.module_exists("neptune"):
+    from . import neptune
+
+
 class Save(_base.Operation):
     """Save best module according to specified metric.
 
