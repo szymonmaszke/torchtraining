@@ -1,12 +1,11 @@
 """Traditionally known callback-like pipes.
 
 This module allows user to `save` their best model, terminate training
-earlier or Log `data` into `loguru`.
-
-See `examples` of specific `classes`.
+earlier or Log `data` into `loguru.logger`.
 
 """
 
+import importlib
 import numbers
 import operator
 import pathlib
@@ -14,12 +13,14 @@ import sys
 import time
 import typing
 
+import loguru
 import torch
 
-import loguru
-
 from .. import _base, exceptions
-from . import tensorboard
+from ..utils import general as utils
+
+if utils.module_exists("torch.utils.tensorboard"):
+    from . import tensorboard
 
 
 class Save(_base.Operation):
@@ -109,7 +110,7 @@ class Save(_base.Operation):
         if self.best is None or self.comparator(data, self.best):
             self.best = data
             self.method(self.module, self.path)
-            loguru.log(
+            loguru.logger.log(
                 self.log, "New best value: {}".format(self.best),
             )
 
@@ -175,7 +176,9 @@ class TimeStopping(_base.Operation):
 
     def forward(self, data):
         if time.time() - self._start > self.duration:
-            loguru.log(self.log, "Stopping after {} seconds.".format(self.duration))
+            loguru.logger.log(
+                self.log, "Stopping after {} seconds.".format(self.duration)
+            )
             raise exceptions.TimeStopping()
         return data
 
@@ -228,7 +231,7 @@ class TerminateOnNan(_base.Operation):
 
     def forward(self, data):
         if torch.any(torch.isnan(data)):
-            loguru.log(self.log, "NaN values found, exiting with 1.")
+            loguru.logger.log(self.log, "NaN values found, exiting with 1.")
             raise exceptions.TerminateOnNan()
         return data
 
@@ -313,7 +316,9 @@ class EarlyStopping(_base.Operation):
         else:
             self._counter += 1
         if self._counter == self.patience:
-            loguru.log(self.log, "Stopping early, best found: {}".format(self.best))
+            loguru.logger.log(
+                self.log, "Stopping early, best found: {}".format(self.best)
+            )
             raise exceptions.EarlyStopping()
 
 
@@ -379,14 +384,14 @@ class Unfreeze(_base.Operation):
     def forward(self, data):
         self._counter += 1
         if self._counter == self.n:
-            loguru.log(self.log, "Unfreezing module's parameters")
+            loguru.logger.log(self.log, "Unfreezing module's parameters")
             for param in self.module.parameters():
                 param.requires_grad_(True)
         return data
 
 
 class Log(_base.Operation):
-    """Log data using `loguru`.
+    r"""Log data using `loguru.logger`.
 
     Example::
 
@@ -399,14 +404,14 @@ class Log(_base.Operation):
         step = TrainStep(criterion, device)
         iteration = tt.iterations.Train(step, module, dataloader)
 
-        # Log with loguru accuracy
+        # Log with loguru.logger accuracy
         iteration > tt.Select(accuracy=1) > tt.callbacks.Logger("Accuracy")
 
     Parameters
     ----------
     name : str
         Name under which data will be logged.
-        It will be of format "{name}: {data}"
+        It will be in format "{name}: {data}"
     log : str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
@@ -425,6 +430,11 @@ class Log(_base.Operation):
     data: Any
         Anything which can be sensibly represented with `__str__` magic method.
 
+    Returns
+    -------
+    Any
+        Data passed in forward
+
     """
 
     def __init__(self, name: str, log="INFO"):
@@ -432,5 +442,5 @@ class Log(_base.Operation):
         self.log = log
 
     def forward(self, data):
-        loguru.log(self.log, "{}: {}".format(self.name, data))
+        loguru.logger.log(self.log, "{}: {}".format(self.name, data))
         return data

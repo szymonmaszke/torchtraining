@@ -4,9 +4,10 @@ import torch
 
 import horovod.torch as hvd
 
-from ._base import Accelerator
+from .._base import Accelerator
+from ..utils import general as utils
 
-if importlib.util.find_spec("horovod.torch") is not None:
+if utils.module_exists("horovod.torch"):
 
     class Horovod(Accelerator):
         """

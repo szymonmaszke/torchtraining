@@ -1,5 +1,18 @@
 """Special type of callbacks focused on `tensorboard` integration.
 
+
+.. note::
+    **IMPORTANT**: Users need `tensorboard` package installed for this
+    module to exist.
+    You can install it via `pip install torchtrain[tensorboard]`
+    (additional libraries for `Image`, `Images`, `Video`, `Figure`)
+    will also be installed).
+    or install `tensorboard` directly via `pip install -U tensorboard`
+    or a-like command (in this case not all functions may be available,
+    see PyTorch's `torch.utils.tensorboard.SummaryWriter` docs for
+    exact packages needed for each functionality).
+
+
 Example::
 
     # Assume iteration was defined and loss is 0th element of step
@@ -19,6 +32,7 @@ import typing
 import loguru
 
 from .. import _base
+from ..utils import general as utils
 
 
 def _docs(data_type, data_description, body=None):
@@ -136,42 +150,47 @@ class Histogram(_Tensorboard):
     pass
 
 
-@_docs(
-    data_type="torch.Tensor | numpy.array | string/blobname",
-    data_description="Image data",
-)
-class Image(_Tensorboard):
-    pass
+if utils.module_exists("PIL"):
+
+    @_docs(
+        data_type="torch.Tensor | numpy.array | string/blobname",
+        data_description="Image data",
+    )
+    class Image(_Tensorboard):
+        pass
+
+    @_docs(
+        data_type="torch.Tensor | numpy.array | string/blobname",
+        data_description=r"""Images data.
+        Default shape is :math:`(N, 3, H, W)`. If ``dataformats`` is specified, other shape will be
+        accepted. e.g. NCHW or NHWC.
+        """,
+    )
+    class Images(_Tensorboard):
+        pass
 
 
-@_docs(
-    data_type="torch.Tensor | numpy.array | string/blobname",
-    data_description=r"""Images data.
-    Default shape is :math:`(N, 3, H, W)`. If ``dataformats`` is specified, other shape will be
-    accepted. e.g. NCHW or NHWC.
-    """,
-)
-class Images(_Tensorboard):
-    pass
+if utils.module_exists("matplotlib"):
+
+    @_docs(
+        data_type=r"matplotlib.pyplot.figure",
+        data_description=r"Figure to render into tensorboard summary",
+        body=r"Note that this requires the `matplotlib` package.",
+    )
+    class Figure(_Tensorboard):
+        pass
 
 
-@_docs(
-    data_type=r"matplotlib.pyplot.figure",
-    data_description=r"Figure to render into tensorboard summary",
-    body=r"Note that this requires the `matplotlib` package.",
-)
-class Figure(_Tensorboard):
-    pass
+if utils.module_exists("moviepy"):
 
-
-@_docs(
-    data_type=r"torch.Tensor",
-    data_description=r"""Video data of shape :math:`(N, T, C, H, W)`.
-    The values should lie in :math:`[0, 255]` for type `uint8` or :math:`[0, 1]` for type float.""",
-    body=r"Note that this requires the `moviepy` package.",
-)
-class Video(_Tensorboard):
-    pass
+    @_docs(
+        data_type=r"torch.Tensor",
+        data_description=r"""Video data of shape :math:`(N, T, C, H, W)`.
+        The values should lie in :math:`[0, 255]` for type `uint8` or :math:`[0, 1]` for type float.""",
+        body=r"Note that this requires the `moviepy` package.",
+    )
+    class Video(_Tensorboard):
+        pass
 
 
 @_docs(
