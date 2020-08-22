@@ -12,8 +12,8 @@ from .._base import Operation
 
 def _reduction(name):
     mapping = {
-        "sum": hvd.mpi_ops.Sum,
-        "mean": hvd.mpi_ops.Average,
+        "sum": hvd.Sum,
+        "mean": hvd.Average,
     }
     value = mapping.get(name.lower())
     if value is None:
