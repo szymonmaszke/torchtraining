@@ -3,6 +3,24 @@
 This module allows user to `save` their best model, terminate training
 earlier or Log `data` into `loguru.logger`.
 
+Example::
+
+    class TrainStep(tt.steps.Train):
+        def forward(self, module, sample):
+            ...
+            return loss, targets
+
+
+    step = TrainStep(criterion, device)
+    step > tt.Select(loss=0) > tt.callbacks.TerminateOnNan()
+
+Users can also use specific `callbacks` which integrate with third party tools,
+namely:
+
+    * tensorboard
+    * neptune
+    * comet
+
 """
 
 import importlib
@@ -19,12 +37,20 @@ import torch
 from .. import _base, exceptions
 from ..utils import general as utils
 
-if utils.module_exists("torch.utils.tensorboard"):
+# Conditional integration imports
+
+if utils.modules_exist("torch.utils.tensorboard"):
     from . import tensorboard
 
 
-if utils.module_exists("neptune"):
+if utils.modules_exist("neptune"):
     from . import neptune
+
+
+if utils.modules_exist("comet-ml"):
+    from . import comet
+
+# General callbacks
 
 
 class Save(_base.Operation):
