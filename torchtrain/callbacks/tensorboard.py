@@ -1,12 +1,11 @@
 """Special type of callbacks focused on `tensorboard` integration.
 
-
 .. note::
     **IMPORTANT**: Users need `tensorboard` package installed for this
     module to exist.
     You can install it via `pip install torchtrain[tensorboard]`
     (additional libraries for `Image`, `Images`, `Video`, `Figure`)
-    will also be installed).
+    will also be installed)
     or install `tensorboard` directly via `pip install -U tensorboard`
     or a-like command (in this case not all functions may be available,
     see PyTorch's `torch.utils.tensorboard.SummaryWriter` docs for
@@ -150,7 +149,7 @@ class Histogram(_Tensorboard):
     pass
 
 
-if utils.module_exists("PIL"):
+if utils.modules_exist("PIL"):
 
     @_docs(
         data_type="torch.Tensor | numpy.array | string/blobname",
@@ -170,7 +169,7 @@ if utils.module_exists("PIL"):
         pass
 
 
-if utils.module_exists("matplotlib"):
+if utils.modules_exist("matplotlib"):
 
     @_docs(
         data_type=r"matplotlib.pyplot.figure",
@@ -181,7 +180,7 @@ if utils.module_exists("matplotlib"):
         pass
 
 
-if utils.module_exists("moviepy"):
+if utils.modules_exist("moviepy"):
 
     @_docs(
         data_type=r"torch.Tensor",

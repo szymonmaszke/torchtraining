@@ -5,6 +5,11 @@
     **IMPORTANT**: This module is experimental and may not be working
     correctly. Use at your own risk and report any issues you find.
 
+.. note::
+
+    **IMPORTANT**: This module needs `neptune-client` Python package to be available.
+    You can install it with `pip install -U torchtrain[neptune]`
+
 Usage is similar to `torchtrain.callbacks.Tensorboard`, except creating `project`
 instead of `torch.utils.tensorboard.SummaryWriter`.
 
