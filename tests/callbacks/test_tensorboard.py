@@ -3,11 +3,10 @@ import pathlib
 import shutil
 import tempfile
 
-import torch
-from torch.utils.tensorboard import SummaryWriter
-
 import pytest
+import torch
 import torchtrain as tt
+from torch.utils.tensorboard import SummaryWriter
 
 
 @pytest.mark.parametrize(
@@ -24,7 +23,8 @@ import torchtrain as tt
         # Below need pillow
         # (tt.callbacks.tensorboard.Image, torch.rand(3, 32, 32)),
         # (tt.callbacks.tensorboard.Images, torch.rand(8, 3, 32, 32)),
-        (tt.callbacks.tensorboard.Video, torch.rand(8, 6, 3, 32, 32)),
+        # Below needs moviepy
+        # (tt.callbacks.tensorboard.Video, torch.rand(8, 6, 3, 32, 32)),
         (tt.callbacks.tensorboard.Audio, torch.rand(1, 100)),
         (tt.callbacks.tensorboard.Text, "example_text"),
     ],

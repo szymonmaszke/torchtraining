@@ -16,6 +16,7 @@ class Step(tt.steps.Step):
 def train(optimizer, criterion, device):
     return (
         Step(criterion, gradient=True, device=device)
+        ** tt.Select(loss=0)
         ** tt.pytorch.ZeroGrad(optimizer)
         ** tt.pytorch.Backward()
         ** tt.pytorch.Optimize(optimizer)

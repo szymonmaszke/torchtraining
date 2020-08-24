@@ -37,6 +37,7 @@ class _Cast(Operation):
     """Shared base class amongst most casting operations."""
 
     def __init__(self, memory_format=torch.preserve_format):
+        super().__init__()
         self.memory_format = memory_format
 
     @abc.abstractmethod
@@ -140,6 +141,7 @@ class Sparse(Operation):
     """
 
     def __init__(self, sparse_dims=None):
+        super().__init__()
         self.sparse_dims = sparse_dims
 
     def forward(self, data):
@@ -158,6 +160,7 @@ class As(Operation):
     """
 
     def __init__(self, other):
+        super().__init__()
         self.other = other
 
     def forward(self, data):

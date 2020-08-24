@@ -153,6 +153,7 @@ class _NeptuneOperation(_base.Operation):
     """
 
     def __init__(self, experiment, method_name):
+        super().__init__()
         self.experiment = experiment
         if self.experiment is None:
             self._method = getattr(neptune, method_name)

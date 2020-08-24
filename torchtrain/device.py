@@ -59,6 +59,7 @@ class CPU(Operation):
     """
 
     def __init__(self, memory_format=torch.preserve_format):
+        super().__init__()
         self.memory_format = memory_format
 
     def forward(self, data):
@@ -89,6 +90,7 @@ class CUDA(Operation):
     def __init__(
         self, device=None, non_blocking=False, memory_format=torch.preserve_format
     ):
+        super().__init__()
         self.device = device
         self.non_blocking = non_blocking
         self.memory_format = memory_format
@@ -113,6 +115,7 @@ class Device(Operation):
     """
 
     def __init__(self, device):
+        super().__init__()
         self.device = device
 
     def forward(self, data):

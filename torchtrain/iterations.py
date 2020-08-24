@@ -1,7 +1,6 @@
 import typing
 
 import torch
-
 from rich import progress
 
 from . import _base, exceptions

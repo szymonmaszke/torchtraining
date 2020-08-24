@@ -50,13 +50,8 @@ class Epoch(_base.Epoch):
 
     def forward(self, *args, **kwargs):
         for index in range(self.epochs):
-            loguru.log(self.log, "Starting epoch {}.".format(index))
+            loguru.logger.log(self.log, "Starting epoch {}.".format(index))
             for iteration in self.iterations:
-                loguru.log(self.log, "Starting {}.".format(iteration))
                 yield from iteration(*args, **kwargs)
 
-        loguru.log(self.log, "Finished epochs.")
-
-    def run(self, *args, **kwargs):
-        for _ in self(*args, **kwargs):
-            pass
+        loguru.logger.log(self.log, "Finished epochs.")

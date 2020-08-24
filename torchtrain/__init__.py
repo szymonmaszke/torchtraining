@@ -7,10 +7,9 @@
 
 import typing
 
+import loguru
 import torch
 import yaml
-
-import loguru
 
 from . import (accumulators, callbacks, cast, device, epochs, exceptions,
                functional, iterations, loss, metrics, pytorch, quantization,
@@ -63,25 +62,28 @@ class Select(Operation):
     """
 
     def __init__(self, **output_selection: int):
-        if len(output_selection) > 0:
+        if len(output_selection) < 1:
             raise ValueError(
                 "{}: At least one output index has to be specified, got {} output indices.".format(
                     self, len(output_selection)
                 )
             )
+
+        super().__init__()
         self.output_selection = output_selection
 
         if len(self.output_selection) == 1:
             self._selection_method = lambda data: data[
-                self.output_selection.values()[0]
+                list(self.output_selection.values())[0]
             ]
         else:
             self._selection_method = lambda data: [
-                data[index] for index in self.output_selection.values()
+                data[index] for index in list(self.output_selection.values())
             ]
 
     def forward(self, data: typing.Iterable[typing.Any]) -> typing.Any:
-        return self._selection_method(data)
+        selected = self._selection_method(data)
+        return selected
 
     def __str__(self) -> str:
         return yaml.dump({super().__str__(): self.output_selection})
@@ -140,6 +142,7 @@ class Split(Operation):
     ):
         if not operations:
             raise ValueError("Split requires at least one operation to pass data into.")
+        super().__init__()
         self.operations = operations
         self.return_modified = return_modified
 
@@ -157,6 +160,65 @@ class Split(Operation):
 
     def __str__(self) -> str:
         return yaml.dump({super().__str__(): self.operations})
+
+
+class OnSplittedTensor(Operation):
+    """Split tensor along dimension and apply operation on each element.
+
+    By default, `torch.Tensor` will be splitted along batch (`dim=0`)>
+
+    Example::
+
+        class TrainStep(tt.steps.Train):
+            def forward(self, module, sample):
+                # Dummy step
+                images, labels
+                return images
+
+
+        step = TrainStep(criterion, device)
+
+        # Assume summary_writer is instance of torch.utils.tensorboard.SummaryWriter()
+        step > tt.OnSplittedTensor(tt.callbacks.tensorboard.Image(summary_writer))
+        # Each image will be saved separately
+
+
+    .. note::
+
+        **IMPORTANT**: After splitting first dimension is squeezed
+        via `torch.squeeze`.
+
+
+    Parameters
+    ----------
+    operation: tt.Operation | Callable(data) -> Any
+        Operation which will be applied to each element of `torch.Tensor`.
+    dim: int, optional
+        Dimension along which `data` `torch.Tensor` will be splitted.
+        Default: `0`
+
+    Arguments
+    ---------
+    data: torch.Tensor
+        Tensor to split and apply `operation` on.
+
+    Returns
+    -------
+    Tuple[torch.Tensor]
+        Splitted `data` along `dim` (unmodified by `operation`).
+
+    """
+
+    def __init__(self, operation: Operation, dim: int = 0):
+        super().__init__()
+        self.operation = operation
+        self.dim = dim
+
+    def forward(self, data):
+        splitted = tuple(map(torch.squeeze, torch.split(data, 1, self.dim)))
+        for tensor in splitted:
+            self.operation(splitted)
+        return splitted
 
 
 class Flatten(Operation):
@@ -197,6 +259,7 @@ class Flatten(Operation):
     """
 
     def __init__(self, types: typing.Tuple = (list, tuple)):
+        super().__init__()
         self.types = types
 
     def forward(self, sample) -> typing.List[typing.Any]:
@@ -258,6 +321,7 @@ class If(Operation):
         condition: typing.Union[bool, typing.Callable[[typing.Any], bool,]],
         operation: typing.Callable[[typing.Any,], typing.Any],
     ):
+        super().__init__()
         if isinstance(condition, bool):
             self._choice_method = lambda data: condition
         else:
@@ -325,6 +389,7 @@ class IfElse(Operation):
         operation1: typing.Callable[[typing.Any,], typing.Any],
         operation2: typing.Callable[[typing.Any,], typing.Any],
     ):
+        super().__init__()
         self.condition = condition
         self.operation1 = operation1
         self.operation2 = operation2
@@ -383,6 +448,7 @@ class ToAll(Operation):
     """
 
     def __init__(self, operation: typing.Callable):
+        super().__init__()
         self.operation = operation
 
     def forward(self, sample):
@@ -430,6 +496,7 @@ class Lambda(Operation):
         operation: typing.Callable[[typing.Any,], typing.Any],
         name: str = "torchtrain.Lambda",
     ):
+        super().__init__()
         self.operation = operation
         self.name = name
 

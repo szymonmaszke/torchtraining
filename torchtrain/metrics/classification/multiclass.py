@@ -16,6 +16,7 @@ from . import utils
 
 class _ReductionSum(_base.Operation):
     def __init__(self, reduction=torch.sum):
+        super().__init__()
         self.reduction = reduction
 
     @abc.abstractmethod
@@ -25,6 +26,7 @@ class _ReductionSum(_base.Operation):
 
 class _ReductionMean(_base.Operation):
     def __init__(self, reduction=torch.mean):
+        super().__init__()
         self.reduction = reduction
 
     @abc.abstractmethod
@@ -265,6 +267,7 @@ class FBeta(_base.Operation):
     """
 
     def __init__(self, beta: float):
+        super().__init__()
         self.beta = beta
 
     def forward(self, data):
@@ -304,6 +307,7 @@ class TopK(_base.Operation):
     """
 
     def __init__(self, k: int, reduction=torch.mean):
+        super().__init__()
         self.k = k
         self.reduction = reduction
 

@@ -38,6 +38,7 @@ class Cosine(_base.Operation):
     def __init__(
         self, dim: int = 1, eps: float = 1e-08, reduction=torch.mean,
     ):
+        super().__init__()
         self.dim = dim
         self.eps = eps
         self.reduction = reduction
@@ -92,6 +93,7 @@ class Pairwise(_base.Operation):
     """
 
     def __init__(self, p: float = 2.0, eps: float = 1e-06, reduction=torch.mean):
+        super().__init__()
         self.p = p
         self.eps = eps
         self.reduction = reduction

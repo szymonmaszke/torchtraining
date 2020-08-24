@@ -12,11 +12,15 @@ from . import utils
 
 class _MeanReduction(_base.Operation):
     def __init__(self, reduction=torch.mean):
+        super().__init__()
+
         self.reduction = reduction
 
 
 class _SumReduction(_base.Operation):
     def __init__(self, reduction=torch.sum):
+        super().__init__()
+
         self.reduction = reduction
 
 
@@ -164,6 +168,8 @@ class AdjustedR2(_base.Operation):
     """
 
     def __init__(self, p: int):
+        super().__init__()
+
         self.p = p
 
     def forward(self, data):

@@ -16,6 +16,8 @@ from . import utils
 
 class _Threshold(_base.Operation):
     def __init__(self, threshold: float = 0.0):
+        super().__init__()
+
         self.threshold = threshold
 
     @abc.abstractmethod
@@ -25,6 +27,8 @@ class _Threshold(_base.Operation):
 
 class _ThresholdReductionMean(_base.Operation):
     def __init__(self, threshold: float = 0.0, reduction=torch.mean):
+        super().__init__()
+
         self.threshold = threshold
         self.reduction = reduction
 
@@ -35,6 +39,8 @@ class _ThresholdReductionMean(_base.Operation):
 
 class _ThresholdReductionSum(_base.Operation):
     def __init__(self, threshold: float = 0.0, reduction=torch.sum):
+        super().__init__()
+
         self.threshold = threshold
         self.reduction = reduction
 
@@ -294,6 +300,7 @@ class FBeta(_base.Operation):
     """
 
     def __init__(self, beta: float, threshold: float = 0.0):
+        super().__init__()
         self.beta = beta
         self.threshold = threshold
 

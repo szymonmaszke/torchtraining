@@ -104,6 +104,8 @@ class _Tensorboard(_base.Operation):
         *args,
         **kwargs
     ):
+        super().__init__()
+
         self.writer = writer
         self.name: str = name
         self.flush = flush

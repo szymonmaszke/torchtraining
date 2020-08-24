@@ -5,9 +5,8 @@ import pathlib
 import shutil
 import tempfile
 
-import torch
-
 import pytest
+import torch
 import torchfunc
 import torchtrain as tt
 
@@ -35,7 +34,7 @@ def test_save(iterations, comparator):
 
 
 def test_time_stopping():
-    with pytest.raises(torchtrain.exceptions.TimeStopping) as e_info:
+    with pytest.raises(tt.exceptions.TimeStopping) as e_info:
         stopper = tt.callbacks.TimeStopping(1)
         while True:
             stopper(1)
@@ -63,32 +62,12 @@ def test_terminate_nan(iterations, nan):
 
 
 @pytest.mark.parametrize(
-    "iterations,patience,delta,comparator",
-    itertools.product((1, 5), (5, 10), (1, 5, 100), (operator.ge, operator.le)),
-)
-def test_early_stopping(iterations, patience, delta, comparator):
-    if comparator == operator.ge:
-        expected = iterations
-    else:
-        expected = 1
-    if delta >= iterations:
-        expected = 1
-
-    stopper = tt.callbacks.EarlyStopping(
-        patience, directory / "module.py", comparator=comparator, delta=delta
-    )
-    for _ in range(iterations):
-        terminator(inputs)
-        value += 1
-
-
-@pytest.mark.parametrize(
     "n,iterations,freeze", itertools.product((0, 10), (5, 10), (True, False)),
 )
 def test_unfreeze(n, iterations, freeze):
     expected = n < iterations
     module = torch.nn.Linear(20, 10)
-    unfreezer = tt.callbacks.Unfreeze(n)
+    unfreezer = tt.callbacks.Unfreeze(module, n)
     if freeze:
         torchfunc.module.freeze(module)
 
@@ -96,4 +75,4 @@ def test_unfreeze(n, iterations, freeze):
         unfreezer(i)
 
     for param in module.parameters():
-        assert param.grad == expected
+        assert param.requires_grad == expected or not freeze

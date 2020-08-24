@@ -1,5 +1,9 @@
 import importlib
 
 
-def module_exists(name):
-    return importlib.util.find_spec("horovod.torch") is not None
+def modules_exist(*names):
+    for name in names:
+        if importlib.util.find_spec(name) is None:
+            return False
+
+    return True

@@ -1,18 +1,22 @@
 import typing
 
+import torch
 import torchtrain as tt
+import torchvision
 
 
-def get_data(batch_size: int) -> typing.Dict:
+def get(batch_size: int) -> typing.Dict:
     train, validation = tt.functional.data.random_split(
-        torchvision.datasets.CIFAR100(
-            ".", train=True, transforms=torchvision.transforms.ToTensor()
+        torchvision.datasets.FakeData(
+            size=64,
+            image_size=(3, 28, 28),
+            transform=torchvision.transforms.ToTensor(),
         ),
         0.8,
         0.2,
     )
-    test = torchvision.datasets.CIFAR100(
-        ".", train=False, transforms=torchvision.transforms.ToTensor()
+    test = torchvision.datasets.FakeData(
+        size=32, image_size=(3, 28, 28), transform=torchvision.transforms.ToTensor()
     )
     return {
         "train": torch.utils.data.DataLoader(train, batch_size, shuffle=True),

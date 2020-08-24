@@ -5,10 +5,10 @@ import torchvision
 from . import data, iterations, modules, steps
 
 
-def main():
-    device = torch.device("cuda")
+def test_training():
+    device = torch.device("cpu")
 
-    dataloaders = data.get(batch_size=64)
+    dataloaders = data.get(batch_size=8)
 
     criterion = torch.nn.CrossEntropyLoss()
     network = modules.Classifier(in_channels=3, labels=100)
@@ -30,9 +30,7 @@ def main():
         iterations.eval(writer, eval_step, network, dataloaders["test"], name="Test"),
     )
 
-    epochs = tt.epochs.Epoch(train_iteration, validation_iteration, test_iteration, 20)
+    epochs = tt.epochs.Epoch(
+        train_iteration, validation_iteration, test_iteration, epochs=2
+    )
     epochs.run()
-
-
-if __name__ == "__main__":
-    main()

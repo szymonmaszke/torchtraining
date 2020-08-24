@@ -66,6 +66,7 @@ class Clean(_base.Operation):
     """
 
     def __init__(self, experiment):
+        super().__init__()
         self.experiment = experiment
 
     def forward(self, data):
@@ -118,6 +119,7 @@ class Asset(_base.Operation):
         step=None,
         metadata=None,
     ):
+        super().__init__()
         self.experiment = experiment
         self.name = name
         self.overwrite = overwrite
@@ -166,6 +168,7 @@ class AssetData(_base.Operation):
     def __init__(
         self, experiment, name=None, overwrite=False, step=None, metadata=None,
     ):
+        super().__init__()
         self.experiment = experiment
         self.name = name
         self.overwrite = overwrite
@@ -209,6 +212,7 @@ class AssetFolder(_base.Operation):
     def __init__(
         self, experiment, step=None, log_file_name=False, recursive=False,
     ):
+        super().__init__()
         self.experiment = experiment
         self.step = step
         self.log_file_name = log_file_name
@@ -270,6 +274,7 @@ class Audio(_base.Operation):
         step=None,
         metadata=None,
     ):
+        super().__init__()
         self.experiment = experiment
         self.sample_rate = sample_rate
         self.name = name
@@ -355,6 +360,7 @@ class ConfusionMatrix(_base.Operation):
         step=None,
         **kwargs
     ):
+        super().__init__()
         self.experiment = experiment
         self.title = title
         self.row_label = row_label
@@ -421,6 +427,7 @@ class Curve(_base.Operation):
     def __init__(
         self, experiment, name=None, overwrite=False, step=None,
     ):
+        super().__init__()
         self.experiment = experiment
         self.name = name
         self.overwrite = overwrite
@@ -482,6 +489,7 @@ class Embedding(_base.Operation):
         group=None,
     ):
 
+        super().__init__()
         self.experiment = experiment
 
         self.image_data = image_data
@@ -539,6 +547,7 @@ class Figure(_base.Operation):
 
     def __init__(self, experiment, figure_name=None, overwrite=False, step=None):
 
+        super().__init__()
         self.experiment = experiment
 
         self.figure_name = figure_name
@@ -582,6 +591,7 @@ class Histogram3d(_base.Operation):
     """
 
     def __init__(self, experiment, name=None, step=None, **kwargs):
+        super().__init__()
         self.experiment = experiment
 
         self.name = name
@@ -667,6 +677,7 @@ class Image(_base.Operation):
         copy_to_tmp=True,
         step=None,
     ):
+        super().__init__()
 
         self.experiment = experiment
 
@@ -730,6 +741,7 @@ class Scalar(_base.Operation):
     """
 
     def __init__(self, experiment, name, step=None, epoch=None, include_context=True):
+        super().__init__()
 
         self.experiment = experiment
 
@@ -746,7 +758,7 @@ class Scalar(_base.Operation):
 
 
 # log_metrics
-class Scalars:
+class Scalars(_base.Operation):
     """Logs dictionary of scalars / metrics.
 
     Usually used to log metric values (like `accuracy`)
@@ -775,6 +787,7 @@ class Scalars:
     """
 
     def __init__(self, experiment, prefix=None, step=None, epoch=None):
+        super().__init__()
 
         self.experiment = experiment
 
@@ -787,7 +800,7 @@ class Scalars:
         return data
 
 
-class Other:
+class Other(_base.Operation):
     """Reports a key and value to the Other tab on Comet.ml.
 
     Useful for reporting datasets attributes, datasets path, unique identifiers etc.
@@ -810,6 +823,7 @@ class Other:
     """
 
     def __init__(self, experiment):
+        super().__init__()
         self.experiment = experiment
 
     def forward(self, data):
@@ -817,7 +831,7 @@ class Other:
         return data
 
 
-class Others:
+class Others(_base.Operation):
     """Reports dictionary of key/values to the Other tab on Comet.ml.
 
     Useful for reporting datasets attributes, datasets path, unique identifiers etc.
@@ -840,6 +854,7 @@ class Others:
     """
 
     def __init__(self, experiment):
+        super().__init__()
         self.experiment = experiment
 
     def forward(self, data):
@@ -847,7 +862,7 @@ class Others:
         return data
 
 
-class Table:
+class Table(_base.Operation):
     """Logs tabular data.
 
     These strings appear on the Text Tab in the Comet UI.
@@ -880,6 +895,7 @@ class Table:
         filename: str,
         headers: typing.Union[bool, typing.List] = False,
     ):
+        super().__init__()
         self.experiment = experiment
 
         self.filename = filename
@@ -890,7 +906,7 @@ class Table:
         return data
 
 
-class Text:
+class Text(_base.Operation):
     """Logs the text.
 
     These strings appear on the Text Tab in the Comet UI.
@@ -917,6 +933,7 @@ class Text:
     """
 
     def __init__(self, experiment, step: int = None, metadata=None):
+        super().__init__()
         self.experiment = experiment
 
         self.step = step
@@ -927,7 +944,7 @@ class Text:
         return data
 
 
-class Notification:
+class Notification(_base.Operation):
     """Send yourself a notification through email when an experiment ends.
 
     Parameters
@@ -955,6 +972,7 @@ class Notification:
     """
 
     def __init__(self, experiment, title, status=None, additional_data=None):
+        super().__init__()
         self.experiment = experiment
 
         self.title = title

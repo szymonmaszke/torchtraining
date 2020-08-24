@@ -1,29 +1,36 @@
 import itertools
 
-import torch
-
 import pytest
+import torch
 import torchtrain as tt
 
 
+class Check(tt.Operation):
+    def __init__(self, desired_type):
+        super().__init__()
+        self.desired_type = desired_type
+
+    def forward(self, data):
+        assert data.dtype == self.desired_type
+
+
 @pytest.mark.parametrize(
-    "cast,inputs",
+    "caster, inputs",
     itertools.product(
         [
-            (tt.cast.BFloat16(), torch.bfloat16),
-            (tt.cast.Bool(), torch.bool),
-            (tt.cast.Byte(), torch.uint8),
-            (tt.cast.Char(), torch.int8),
-            (tt.cast.Double(), torch.double),
-            (tt.cast.Float(), torch.float),
-            (tt.cast.Half(), torch.half),
-            (tt.cast.Int(), torch.int),
-            (tt.cast.Long(), torch.long),
-            (tt.cast.Short(), torch.short),
+            tt.cast.BFloat16() ** Check(torch.bfloat16),
+            tt.cast.Bool() ** Check(torch.bool),
+            tt.cast.Byte() ** Check(torch.uint8),
+            tt.cast.Char() ** Check(torch.int8),
+            tt.cast.Double() ** Check(torch.double),
+            tt.cast.Float() ** Check(torch.float),
+            tt.cast.Half() ** Check(torch.half),
+            tt.cast.Int() ** Check(torch.int),
+            tt.cast.Long() ** Check(torch.long),
+            tt.cast.Short() ** Check(torch.short),
         ],
         [torch.randn(2, 3, 4)],
     ),
 )
-def test_cast(cast, inputs):
-    caster, desired = cast
-    assert caster(inputs).dtype == desired
+def test_cast(caster, inputs):
+    caster(inputs)

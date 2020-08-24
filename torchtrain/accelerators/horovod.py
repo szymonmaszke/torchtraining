@@ -1,3 +1,63 @@
+"""This module allows user to train networks in distributed manner using `horovod`
+
+.. note::
+
+    **IMPORTANT**: This module is experimental and may not be working
+    correctly. Use at your own risk and report any issues you find.
+
+.. note::
+
+    **IMPORTANT**: This module needs `horovod` Python package to be visible.
+    You can install it with `pip install -U torchtrain[horovod]`
+
+
+See [Horovod documentation](https://github.com/horovod/horovod) for details
+and specific `operations` offered by `torchtrain` below.
+
+Example::
+
+    import torchtrain as tt
+    import torchtrain.accumulators.horovod as horovod
+
+
+    class TrainStep(tt.steps.Train):
+        def forward(self, module, sample):
+            # Dummy step
+            images, labels = sample
+            return loss
+
+
+    model = ...
+    criterion = ...
+    dataset = ...
+    optimizer = ...
+    writer = ...
+
+
+    # Accelerate!
+
+    # Special distributed DataLoader
+    dataloader = horovod.DataLoader(dataset, batch_size=64)
+
+    # Distributed optimization with gradient accumulation
+    optimize = horovod.Optimize(optimizer, module.named_parameters())
+
+    step = (
+        TrainStep(criterion, device)
+        > tt.pytorch.ZeroGrad()
+        > tt.pytorch.Backward()
+        > optimize
+    )
+    iteration = (
+        tt.accelerators.Horovod(model, optimize.optimizer)
+        > tt.iterations.TrainIteration(step, model, dataloader)
+        > horovod.AllReduce()
+        > tt.accumulators.Mean()
+        > horovod.OnRank(tt.callbacks.Tensorboard(writer, "Loss"))
+    )
+
+"""
+
 import operator
 import pathlib
 import pickle

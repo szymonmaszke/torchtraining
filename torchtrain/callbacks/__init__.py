@@ -126,6 +126,8 @@ class Save(_base.Operation):
         method: typing.Callable = None,
         log: typing.Union[str, int] = "NONE",
     ):
+        super().__init__()
+
         self.module = module
         self.path = path
         self.comparator = comparator
@@ -200,6 +202,8 @@ class TimeStopping(_base.Operation):
     def __init__(
         self, duration: float, log="NONE",
     ):
+        super().__init__()
+
         self.duration = duration
         self.log = log
         self._start = time.time()
@@ -257,6 +261,8 @@ class TerminateOnNan(_base.Operation):
     def __init__(
         self, log: typing.Union[str, int] = "NONE",
     ):
+        super().__init__()
+
         self.log = log
 
     def forward(self, data):
@@ -332,6 +338,8 @@ class EarlyStopping(_base.Operation):
         comparator: typing.Callable = operator.gt,
         log="NONE",
     ):
+        super().__init__()
+
         self.patience = patience
         self.delta = delta
         self.comparator = comparator
@@ -405,6 +413,8 @@ class Unfreeze(_base.Operation):
     """
 
     def __init__(self, module, n: int = 0, log="NONE"):
+        super().__init__()
+
         self.module = module
         self.n = n
         self.log = log
@@ -468,6 +478,8 @@ class Log(_base.Operation):
     """
 
     def __init__(self, name: str, log="INFO"):
+        super().__init__()
+
         self.name = name
         self.log = log
 

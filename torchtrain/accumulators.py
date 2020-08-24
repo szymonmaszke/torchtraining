@@ -33,7 +33,7 @@ class Sum(Accumulator):
         super().__init__()
         self.data = 0
 
-    def clear(self) -> None:
+    def reset(self) -> None:
         """Assign `0` to `self.data` clearing `saver`"""
         self.data = 0
 
@@ -73,7 +73,7 @@ class Mean(Accumulator):
         self.data = 0
         self._counter = 0
 
-    def clear(self) -> None:
+    def reset(self) -> None:
         """Assign `0` to `self.data` and zero out counter clearing `saver`"""
         self.data = 0
         self._counter = 0
@@ -114,15 +114,15 @@ class List(Accumulator):
         super().__init__()
         self.data = []
 
-    def clear(self) -> None:
+    def reset(self) -> None:
         """Assign empty `list` to `self.data clearing `saver`"""
         self.data = []
 
-    def forward(self, data) -> None:
-        self.data.append(data)
-
-    def calculate(self) -> typing.List[typing.Any]:
+    def forward(self) -> typing.List[typing.Any]:
         return self.data
+
+    def accumulate(self, data) -> None:
+        self.data.append()
 
 
 class Except(Accumulator):
@@ -235,9 +235,9 @@ class Except(Accumulator):
 
         self._counter = -1
 
-    def clear(self) -> None:
+    def reset(self) -> None:
         self._counter = -1
-        self.accumulator.clear()
+        self.accumulator.reset()
 
     def forward(self, data) -> None:
         self._counter += 1

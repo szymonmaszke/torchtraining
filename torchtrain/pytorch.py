@@ -63,6 +63,7 @@ class Schedule(Operation):
     """
 
     def __init__(self, scheduler, use_data: bool = False):
+        super().__init__()
         self.scheduler = scheduler
         self.use_data = use_data
 
@@ -93,6 +94,7 @@ class Backward(Operation):
     """
 
     def __init__(self, scaler=None, accumulate: int = 1, gradient: torch.Tensor = None):
+        super().__init__()
         self.scaler = scaler
         self.accumulate = accumulate
         self.gradient = gradient
@@ -139,6 +141,7 @@ class Optimize(Operation):
     def __init__(
         self, optimizer, accumulate: int = 1, closure=None, scaler=None, *args, **kwargs
     ):
+        super().__init__()
         self.optimizer = optimizer
         self.accumulate = accumulate
 
@@ -181,6 +184,7 @@ class ZeroGrad(Operation):
     """
 
     def __init__(self, obj, accumulate: int = 1):
+        super().__init__()
         self.obj = obj
         self.accumulate = accumulate
         self._counter = -1
@@ -204,6 +208,7 @@ class UpdateGradScaler(Operation):
     """
 
     def __init__(self, scaler):
+        super().__init__()
         self.scaler = scaler
 
     def forward(self, data):

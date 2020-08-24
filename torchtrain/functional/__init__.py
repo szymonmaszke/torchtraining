@@ -1,7 +1,7 @@
 """Module providing functions (like metrics, losses) which can be used directly.
 
-It is advised to only use `torchtrain.functional.inputs`, rest should be
-piped via `objects`.
+It is advised to only use `torchtrain.functional.inputs` and `torchtrain.functional.data`,
+rest should be piped via `objects`.
 
 For example this::
 
@@ -55,4 +55,4 @@ Second approach has the following shortcomings:
 
 """
 
-from . import inputs, loss, metrics
+from . import data, inputs, loss, metrics
