@@ -27,7 +27,7 @@ and `tensorboard`.
 
 ## Installation
 
-See [documentation](https://img.shields.io/static/v1?label=&message=docs&color=EE4C2C&style=for-the-badge)
+See [documentation](https://szymonmaszke.github.io/torchtraining/)
 for full list of extras (e.g. installation with integrations like `horovod`).
 
 To just start you can install via `pip`:
