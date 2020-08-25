@@ -1,0 +1,1084 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtraining.callbacks.comet module &mdash; torchtraining  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtraining/packages/torchtrain.callbacks/torchtrain.callbacks.comet.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtraining">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.html">torchtraining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.accelerators.html">torchtraining.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.accumulators.html">torchtraining.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.callbacks.html">torchtraining.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.cast.html">torchtraining.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.device.html">torchtraining.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.epochs.html">torchtraining.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.exceptions.html">torchtraining.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.functional.html">torchtraining.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.iterations.html">torchtraining.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.loss.html">torchtraining.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.metrics.html">torchtraining.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.pytorch.html">torchtraining.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.quantization.html">torchtraining.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../torchtrain.steps.html">torchtraining.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+        </a> &gt;
+      </li>
+
+        
+      <li>torchtraining.callbacks.comet module</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/packages/torchtrain.callbacks/torchtrain.callbacks.comet.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtraining-callbacks-comet-module">
+<h1>torchtraining.callbacks.comet module<a class="headerlink" href="#torchtraining-callbacks-comet-module" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-torchtraining.callbacks.comet"></span><p>Integrate <a class="reference internal" href="../torchtrain.html#module-torchtraining" title="torchtraining"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining</span></code></a> with <a class="reference external" href="https://www.comet.ml/site/">comet.ml</a> experiment management tool.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This module is experimental and may not be working
+correctly. Use at your own risk and report any issues you find.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This module needs <code class="xref py py-obj docutils literal notranslate"><span class="pre">comet-ml</span></code> Python package to be available.
+You can install it with <code class="xref py py-obj docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">torchtraining[neptune]</span></code></p>
+</div>
+<p>Usage is similar to <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.callbacks.Tensorboard</span></code>, except creating <code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment</span></code>
+instead of <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.tensorboard.SummaryWriter</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torchtraining</span> <span class="k">as</span> <span class="nn">tt</span>
+<span class="kn">import</span> <span class="nn">torchtraining.callbacks.comet</span> <span class="k">as</span> <span class="nn">comet</span>
+
+
+<span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">sample</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">images</span>
+
+
+<span class="n">project</span> <span class="o">=</span> <span class="n">comet</span><span class="o">.</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># You have to split `tensor` as only single image can be logged</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">OnSplittedTensor</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">experiment</span><span class="p">))</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">cast</span><span class="o">.</span><span class="n">Item</span><span class="p">()</span> <span class="o">**</span> <span class="n">comet</span><span class="o">.</span><span class="n">Scalar</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Asset">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Asset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">copy_to_tmp</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metadata</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Asset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs the Asset passed during call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – A custom file name to be displayed. If not provided the <code class="xref py py-obj docutils literal notranslate"><span class="pre">filename</span></code>
+from the file_data argument will be used.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True will overwrite all existing assets with the same name.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>copy_to_tmp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If file_data is a file-like object, then this flag determines if the file is
+first copied to a temporary file before upload. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_to_tmp</span></code>
+is False, then it is sent directly to the cloud.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate the asset to a specific step. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><em>typing.Dict</em></a><em>, </em><em>optional</em>) – Optional. Some additional data to attach to the the asset data.
+Must be a JSON-encodable dict. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed initially to the operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str | File-like</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Asset.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Asset.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Asset.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str | File-like</em>) – Either the file path of the file you want to log, or a file-like asset.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.AssetData">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">AssetData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metadata</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#AssetData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.AssetData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Log given data (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">binary</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">JSON</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – A custom file name to be displayed. If not provided the <code class="xref py py-obj docutils literal notranslate"><span class="pre">filename</span></code>
+from the file_data argument will be used.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True will overwrite all existing assets with the same name.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate the asset to a specific step. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><em>typing.Dict</em></a><em>, </em><em>optional</em>) – Optional. Some additional data to attach to the the asset data.
+Must be a JSON-encodable dict. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed initially to the operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str | File-like</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.AssetData.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#AssetData.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.AssetData.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str | JSON</em>) – Data to log</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.AssetFolder">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">AssetFolder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_file_name</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">recursive</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#AssetFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.AssetFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs all the files located in the given folder as assets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate the asset to a specific step. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>log_file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, log the file path with each file. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="xref py py-obj docutils literal notranslate"><span class="pre">true</span></code> recurse folder and save file names.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>folder</strong> – Data passed initially to the operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.AssetFolder.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#AssetFolder.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.AssetFolder.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to the folder to be logged.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Audio">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Audio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">sample_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">copy_to_tmp</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metadata</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Audio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs the audio Asset determined by audio data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>sample_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – The sampling rate given to scipy.io.wavfile.write for creating the wav file.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – A custom file name to be displayed. If not provided the <code class="xref py py-obj docutils literal notranslate"><span class="pre">filename</span></code>
+from the file_data argument will be used.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True will overwrite all existing assets with the same name.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>copy_to_tmp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If file_data is a file-like object, then this flag determines if the file is
+first copied to a temporary file before upload. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_to_tmp</span></code>
+is False, then it is sent directly to the cloud.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate the asset to a specific step. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><em>typing.Dict</em></a><em>, </em><em>optional</em>) – Optional. Some additional data to attach to the the asset data.
+Must be a JSON-encodable dict. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Data passed initially to the operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str | np.array</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Audio.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Audio.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Audio.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str | np.array</em>) – Either the file path of the file you want to log, or a numpy array given to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.io.wavfile.write</span></code> for wav conversion.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Clean">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Clean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Clean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Clean experiment loggers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed initially to the operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Clean.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Clean.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Clean.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything, will be forwarded</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.ConfusionMatrix">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">ConfusionMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'Confusion Matrix'</span></em>, <em class="sig-param"><span class="n">row_label</span><span class="o">=</span><span class="default_value">'Actual Category'</span></em>, <em class="sig-param"><span class="n">column_label</span><span class="o">=</span><span class="default_value">'Predicted Category'</span></em>, <em class="sig-param"><span class="n">max_examples_per_cell</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">max_categories</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">winner_function</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index_to_example_function</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cache</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">file_name</span><span class="o">=</span><span class="default_value">'confusion-matrix.json'</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#ConfusionMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.ConfusionMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs confusion matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – A custom name to be displayed. By default, it is “Confusion Matrix”.</p></li>
+<li><p><strong>row_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Label for rows. By default, it is “Actual Category”.</p></li>
+<li><p><strong>column_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Label for columns. By default, it is “Predicted Category”.</p></li>
+<li><p><strong>max_example_per_cell</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum number of examples per cell. By default, it is 25.</p></li>
+<li><p><strong>max_categories</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Max number of columns and rows to use. By default, it is 25.</p></li>
+<li><p><strong>winner_function</strong> (<em>Callable</em><em>(</em><a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>) </em><em>-&gt; List</em><em>, </em><em>optional</em>) – A function that takes in an entire list of rows of patterns,
+and returns the winning category for each row. By default, it is argmax.</p></li>
+<li><p><strong>index_to_example_function</strong> (<em>Callable</em><em>, </em><em>optional</em>) – A function that takes an index and returns either a number, a string, a URL, or a
+{“sample”: str, “assetId”: str} dictionary.
+See below for more info.
+By default, the function returns a number representing the index of the example.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the results of index_to_example_function be cached and reused?
+By default, cache is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
+<li><p><strong>selected</strong> (<a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>, </em><em>optional</em>) – None, or list of selected category indices.
+These are the rows/columns that will be shown. By default, select is None.
+If the number of categories is greater than max_categories, and selected is not provided,
+then selected will be computed automatically by selecting the most confused categories.</p></li>
+<li><p><strong>kwargs</strong> (<em>optional</em>) – any extra keywords and their values will be passed onto the index_to_example_function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Data passed initially to the operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List">List</a>[<a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List">List</a>[double]]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.ConfusionMatrix.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#ConfusionMatrix.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.ConfusionMatrix.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>[</em><a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>[</em><em>double</em><em>]</em><em>]</em>) – Matrix-like list contianing <code class="xref py py-obj docutils literal notranslate"><span class="pre">confusion</span></code> matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Curve">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Curve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Curve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Log timeseries data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of data</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True overwrite previous log. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Step value. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Data passed initially to operation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple(<a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List">List</a>[Number], <a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List">List</a>[Number])</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Curve.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Curve.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Curve.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>(</em><a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>[</em><em>Number</em><em>]</em><em>, </em><a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>[</em><em>Number</em><em>]</em><em>)</em>) – Either the file path of the file you want to log, or a numpy array given to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.io.wavfile.write</span></code> for wav conversion.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Embedding">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Embedding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">image_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_preprocess_function</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_transparent_color</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_background_color_function</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'Comet Embedding'</span></em>, <em class="sig-param"><span class="n">template_filename</span><span class="o">=</span><span class="default_value">'template_projector_config.json'</span></em>, <em class="sig-param"><span class="n">group</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Log a multi-dimensional dataset and metadata for viewing with Comet’s Embedding Projector.</p>
+<p>This feature is currently deemed experimental.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>image_data</strong> (<a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>[</em><em>Array</em><em>] </em><em>| Images</em><em>, </em><em>optional</em>) – List of arrays or Images</p></li>
+<li><p><strong>image_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em><em> (</em><em>required if image_data is given</em><em>)</em>) – The size of each image</p></li>
+<li><p><strong>image_preprocess_function</strong> (<em>Callable</em><em>, </em><em>optional</em>) – If image_data is an array, apply this function to each element first</p></li>
+<li><p><strong>image_transparent_color</strong> (<em>Tuple</em><em>, </em><em>optional</em>) – (red, green, blue) tuple</p></li>
+<li><p><strong>image_background_color_function</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>) </em><em>-&gt; Tuple</em><em>(</em><em>red</em><em>, </em><em>green</em><em>, </em><em>blue</em><em>)</em><em>, </em><em>optional</em>) – A function that takes an index, and returns a (red, green, blue) color tuple</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of tensor</p></li>
+<li><p><strong>template_filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – name of template JSON file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Tensors to visualize in 3D and labels for each tensor.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple(<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a>, <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Embedding.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Embedding.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Embedding.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>)</em>) – Tensors to visualize in 3D and labels for each tensor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Figure">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Figure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">figure_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Figure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs the global Pyplot figure or the passed one and upload its svg version to the backend.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>figure_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the figure</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If another figure with the same name exists, it will be overwritten if overwrite is set to True.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate figure to a specific step.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Data passed initially to operation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>figure, optional.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Figure.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Figure.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Figure.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>figure</em><em>, </em><em>optional.</em>) – The figure you want to log. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> passed,
+the global pyplot figure will be logged and uploaded</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Histogram3d">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Histogram3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Histogram3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Histogram3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs a histogram of values for a 3D chart as an asset for this experiment.</p>
+<p>Calling this method multiple times with the same name and incremented steps
+will add additional histograms to the 3D chart on Comet.ml.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of summary</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional.</em>) – Used as the Z axis when plotting on Comet.ml.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments for histogram.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Summarization of histogram (passed to <a class="reference internal" href="#torchtraining.callbacks.comet.Histogram3d.forward" title="torchtraining.callbacks.comet.Histogram3d.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List | Tuple | Array | Histogram object</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Histogram3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Histogram3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Histogram3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>List | Tuple | Array | Histogram object</em>) – Summarization of histogram</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Image">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">image_format</span><span class="o">=</span><span class="default_value">'png'</span></em>, <em class="sig-param"><span class="n">image_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_colormap</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_minmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_channels</span><span class="o">=</span><span class="default_value">'last'</span></em>, <em class="sig-param"><span class="n">copy_to_tmp</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs the image. Images are displayed on the Graphics tab on Comet.ml.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – A custom name to be displayed on the dashboard.
+If not provided the filename from the image_data argument will be used if it is a path.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If another image with the same name exists, it will be overwritten if overwrite is set to True.</p></li>
+<li><p><strong>image_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Default: ‘png’. If the image_data is actually something that can be turned
+into an image, this is the format used. Typical values include ‘png’ and ‘jpg’.</p></li>
+<li><p><strong>image_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Default: 1.0. If the image_data is actually something that can be turned
+into an image, this will be the new scale of the image.</p></li>
+<li><p><strong>image_shape</strong> (<em>Tuple</em><em>, </em><em>optional</em>) – Default: None. If the image_data is actually something that can be
+turned into an image, this is the new shape of the array. Dimensions are (width, height).</p></li>
+<li><p><strong>image_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – If the image_data is actually something that can be turned into an image,
+this is the colormap used to colorize the matrix.</p></li>
+<li><p><strong>image_minmax</strong> (<em>(</em><em>Number</em><em>, </em><em>Number</em><em>)</em><em>, </em><em>optional</em>) – If the image_data is actually something that can be turned into an image,
+this is the (min, max) used to scale the values.
+Otherwise, the image is autoscaled between (array.min, array.max).</p></li>
+<li><p><strong>image_channels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional. Default 'last'.</em>) – If the image_data is actually something that can be turned into an image,
+this is the setting that indicates where the color information is in the format of the 2D data.
+‘last’ indicates that the data is in (rows, columns, channels)
+where ‘first’ indicates (channels, rows, columns).</p></li>
+<li><p><strong>copy_to_tmp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If image_data is not a file path, then this flag determines if the image
+is first copied to a temporary file before upload.
+If copy_to_tmp is False, then it is sent directly to the cloud.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate the audio asset to a specific step. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – See <a class="reference internal" href="#torchtraining.callbacks.comet.Image.forward" title="torchtraining.callbacks.comet.Image.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a> for possibilities</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Multiple objects</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Image.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Image.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Image.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Multiple objects</em>) – <dl class="simple">
+<dt>One of:</dt><dd><ul class="simple">
+<li><p>a path (string) to an image</p></li>
+<li><p>a file-like object containing an image</p></li>
+<li><p>a numpy matrix</p></li>
+<li><p>a TensorFlow tensor</p></li>
+<li><p>a PyTorch tensor</p></li>
+<li><p>a list or tuple of values</p></li>
+<li><p>a PIL Image</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Notification">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Notification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">status</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">additional_data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Notification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Send yourself a notification through email when an experiment ends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Subject of the email</p></li>
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Final status of the experiment.
+Typically, something like “finished”, “completed” or “aborted”.</p></li>
+<li><p><strong>additional_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Dictionary of key/values to notify.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Anything passed to forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Notification.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Notification.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Notification.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything as it’s not send to the function, just passes through</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Other">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Other</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Other"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Other" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Reports a key and value to the Other tab on Comet.ml.</p>
+<p>Useful for reporting datasets attributes, datasets path, unique identifiers etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Tuple with <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[Any, Any]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Other.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Other.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Other.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em>) – Tuple with <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Others">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Others</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Others"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Others" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Reports dictionary of key/values to the Other tab on Comet.ml.</p>
+<p>Useful for reporting datasets attributes, datasets path, unique identifiers etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Dict with any <code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict[Any, Any]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Others.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Others.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Others.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em>) – Dict with any <code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Scalar">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Scalar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epoch</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">include_context</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Scalar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Scalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs scalar value under specified name.</p>
+<p>Usually used to log metric values (like <code class="xref py py-obj docutils literal notranslate"><span class="pre">accuracy</span></code>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of scalar / metric.</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used as the X axis when plotting on comet.ml</p></li>
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used as the X axis when plotting on comet.ml</p></li>
+<li><p><strong>include_context</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to True (the default), the current context will be logged along
+the metric.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Value passed to <a class="reference internal" href="#torchtraining.callbacks.comet.Scalar.forward" title="torchtraining.callbacks.comet.Scalar.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Number</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Scalar.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Scalar.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Scalar.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Number</em>) – Value to log</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Scalars">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Scalars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epoch</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Scalars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Scalars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs dictionary of scalars / metrics.</p>
+<p>Usually used to log metric values (like <code class="xref py py-obj docutils literal notranslate"><span class="pre">accuracy</span></code>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of prefix used when logging into comet.ml</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used as the X axis when plotting on comet.ml</p></li>
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used as the X axis when plotting on comet.ml</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Dictionary passed to <a class="reference internal" href="#torchtraining.callbacks.comet.Scalars.forward" title="torchtraining.callbacks.comet.Scalars.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Scalars.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Scalars.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Scalars.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Dict</em>) – Dictionary with values to log</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Table">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">headers</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><span class="p">, </span>List<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs tabular data.</p>
+<p>These strings appear on the Text Tab in the Comet UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filename ending in “.csv”, or “.tsv”</p></li>
+<li><p><strong>headers</strong> (<em>bool | List</em>) – If True, will add column headers automatically if tabular_data is given;
+if False, no headers will be added; if list then it will be used as headers.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Data received in <a class="reference internal" href="#torchtraining.callbacks.comet.Table.forward" title="torchtraining.callbacks.comet.Table.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tensor | List[<a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List">List</a>]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Table.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Table.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Table.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>tensor | List</em><em>[</em><a class="reference internal" href="../torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List"><em>List</em></a><em>]</em>) – Data that can be interpreted as 2D tabular data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.callbacks.comet.Text">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.callbacks.comet.</code><code class="sig-name descname">Text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">step</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metadata</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining._base.Operation</span></code></p>
+<p>Logs the text.</p>
+<p>These strings appear on the Text Tab in the Comet UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>Experiment</em>) – Object representing single experiment</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Used to associate text to a specific step</p></li>
+<li><p><strong>metadata</strong> (<em>JSON-like</em><em>, </em><em>optional</em>) – Additional data attached to text.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Received text</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.callbacks.comet.Text.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtraining/callbacks/comet.html#Text.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.callbacks.comet.Text.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Text to be stored</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtraining.callbacks.comet module</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtraining">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

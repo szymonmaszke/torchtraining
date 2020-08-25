@@ -7,7 +7,7 @@ import datasets
 import modules
 import operations
 import steps
-import torchtrain as tt
+import torchtraining as tt
 
 
 def prepare_generator(writer, dataset, device):

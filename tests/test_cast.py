@@ -2,7 +2,7 @@ import itertools
 
 import pytest
 import torch
-import torchtrain as tt
+import torchtraining as tt
 
 
 class Check(tt.Operation):

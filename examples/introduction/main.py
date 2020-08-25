@@ -1,5 +1,5 @@
 import torch
-import torchtrain as tt
+import torchtraining as tt
 import torchvision
 
 from . import data, iterations, modules, steps

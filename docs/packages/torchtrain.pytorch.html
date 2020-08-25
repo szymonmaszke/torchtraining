@@ -1,0 +1,627 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtraining.pytorch &mdash; torchtraining  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtraining/packages/torchtrain.pytorch.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="torchtraining.quantization" href="torchtrain.quantization.html" />
+    <link rel="prev" title="torchtraining.metrics" href="torchtrain.metrics.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtraining">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.html">torchtraining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accelerators.html">torchtraining.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accumulators.html">torchtraining.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks.html">torchtraining.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.cast.html">torchtraining.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.device.html">torchtraining.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.epochs.html">torchtraining.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.exceptions.html">torchtraining.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.functional.html">torchtraining.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.iterations.html">torchtraining.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.loss.html">torchtraining.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.metrics.html">torchtraining.metrics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torchtraining.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.quantization.html">torchtraining.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.steps.html">torchtraining.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../index.html">
+        </a> &gt;
+      </li>
+
+        
+      <li>torchtraining.pytorch</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/packages/torchtrain.pytorch.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtraining-pytorch">
+<h1>torchtraining.pytorch<a class="headerlink" href="#torchtraining-pytorch" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-torchtraining.pytorch"></span><p>This module provides standard PyTorch operations (like <code class="xref py py-obj docutils literal notranslate"><span class="pre">backward</span></code>)
+in functional manner.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This module is used almost all the time
+so be sure to understand how it works.</p>
+</div>
+<p>It allows users to perform training on single <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code> for both training and evaluation
+using PyTorch’s optimizer, backward or zeroing gradient, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Step</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="c1"># Your forward step here</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">predictions</span>
+
+<span class="n">training</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Step</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">ZeroGrad</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">Backward</span><span class="p">()</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">Optimize</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">Detach</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">evaluation</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Step</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">gradient</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Log</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Some other operations are also simplified (e.g. gradient accumulation),
+see <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.callbacks.Optimize</span></code></p>
+<dl class="py class">
+<dt id="torchtraining.pytorch.Backward">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.pytorch.</code><code class="sig-name descname">Backward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scaler</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">accumulate</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">gradient</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Backward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run backpropagation on output tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scaler</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/amp.html#torch.cuda.amp.GradScaler" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.cuda.amp.GradScaler</em></a><em>, </em><em>optional</em>) – Gradient scaler used for automatic mixed precision mode.</p></li>
+<li><p><strong>accumulate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Divide loss by <code class="docutils literal notranslate"><span class="pre">accumulate</span></code> if gradient accumulation is used.
+This approach averages gradient from multiple batches.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code> (no accumulation)</p></li>
+<li><p><strong>gradient</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><em>optional</em>) – Tensor used as initial value to backpropagation. If unspecified,
+uses <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.tensor([1.0])</span></code> as default value (just like <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor.backward()</span></code> call).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tensor after backward (possibly scaled by <code class="xref py py-obj docutils literal notranslate"><span class="pre">accumulate</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.pytorch.Backward.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Backward.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Backward.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor on which <code class="xref py py-obj docutils literal notranslate"><span class="pre">backward</span></code> will be run (possibly accumulated).
+Usually <code class="xref py py-obj docutils literal notranslate"><span class="pre">loss</span></code> value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.pytorch.Detach">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.pytorch.</code><code class="sig-name descname">Detach</code><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Detach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Detach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new Tensor, detached from the current graph.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This operation should be used before accumulating
+values after <code class="xref py py-obj docutils literal notranslate"><span class="pre">iteration</span></code> in order not to grow backpropagation
+graph.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Detached tensor</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.pytorch.Detach.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Detach.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Detach.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>torch.Tensor</strong> – Tensor to be detached (new Tensor is returned).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.pytorch.Optimize">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.pytorch.</code><code class="sig-name descname">Optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">accumulate</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">closure</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scaler</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform optimization step on <code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code> stored by <code class="xref py py-obj docutils literal notranslate"><span class="pre">optimizer</span></code>.</p>
+<p>Currently specifying <code class="xref py py-obj docutils literal notranslate"><span class="pre">closure</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">scaler</span></code> is mutually exclusive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimizer</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/optim.html#torch.optim.Optimizer" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.optim.Optimizer</em></a>) – Instance of optimizer-like object with interface aligned with
+<a class="reference external" href="https://pytorch.org/docs/stable/optim.html#torch.optim.Optimizer" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.optim.Optimizer</span></code></a>.</p></li>
+<li><p><strong>accumulate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Divide loss by <code class="docutils literal notranslate"><span class="pre">accumulate</span></code> if gradient accumulation is used.
+This approach averages gradient from multiple batches.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code> (no accumulation)</p></li>
+<li><p><strong>closure</strong> (<em>Callable</em><em>, </em><em>optional</em>) – A closure that reevaluates the model and returns the loss.
+Optional for most optimizers. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>scaler</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/amp.html#torch.cuda.amp.GradScaler" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.cuda.amp.GradScaler</em></a><em>, </em><em>optional</em>) – Gradient scaler used for automatic mixed precision mode.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>*args</strong> – Arguments passed to either <code class="xref py py-obj docutils literal notranslate"><span class="pre">scaler.step</span></code> (if specified) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">optimizer.step</span></code></p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments passed to either <code class="xref py py-obj docutils literal notranslate"><span class="pre">scaler.step</span></code> (if specified) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">optimizer.step</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Anything passed to <a class="reference internal" href="#torchtraining.pytorch.Optimize.forward" title="torchtraining.pytorch.Optimize.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.pytorch.Optimize.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Optimize.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Optimize.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything as it does not influence this operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.pytorch.Schedule">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.pytorch.</code><code class="sig-name descname">Schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scheduler</span></em>, <em class="sig-param"><span class="n">use_data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run single step of given scheduler.</p>
+<p>Usually placed after each <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">iteration</span></code> (depending on provided
+scheduler instance).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Value passed to function initially</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scheduler</strong> (<em>torch.optim.lr_scheduler._LRScheduler</em>) – Instance of scheduler-like object with interface aligned with
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler._LRScheduler</span></code> base class</p></li>
+<li><p><strong>use_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether input data should be used when stepping scheduler.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.pytorch.Schedule.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#Schedule.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.Schedule.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>torch.Tensor</strong> – Tensor which is optionally used to step scheduler.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.pytorch.UpdateGradScaler">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.pytorch.</code><code class="sig-name descname">UpdateGradScaler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scaler</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#UpdateGradScaler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.UpdateGradScaler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update gradient scaler used with automatic mixed precision.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>scaler</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/amp.html#torch.cuda.amp.GradScaler" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.cuda.amp.GradScaler</em></a>) – Gradient scaler used for automatic mixed precision mode.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Anything passed to <a class="reference internal" href="#torchtraining.pytorch.UpdateGradScaler.forward" title="torchtraining.pytorch.UpdateGradScaler.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.pytorch.UpdateGradScaler.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#UpdateGradScaler.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.UpdateGradScaler.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything as it does not influence this operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.pytorch.ZeroGrad">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.pytorch.</code><code class="sig-name descname">ZeroGrad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">accumulate</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#ZeroGrad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.ZeroGrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zero model or optimizer gradients.</p>
+<p>Function <code class="xref py py-obj docutils literal notranslate"><span class="pre">zero_grad()</span></code> will be run on the provided object.
+Usually called after every <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code> (or after multiple steps, see <code class="xref py py-obj docutils literal notranslate"><span class="pre">accumulate</span></code>
+argument).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>torch.optim.Optimizer | torch.nn.Module</em>) – Instance of object to zero gradient on.</p></li>
+<li><p><strong>accumulate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Accumulate gradient for specified number of iterations before zero-ing out
+gradient.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Anything passed to <a class="reference internal" href="#torchtraining.pytorch.ZeroGrad.forward" title="torchtraining.pytorch.ZeroGrad.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.pytorch.ZeroGrad.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/pytorch.html#ZeroGrad.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.pytorch.ZeroGrad.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything as it does not influence this operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="torchtrain.quantization.html" class="btn btn-neutral float-right" title="torchtraining.quantization" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="torchtrain.metrics.html" class="btn btn-neutral" title="torchtraining.metrics" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtraining.pytorch</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtraining">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

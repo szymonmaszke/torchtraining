@@ -7,7 +7,7 @@ from sklearn.metrics import (max_error, mean_absolute_error,
                              r2_score)
 
 import pytest
-import torchtrain as tt
+import torchtraining as tt
 
 # @pytest.mark.parametrize(
 #     "metrics,data",

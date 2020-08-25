@@ -1,0 +1,576 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtraining.callbacks.tensorboard &mdash; torchtraining  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtraining/_modules/torchtraining/callbacks/tensorboard.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtraining">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.html">torchtraining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.accelerators.html">torchtraining.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.accumulators.html">torchtraining.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.callbacks.html">torchtraining.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.cast.html">torchtraining.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.device.html">torchtraining.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.epochs.html">torchtraining.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.exceptions.html">torchtraining.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.functional.html">torchtraining.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.iterations.html">torchtraining.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.loss.html">torchtraining.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.metrics.html">torchtraining.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.pytorch.html">torchtraining.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.quantization.html">torchtraining.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../packages/torchtrain.steps.html">torchtraining.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../index.html">
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../torchtraining.html">torchtraining</a> &gt;</li>
+        
+          <li><a href="../callbacks.html">torchtraining.callbacks</a> &gt;</li>
+        
+      <li>torchtraining.callbacks.tensorboard</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torchtraining.callbacks.tensorboard</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Special type of callbacks focused on `tensorboard` integration.</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">    **IMPORTANT**: Users need `tensorboard` package installed for this</span>
+<span class="sd">    module to exist.</span>
+<span class="sd">    You can install it via `pip install torchtraining[tensorboard]`</span>
+<span class="sd">    (additional libraries for `Image`, `Images`, `Video`, `Figure`)</span>
+<span class="sd">    will also be installed)</span>
+<span class="sd">    or install `tensorboard` directly via `pip install -U tensorboard`</span>
+<span class="sd">    or a-like command (in this case not all functions may be available,</span>
+<span class="sd">    see PyTorch&#39;s `torch.utils.tensorboard.SummaryWriter` docs for</span>
+<span class="sd">    exact packages needed for each functionality).</span>
+
+
+<span class="sd">Example::</span>
+
+<span class="sd">    # Assume iteration was defined and loss is 0th element of step</span>
+<span class="sd">    iteration = (</span>
+<span class="sd">        tt.iterations.Iteration(...)</span>
+<span class="sd">        ** tt.Select(loss=0)</span>
+<span class="sd">        ** tt.device.CPU()</span>
+<span class="sd">        ** tt.accumulators.Mean()</span>
+<span class="sd">        ** tt.callbacks.tensorboard.Scalar(writer, &quot;Network/Loss&quot;)</span>
+<span class="sd">    )</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="kn">import</span> <span class="nn">loguru</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">_base</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">general</span> <span class="k">as</span> <span class="n">utils</span>
+
+
+<span class="k">def</span> <span class="nf">_docs</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">klass</span><span class="p">):</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">docstring</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Log </span><span class="si">{function}</span><span class="s2"> to Tensorboard&#39;s summary.</span>
+
+<span class="s2">User should specify single `writer` instance to all `torchtraining.callbacks.tensorboard`</span>
+<span class="s2">objects used for training.</span>
+
+<span class="s2">See `torch.utils.tensorboard.writer.add_</span><span class="si">{function}</span><span class="s2">` for more details.</span>
+
+<span class="s2">Can be used similarly to `torchtraining.callbacks.Logger`</span>
+
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">function</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">docstring</span> <span class="o">+=</span> <span class="n">body</span>
+
+        <span class="n">docstring</span> <span class="o">+=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Parameters</span>
+<span class="s2">----------</span>
+<span class="s2">writer: torch.utils.tensorboard.SummaryWriter</span>
+<span class="s2">    Writer responsible for logging values.</span>
+<span class="s2">name: str</span>
+<span class="s2">    Name (tag) under which values will be logged into Tensorboard.</span>
+<span class="s2">    Can be &quot;/&quot; separated to group values together, e.g. &quot;Classifier/Loss&quot;</span>
+<span class="s2">    and &quot;Classifier/Accuracy&quot;</span>
+<span class="s2">flush: int</span>
+<span class="s2">    Flushes the event file to disk after `flush` steps.</span>
+<span class="s2">    Call this method to make sure that all pending events have been written to disk.</span>
+<span class="s2">log : str | int, optional</span>
+<span class="s2">    Severity level for logging object&#39;s actions.</span>
+<span class="s2">    Available levels of logging:</span>
+<span class="s2">        * NONE          0</span>
+<span class="s2">        * TRACE 	5</span>
+<span class="s2">        * DEBUG 	10</span>
+<span class="s2">        * INFO 	        20</span>
+<span class="s2">        * SUCCESS 	25</span>
+<span class="s2">        * WARNING 	30</span>
+<span class="s2">        * ERROR 	40</span>
+<span class="s2">        * CRITICAL 	50</span>
+<span class="s2">    Default: `NONE` (no logging, `0` priority)</span>
+<span class="s2">*args</span>
+<span class="s2">    Variable length arguments passed to `add_</span><span class="si">{function}</span><span class="s2">` call.</span>
+<span class="s2">**kwargs</span>
+<span class="s2">    Keyword variable length arguments passed to `add_</span><span class="si">{function}</span><span class="s2">` call.</span>
+
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">function</span><span class="o">=</span><span class="n">function</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">klass</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">docstring</span>
+        <span class="k">return</span> <span class="n">klass</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+
+<span class="k">class</span> <span class="nc">_Tensorboard</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">writer</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">flush</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">log</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="n">writer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flush</span> <span class="o">=</span> <span class="n">flush</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data:</span>
+<span class="sd">            Tensor (or a-like) to be logged into Tensorboard</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="p">,</span> <span class="s2">&quot;add_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()))(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> added to Tensorboard.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_name</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flush</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flush</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;Events flushed to disk.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">data</span>
+
+
+<div class="viewcode-block" id="Scalar"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Scalar">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Scalar</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Scalars"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Scalars">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Scalars</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Histogram"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Histogram">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Histogram</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">modules_exist</span><span class="p">(</span><span class="s2">&quot;PIL&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Image">[docs]</a>    <span class="nd">@_docs</span><span class="p">()</span>
+    <span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Images"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Images">[docs]</a>    <span class="nd">@_docs</span><span class="p">()</span>
+    <span class="k">class</span> <span class="nc">Images</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">modules_exist</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Figure"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Figure">[docs]</a>    <span class="nd">@_docs</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Note that this requires the `matplotlib` package.&quot;</span><span class="p">,)</span>
+    <span class="k">class</span> <span class="nc">Figure</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">modules_exist</span><span class="p">(</span><span class="s2">&quot;moviepy&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Video"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Video">[docs]</a>    <span class="nd">@_docs</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Note that this requires the `moviepy` package.&quot;</span><span class="p">,)</span>
+    <span class="k">class</span> <span class="nc">Video</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Audio"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Audio">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Audio</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Text"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Text">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Text</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Mesh"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.Mesh">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Mesh</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="PRCurve"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.PRCurve">[docs]</a><span class="nd">@_docs</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">PRCurve</span><span class="p">(</span><span class="n">_Tensorboard</span><span class="p">):</span>
+<div class="viewcode-block" id="PRCurve.forward"><a class="viewcode-back" href="../../../packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#torchtraining.callbacks.tensorboard.PRCurve.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span></div></div>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+         <script src="../../../_static/jquery.js"></script>
+         <script src="../../../_static/underscore.js"></script>
+         <script src="../../../_static/doctools.js"></script>
+         <script src="../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtraining">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

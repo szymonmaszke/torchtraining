@@ -1,0 +1,1208 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtraining.metrics.classification.multiclass &mdash; torchtraining  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtraining/packages/torchtrain.metrics/torchtrain.metrics.classification/torchtrain.metrics.classification.multiclass.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtraining">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.html">torchtraining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.accelerators.html">torchtraining.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.accumulators.html">torchtraining.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.callbacks.html">torchtraining.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.cast.html">torchtraining.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.device.html">torchtraining.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.epochs.html">torchtraining.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.exceptions.html">torchtraining.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.functional.html">torchtraining.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.iterations.html">torchtraining.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.loss.html">torchtraining.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.metrics.html">torchtraining.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.pytorch.html">torchtraining.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.quantization.html">torchtraining.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../torchtrain.steps.html">torchtraining.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../index.html">
+        </a> &gt;
+      </li>
+
+        
+      <li>torchtraining.metrics.classification.multiclass</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/packages/torchtrain.metrics/torchtrain.metrics.classification/torchtrain.metrics.classification.multiclass.rst.txt" rel="nofollow"><img src="../../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtraining-metrics-classification-multiclass">
+<h1>torchtraining.metrics.classification.multiclass<a class="headerlink" href="#torchtraining-metrics-classification-multiclass" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-torchtraining.metrics.classification.multiclass"></span><dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.Accuracy">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">Accuracy</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate accuracy score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>) </em><em>-&gt; Any</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
+after specified reduction.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Mean</span></code>
+to get mean across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.Accuracy.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Accuracy.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Accuracy.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default mean is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.BalancedAccuracy">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">BalancedAccuracy</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#BalancedAccuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.BalancedAccuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Critical success index between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.BalancedAccuracy.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#BalancedAccuracy.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.BalancedAccuracy.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.ConfusionMatrix">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">ConfusionMatrix</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#ConfusionMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.ConfusionMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Confusion matrix between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Sum</span></code>
+to get sum across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.ConfusionMatrix.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#ConfusionMatrix.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.ConfusionMatrix.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.CriticalSuccessIndex">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">CriticalSuccessIndex</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#CriticalSuccessIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.CriticalSuccessIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Critical success index between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.CriticalSuccessIndex.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#CriticalSuccessIndex.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.CriticalSuccessIndex.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.F1">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">F1</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#F1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.F1" title="Permalink to this definition">¶</a></dt>
+<dd><p>F1 score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.F1.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#F1.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.F1.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FBeta">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FBeta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">beta</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FBeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FBeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get f-beta score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Beta coefficient of <code class="xref py py-obj docutils literal notranslate"><span class="pre">f-beta</span></code> score.</p></li>
+<li><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FBeta.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FBeta.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FBeta.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FalseDiscoveryRate">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FalseDiscoveryRate</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseDiscoveryRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseDiscoveryRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>False discovery rate between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FalseDiscoveryRate.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseDiscoveryRate.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseDiscoveryRate.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FalseNegative">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FalseNegative</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseNegative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseNegative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of false negatives between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Sum</span></code>
+to get sum across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FalseNegative.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseNegative.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseNegative.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FalseNegativeRate">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FalseNegativeRate</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseNegativeRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseNegativeRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>False negative rate between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FalseNegativeRate.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseNegativeRate.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseNegativeRate.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FalseOmissionRate">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FalseOmissionRate</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseOmissionRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseOmissionRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>False omission rate between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FalseOmissionRate.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalseOmissionRate.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalseOmissionRate.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FalsePositive">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FalsePositive</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalsePositive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalsePositive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of false positives between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Sum</span></code>
+to get sum across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FalsePositive.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalsePositive.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalsePositive.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.FalsePositiveRate">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">FalsePositiveRate</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalsePositiveRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalsePositiveRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>False positive rate between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.FalsePositiveRate.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#FalsePositiveRate.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.FalsePositiveRate.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.Jaccard">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">Jaccard</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Jaccard score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>) </em><em>-&gt; Any</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
+after specified reduction.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Mean</span></code>
+to get mean across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.Jaccard.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Jaccard.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Jaccard.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default mean is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.MatthewsCorrelationCoefficient">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">MatthewsCorrelationCoefficient</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#MatthewsCorrelationCoefficient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.MatthewsCorrelationCoefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matthews correlation coefficient between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.MatthewsCorrelationCoefficient.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#MatthewsCorrelationCoefficient.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.MatthewsCorrelationCoefficient.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.NegativePredictiveValue">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">NegativePredictiveValue</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#NegativePredictiveValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.NegativePredictiveValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Negative predictive value between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.NegativePredictiveValue.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#NegativePredictiveValue.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.NegativePredictiveValue.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.Precision">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">Precision</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Precision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Precision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Precision between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.Precision.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Precision.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Precision.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.Recall">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">Recall</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Recall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Recall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recall between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.Recall.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Recall.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Recall.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.Specificity">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">Specificity</code><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Specificity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Specificity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specificity between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.Specificity.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#Specificity.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.Specificity.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.TopK">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">TopK</code><span class="sig-paren">(</span><em class="sig-param">k: int</em>, <em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#TopK"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.TopK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get top-k accuracy score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many top results should be chosen.</p></li>
+<li><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Sum</span></code>
+to get sum across iterations/epochs).</p></li>
+<li><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default mean is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.TopK.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#TopK.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.TopK.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.TrueNegative">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">TrueNegative</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#TrueNegative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.TrueNegative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of true negatives between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Sum</span></code>
+to get sum across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.TrueNegative.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#TrueNegative.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.TrueNegative.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.metrics.classification.multiclass.TruePositive">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.metrics.classification.multiclass.</code><code class="sig-name descname">TruePositive</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#TruePositive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.TruePositive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of false positives between <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>Works for both logits and probabilities of <code class="xref py py-obj docutils literal notranslate"><span class="pre">output</span></code> out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtraining.savers.Sum</span></code>
+to get sum across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.metrics.classification.multiclass.TruePositive.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/torchtraining/metrics/classification/multiclass.html#TruePositive.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.metrics.classification.multiclass.TruePositive.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> (ground truths).
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *, C-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>
+
+</span> is the number of classes.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">logits</span></code> (unnormalized probabilities) or <code class="xref py py-obj docutils literal notranslate"><span class="pre">probabilities</span></code> after
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">softmax</span></code> activation or similar.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> and contain integers in the range
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, C-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>
+
+</span></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtraining.metrics.classification.multiclass</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+         <script src="../../../_static/jquery.js"></script>
+         <script src="../../../_static/underscore.js"></script>
+         <script src="../../../_static/doctools.js"></script>
+         <script src="../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtraining">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

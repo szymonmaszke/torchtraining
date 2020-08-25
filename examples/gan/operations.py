@@ -1,4 +1,4 @@
-import torchtrain as tt
+import torchtraining as tt
 
 
 class AddFakeImages(tt.Operation):

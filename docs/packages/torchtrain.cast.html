@@ -1,0 +1,895 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtraining.cast &mdash; torchtraining  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtraining/packages/torchtrain.cast.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="torchtraining.device" href="torchtrain.device.html" />
+    <link rel="prev" title="torchtraining.callbacks" href="torchtrain.callbacks.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtraining">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.html">torchtraining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accelerators.html">torchtraining.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accumulators.html">torchtraining.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks.html">torchtraining.callbacks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torchtraining.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.device.html">torchtraining.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.epochs.html">torchtraining.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.exceptions.html">torchtraining.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.functional.html">torchtraining.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.iterations.html">torchtraining.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.loss.html">torchtraining.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.metrics.html">torchtraining.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.pytorch.html">torchtraining.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.quantization.html">torchtraining.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.steps.html">torchtraining.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../index.html">
+        </a> &gt;
+      </li>
+
+        
+      <li>torchtraining.cast</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/packages/torchtrain.cast.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtraining-cast">
+<h1>torchtraining.cast<a class="headerlink" href="#torchtraining-cast" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-torchtraining.cast"></span><p>Cast tensors in a functional fashion.</p>
+<p>Users can use this module to cast <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code> outputs to desired type or
+to lower precision in order to save memory (though it shouldn’t be needed.)</p>
+<dl class="py class">
+<dt id="torchtraining.cast.As">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">As</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#As"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.As" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> to the same type as <code class="xref py py-obj docutils literal notranslate"><span class="pre">other</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor according to which incoming tensor will be casted.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.As.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#As.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.As.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.BFloat16">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">BFloat16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#BFloat16"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.BFloat16" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to BFloat16.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.BFloat16" title="torchtraining.cast.BFloat16">BFloat16</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.BFloat16.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#BFloat16.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.BFloat16.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Bool">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Bool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Bool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Bool.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Bool" title="torchtraining.cast.Bool">Bool</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Bool.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Bool.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Bool.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Byte">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Byte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Byte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Byte.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Byte" title="torchtraining.cast.Byte">Byte</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Byte.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Byte.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Byte.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Char">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Char</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Char"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Char" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Char.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Char" title="torchtraining.cast.Char">Char</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Char.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Char.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Char.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Double">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Double</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Double"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Double" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Double.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Double" title="torchtraining.cast.Double">Double</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Double.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Double.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Double.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Float">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Float</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Float.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Float" title="torchtraining.cast.Float">Float</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Float.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Float.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Float.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Float16">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Float16</code><a class="headerlink" href="#torchtraining.cast.Float16" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Half" title="torchtraining.cast.Half"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Half</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Float32">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Float32</code><a class="headerlink" href="#torchtraining.cast.Float32" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Float" title="torchtraining.cast.Float"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Float</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Float64">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Float64</code><a class="headerlink" href="#torchtraining.cast.Float64" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Double" title="torchtraining.cast.Double"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Double</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Half">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Half</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Half"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Half" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Half.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Half" title="torchtraining.cast.Half">Half</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Half.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Half.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Half.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Int">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Int.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Int" title="torchtraining.cast.Int">Int</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Int.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Int.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Int.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Int16">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Int16</code><a class="headerlink" href="#torchtraining.cast.Int16" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Short" title="torchtraining.cast.Short"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Short</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Int32">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Int32</code><a class="headerlink" href="#torchtraining.cast.Int32" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Int" title="torchtraining.cast.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Int</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Int64">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Int64</code><a class="headerlink" href="#torchtraining.cast.Int64" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Long" title="torchtraining.cast.Long"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Long</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.Int8">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Int8</code><a class="headerlink" href="#torchtraining.cast.Int8" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Char" title="torchtraining.cast.Char"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Char</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Item">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Item</code><a class="reference internal" href="../_modules/torchtraining/cast.html#Item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Item.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Item" title="torchtraining.cast.Item">Item</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Item.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Item.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Item.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.List">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">List</code><a class="reference internal" href="../_modules/torchtraining/cast.html#List"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.List" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to List.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="torchtrain.accumulators.html#torchtraining.accumulators.List" title="torchtraining.accumulators.List">List</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.List.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#List.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.List.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Long">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Long</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Long"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Long" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Long.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Long" title="torchtraining.cast.Long">Long</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Long.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Long.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Long.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.MKLDNN">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">MKLDNN</code><a class="reference internal" href="../_modules/torchtraining/cast.html#MKLDNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.MKLDNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to MKLDNN.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.MKLDNN" title="torchtraining.cast.MKLDNN">MKLDNN</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.MKLDNN.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#MKLDNN.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.MKLDNN.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Numpy">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Numpy</code><a class="reference internal" href="../_modules/torchtraining/cast.html#Numpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Numpy.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Numpy" title="torchtraining.cast.Numpy">Numpy</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Numpy.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Numpy.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Numpy.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Short">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Short</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Short"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Short" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> instance to Short.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Only <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> can be passed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">memory_format</span></code>
+is specified during casting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Casted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#torchtraining.cast.Short" title="torchtraining.cast.Short">Short</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Short.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Short.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Short.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtraining.cast.Sparse">
+<em class="property">class </em><code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">Sparse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sparse_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Sparse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Sparse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> to sparse format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sparse_dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – The number of sparse dimensions to include in the new sparse tensor.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtraining.cast.Sparse.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtraining/cast.html#Sparse.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtraining.cast.Sparse.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to be casted</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="torchtraining.cast.UInt8">
+<code class="sig-prename descclassname">torchtraining.cast.</code><code class="sig-name descname">UInt8</code><a class="headerlink" href="#torchtraining.cast.UInt8" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#torchtraining.cast.Byte" title="torchtraining.cast.Byte"><code class="xref py py-class docutils literal notranslate"><span class="pre">torchtraining.cast.Byte</span></code></a></p>
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="torchtrain.device.html" class="btn btn-neutral float-right" title="torchtraining.device" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="torchtrain.callbacks.html" class="btn btn-neutral" title="torchtraining.callbacks" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtraining.cast</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtraining">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

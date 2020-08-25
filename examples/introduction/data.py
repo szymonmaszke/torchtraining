@@ -1,6 +1,6 @@
 import typing
 
-import torchtrain as tt
+import torchtraining as tt
 
 
 def get_data(batch_size: int) -> typing.Dict:

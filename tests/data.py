@@ -1,7 +1,7 @@
 import typing
 
 import torch
-import torchtrain as tt
+import torchtraining as tt
 import torchvision
 
 

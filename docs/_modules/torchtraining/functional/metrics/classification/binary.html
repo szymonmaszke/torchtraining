@@ -1,0 +1,656 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtraining.functional.metrics.classification.binary &mdash; torchtraining  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtraining/_modules/torchtraining/functional/metrics/classification/binary.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../../../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtraining/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtraining">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.html">torchtraining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.accelerators.html">torchtraining.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.accumulators.html">torchtraining.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.callbacks.html">torchtraining.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.cast.html">torchtraining.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.device.html">torchtraining.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.epochs.html">torchtraining.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.exceptions.html">torchtraining.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.functional.html">torchtraining.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.iterations.html">torchtraining.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.loss.html">torchtraining.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.metrics.html">torchtraining.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.pytorch.html">torchtraining.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.quantization.html">torchtraining.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../packages/torchtrain.steps.html">torchtraining.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../../../../index.html">
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../../../../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../../../../torchtraining.html">torchtraining</a> &gt;</li>
+        
+      <li>torchtraining.functional.metrics.classification.binary</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torchtraining.functional.metrics.classification.binary</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">binary_utils</span>
+
+
+<div class="viewcode-block" id="accuracy"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.accuracy">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reduction</span><span class="p">((</span><span class="n">output</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="jaccard"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.jaccard">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">jaccard</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="n">union</span> <span class="o">=</span> <span class="p">(</span><span class="n">output</span> <span class="o">|</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span> <span class="o">&amp;</span> <span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">empty</span> <span class="o">=</span> <span class="n">union</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+    <span class="n">union</span><span class="p">[</span><span class="n">empty</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">intersection</span><span class="p">[</span><span class="n">empty</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">reduction</span><span class="p">(</span><span class="n">intersection</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">union</span><span class="p">)</span></div>
+
+
+<span class="c1"># Basic cases</span>
+
+
+<div class="viewcode-block" id="true_positive"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.true_positive">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">true_positive</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reduction</span><span class="p">((</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="false_positive"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.false_positive">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">false_positive</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reduction</span><span class="p">((</span><span class="n">output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="true_negative"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.true_negative">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">true_negative</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reduction</span><span class="p">((</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="false_negative"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.false_negative">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">false_negative</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reduction</span><span class="p">((</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span></div>
+
+
+<span class="c1"># Confusion matrix</span>
+
+
+<div class="viewcode-block" id="confusion_matrix"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.confusion_matrix">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">confusion_matrix</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="n">tp</span> <span class="o">=</span> <span class="n">reduction</span><span class="p">((</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">reduction</span><span class="p">((</span><span class="n">output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+    <span class="n">tn</span> <span class="o">=</span> <span class="n">reduction</span><span class="p">((</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">reduction</span><span class="p">((</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">tp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">tn</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span></div>
+
+
+<span class="c1"># Rate metrics</span>
+
+
+<div class="viewcode-block" id="recall"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.recall">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">recall</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="specificity"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.specificity">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">specificity</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">inverse_target</span> <span class="o">=</span> <span class="o">~</span><span class="n">target</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">inverse_target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">inverse_target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="precision"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.precision">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">precision</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">output</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="negative_predictive_value"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.negative_predictive_value">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">negative_predictive_value</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">inverse_output</span> <span class="o">=</span> <span class="o">~</span><span class="n">output</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">inverse_output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">inverse_output</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="false_negative_rate"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.false_negative_rate">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">false_negative_rate</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="false_positive_rate"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.false_positive_rate">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">false_positive_rate</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">inverse_target</span> <span class="o">=</span> <span class="o">~</span><span class="n">target</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">inverse_target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">inverse_target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="false_discovery_rate"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.false_discovery_rate">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">false_discovery_rate</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">output</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="false_omission_rate"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.false_omission_rate">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">false_omission_rate</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">inverse_output</span> <span class="o">=</span> <span class="o">~</span><span class="n">output</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">inverse_output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">inverse_output</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="critical_success_index"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.critical_success_index">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">critical_success_index</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">tp</span> <span class="o">/</span> <span class="n">tp</span> <span class="o">+</span> <span class="p">(</span><span class="n">output</span> <span class="o">!=</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="balanced_accuracy"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.balanced_accuracy">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">balanced_accuracy</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">inverse_target</span> <span class="o">=</span> <span class="o">~</span><span class="n">target</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">inverse_target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">/</span> <span class="n">inverse_target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="f1"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.f1">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">f1</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="n">tp</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="p">(</span><span class="n">output</span> <span class="o">!=</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="f_beta"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.f_beta">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">f_beta</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="p">(</span><span class="n">beta</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">output</span> <span class="o">!=</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="matthews_correlation_coefficient"><a class="viewcode-back" href="../../../../../packages/torchtrain.functional/torchtrain.functional.metrics/torchtrain.functional.metrics.classification/torchtrain.functional.metrics.classification.binary.html#torchtraining.functional.metrics.classification.binary.matthews_correlation_coefficient">[docs]</a><span class="nd">@utils</span><span class="o">.</span><span class="n">docs</span>
+<span class="k">def</span> <span class="nf">matthews_correlation_coefficient</span><span class="p">(</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">binary_utils</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+    <span class="n">inverse_output</span> <span class="o">=</span> <span class="o">~</span><span class="n">output</span>
+    <span class="n">inverse_target</span> <span class="o">=</span> <span class="o">~</span><span class="n">target</span>
+
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inverse_output</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
+
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span><span class="n">inverse_output</span> <span class="o">&amp;</span> <span class="n">inverse_target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">output</span> <span class="o">&amp;</span> <span class="n">inverse_target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="p">(</span><span class="n">inverse_output</span> <span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+    <span class="n">numerator</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">inverse_target</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">inverse_output</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">numerator</span>
+    <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span></div>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+         <script src="../../../../../_static/jquery.js"></script>
+         <script src="../../../../../_static/underscore.js"></script>
+         <script src="../../../../../_static/doctools.js"></script>
+         <script src="../../../../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../../../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../../../../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtraining">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#torchtraining">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtraining/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../../../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

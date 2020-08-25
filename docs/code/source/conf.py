@@ -19,7 +19,7 @@ import pytorch_sphinx_theme
 def get_version():
     namespace = {}
 
-    exec(open("../../../torchtrain/_version.py").read(), namespace)  # get version
+    exec(open("../../../torchtraining/_version.py").read(), namespace)  # get version
     return namespace["__version__"]
 
 
@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.abspath("../../.."))
 
 # -- Project information -----------------------------------------------------
 
-project = "torchtrain"
+project = "torchtraining"
 copyright = "2020, Szymon Maszke"
 author = "Szymon Maszke"
 version = get_version()
@@ -95,17 +95,17 @@ html_theme = "pytorch_sphinx_theme"
 html_theme_path = [pytorch_sphinx_theme.get_html_theme_path()]
 
 html_theme_options = {
-    "related": "https://szymonmaszke.github.io/torchtrain/related.html",
-    "roadmap": "https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md",
-    "github_issues": "https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
-    "home": "https://szymonmaszke.github.io/torchtrain",
-    "installation": "https://szymonmaszke.github.io/torchtrain/#installation",
-    "github": "https://github.com/szymonmaszke/torchtrain",
-    "docs": "https://szymonmaszke.github.io/torchtrain/#torchtrain",
+    "related": "https://szymonmaszke.github.io/torchtraining/related.html",
+    "roadmap": "https://github.com/szymonmaszke/torchtraining/blob/master/ROADMAP.md",
+    "github_issues": "https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
+    "home": "https://szymonmaszke.github.io/torchtraining",
+    "installation": "https://szymonmaszke.github.io/torchtraining/#installation",
+    "github": "https://github.com/szymonmaszke/torchtraining",
+    "docs": "https://szymonmaszke.github.io/torchtraining/#torchtraining",
     "collapse_navigation": False,
     "display_version": True,
     "logo_only": False,
-    "canonical_url": "https://szymonmaszke.github.io/torchtrain/",
+    "canonical_url": "https://szymonmaszke.github.io/torchtraining/",
 }
 
 # Other settings

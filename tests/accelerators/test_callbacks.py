@@ -1,7 +1,7 @@
 import importlib
 
 import torch
-import torchtrain as tt
+import torchtraining as tt
 
 if importlib.util.find_spec("horovod") is not None:
 

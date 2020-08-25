@@ -3,8 +3,8 @@ import os
 
 import setuptools
 
-exec(open("torchtrain/_version.py").read())  # get __version__
-exec(open("torchtrain/_name.py").read())  # get _name
+exec(open("torchtraining/_version.py").read())  # get __version__
+exec(open("torchtraining/_name.py").read())  # get _name
 
 extras = {
     "horovod": ["horovod[pytorch]"],
@@ -41,7 +41,7 @@ setuptools.setup(
     description="Functional & flexible neural network training with PyTorch.",
     long_description=open("README.md", "r").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/torchtrain",
+    url="https://github.com/pypa/torchtraining",
     packages=setuptools.find_packages(),
     install_requires=["torch>=1.3.0", "loguru>=0.5.1", "rich>=2.3.0", "PyYAML>=5.3.1"],
     extras_require=extras,
@@ -62,9 +62,9 @@ setuptools.setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     project_urls={
-        "Website": "https://szymonmaszke.github.io/torchtrain",
-        "Documentation": "https://szymonmaszke.github.io/torchtrain/#torchtrain",
-        "Issues": "https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
+        "Website": "https://szymonmaszke.github.io/torchtraining",
+        "Documentation": "https://szymonmaszke.github.io/torchtraining/#torchtraining",
+        "Issues": "https://github.com/szymonmaszke/torchtraining/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc",
     },
     keywords="pytorch train functional flexible research fit epoch step simple fast",
 )

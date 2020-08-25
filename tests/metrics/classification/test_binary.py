@@ -7,8 +7,8 @@ from sklearn.metrics import (accuracy_score, balanced_accuracy_score, f1_score,
                              precision_score, recall_score)
 
 import pytest
-import torchtrain as tt
-import torchtrain.metrics.classification.binary as M
+import torchtraining as tt
+import torchtraining.metrics.classification.binary as M
 
 # @pytest.mark.parametrize(
 #     "metrics,data",

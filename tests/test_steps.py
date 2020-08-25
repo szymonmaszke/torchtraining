@@ -1,6 +1,6 @@
 import pytest
 import torch
-import torchtrain as tt
+import torchtraining as tt
 
 
 class Step(tt.steps.Train):

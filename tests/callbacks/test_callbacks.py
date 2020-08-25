@@ -8,7 +8,7 @@ import tempfile
 import pytest
 import torch
 import torchfunc
-import torchtrain as tt
+import torchtraining as tt
 
 
 @pytest.mark.parametrize(

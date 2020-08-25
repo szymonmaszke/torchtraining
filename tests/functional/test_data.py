@@ -3,7 +3,7 @@ import itertools
 
 import torch
 
-import torchtrain as tt
+import torchtraining as tt
 
 
 def test_random_split():

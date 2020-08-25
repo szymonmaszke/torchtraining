@@ -1,7 +1,7 @@
 """Core pytorch operations regarding optimization (optimize, schedule) are placed in general tests."""
 import pytest
 import torch
-import torchtrain.pytorch as P
+import torchtraining.pytorch as P
 
 
 def test_backward():

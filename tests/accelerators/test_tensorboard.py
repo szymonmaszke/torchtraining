@@ -5,7 +5,7 @@ import tempfile
 
 import pytest
 import torch
-import torchtrain as tt
+import torchtraining as tt
 from torch.utils.tensorboard import SummaryWriter
 
 

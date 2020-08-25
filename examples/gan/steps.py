@@ -1,6 +1,6 @@
 import torch
 
-import torchtrain as tt
+import torchtraining as tt
 
 
 # Triple update generator, once discriminator
