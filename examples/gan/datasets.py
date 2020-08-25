@@ -30,5 +30,5 @@ class CIFAR10AndFakeImages(torch.utils.data.Dataset):
                 raise ValueError(
                     "Got no fake generated images, please run generator first."
                 )
-            return self.fake_images
+            return self.fake_images[index % self.fake_images.shape[0]]
         return self.cifar[index]
