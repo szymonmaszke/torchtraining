@@ -1,7 +1,6 @@
-torchtrain.metrics.classification.multiclass module
-===================================================
+torchtrain.metrics.classification.multiclass
+============================================
 
 .. automodule:: torchtrain.metrics.classification.multiclass
    :members:
    :undoc-members:
-   :show-inheritance:

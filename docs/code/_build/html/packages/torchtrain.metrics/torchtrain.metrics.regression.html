@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>torchtrain.metrics.regression module &mdash; torchtrain  documentation</title>
+  <title>torchtrain.metrics.regression &mdash; torchtrain  documentation</title>
   
 
   
@@ -35,7 +35,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="torchtrain.functional" href="../torchtrain.functional.html" />
-    <link rel="prev" title="torchtrain.metrics.distance module" href="torchtrain.metrics.distance.html" /> 
+    <link rel="prev" title="torchtrain.metrics.distance" href="torchtrain.metrics.distance.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -200,7 +200,7 @@
         
           <li><a href="../torchtrain.metrics.html">torchtrain.metrics</a> &gt;</li>
         
-      <li>torchtrain.metrics.regression module</li>
+      <li>torchtrain.metrics.regression</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
@@ -231,24 +231,25 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <div class="section" id="module-torchtrain.metrics.regression">
-<span id="torchtrain-metrics-regression-module"></span><h1>torchtrain.metrics.regression module<a class="headerlink" href="#module-torchtrain.metrics.regression" title="Permalink to this headline">¶</a></h1>
+<span id="torchtrain-metrics-regression"></span><h1>torchtrain.metrics.regression<a class="headerlink" href="#module-torchtrain.metrics.regression" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.AbsoluteError">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">AbsoluteError</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#AbsoluteError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.AbsoluteError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain.metrics.regression._MeanReduction</span></code></p>
-<p>{header}.</p>
-<blockquote>
-<div></div></blockquote>
-<dl class="simple">
-<dt>reduction: Callable(torch.Tensor) -&gt; Any, optional</dt><dd><p>One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
+<dd><p>Absolute error between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>) </em><em>-&gt; Any</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
 after specified reduction.
 Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Mean</span></code>
 to get mean across iterations/epochs).</p>
 </dd>
 </dl>
-<dl class="field-list simple">
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.AbsoluteError.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#AbsoluteError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.AbsoluteError.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
@@ -257,32 +258,40 @@ to get mean across iterations/epochs).</p>
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default mean is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.AbsoluteError.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#AbsoluteError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.AbsoluteError.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.AdjustedR2">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">AdjustedR2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#AdjustedR2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.AdjustedR2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
-<p>Adjusted R2 score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
+<dd><p>Adjusted R2 score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of explanatory terms in model.</p></li>
-<li><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd class="field-odd"><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of explanatory terms in model.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.AdjustedR2.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#AdjustedR2.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.AdjustedR2.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
 
 </span> is the number of samples.
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p></li>
-</ul>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
@@ -291,19 +300,18 @@ Should contain <code class="xref py py-obj docutils literal notranslate"><span c
 <dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.AdjustedR2.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#AdjustedR2.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.AdjustedR2.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.MaxError">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">MaxError</code><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#MaxError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.MaxError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
-<p>{header}.</p>
-<dl class="field-list simple">
+<dd><p>Maximum error between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.MaxError.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#MaxError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.MaxError.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
@@ -321,19 +329,18 @@ Should contain <code class="xref py py-obj docutils literal notranslate"><span c
 <dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.MaxError.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#MaxError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.MaxError.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.R2">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">R2</code><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#R2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.R2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
-<p>{header}.</p>
-<dl class="field-list simple">
+<dd><p>R2 score between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.R2.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#R2.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.R2.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
@@ -351,29 +358,27 @@ Should contain <code class="xref py py-obj docutils literal notranslate"><span c
 <dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.R2.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#R2.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.R2.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.RegressionOfSquares">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">RegressionOfSquares</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#RegressionOfSquares"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.RegressionOfSquares" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain.metrics.regression._SumReduction</span></code></p>
-<p>{header}.</p>
-<blockquote>
-<div></div></blockquote>
-<dl class="simple">
-<dt>reduction: Callable, optional</dt><dd><p>One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+<dd><p>Regression of squares between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
 Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Sum</span></code>
 to get sum across iterations/epochs).</p>
 </dd>
 </dl>
-<dl class="field-list simple">
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.RegressionOfSquares.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#RegressionOfSquares.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.RegressionOfSquares.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
@@ -382,31 +387,36 @@ to get sum across iterations/epochs).</p>
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.RegressionOfSquares.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#RegressionOfSquares.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.RegressionOfSquares.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.SquaredError">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">SquaredError</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaredError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaredError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain.metrics.regression._MeanReduction</span></code></p>
-<p>{header}.</p>
-<blockquote>
-<div></div></blockquote>
-<dl class="simple">
-<dt>reduction: Callable(torch.Tensor) -&gt; Any, optional</dt><dd><p>One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
+<dd><p>Squared error between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>) </em><em>-&gt; Any</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
 after specified reduction.
 Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Mean</span></code>
 to get mean across iterations/epochs).</p>
 </dd>
 </dl>
-<dl class="field-list simple">
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.SquaredError.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaredError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaredError.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
@@ -415,31 +425,36 @@ to get mean across iterations/epochs).</p>
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default mean is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.SquaredError.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaredError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaredError.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.SquaredLogError">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">SquaredLogError</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaredLogError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaredLogError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain.metrics.regression._MeanReduction</span></code></p>
-<p>{header}.</p>
-<blockquote>
-<div></div></blockquote>
-<dl class="simple">
-<dt>reduction: Callable(torch.Tensor) -&gt; Any, optional</dt><dd><p>One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
+<dd><p>Squared log error between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>) </em><em>-&gt; Any</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
 after specified reduction.
 Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Mean</span></code>
 to get mean across iterations/epochs).</p>
 </dd>
 </dl>
-<dl class="field-list simple">
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.SquaredLogError.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaredLogError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaredLogError.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
@@ -448,30 +463,35 @@ to get mean across iterations/epochs).</p>
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default mean is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.SquaredLogError.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaredLogError.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaredLogError.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.SquaresOfResiduals">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">SquaresOfResiduals</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaresOfResiduals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaresOfResiduals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain.metrics.regression._SumReduction</span></code></p>
-<p>{header}.</p>
-<blockquote>
-<div></div></blockquote>
-<dl class="simple">
-<dt>reduction: Callable, optional</dt><dd><p>One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+<dd><p>Square of residuals between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
 Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Sum</span></code>
 to get sum across iterations/epochs).</p>
 </dd>
 </dl>
-<dl class="field-list simple">
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.SquaresOfResiduals.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaresOfResiduals.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaresOfResiduals.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
@@ -480,27 +500,35 @@ to get sum across iterations/epochs).</p>
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default sum is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.SquaresOfResiduals.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#SquaresOfResiduals.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.SquaresOfResiduals.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="torchtrain.metrics.regression.TotalOfSquares">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.regression.</code><code class="sig-name descname">TotalOfSquares</code><span class="sig-paren">(</span><em class="sig-param">reduction=&lt;built-in method sum of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#TotalOfSquares"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.TotalOfSquares" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain.metrics.regression._SumReduction</span></code></p>
-<p>Total of squares of single <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code>.</p>
+<dd><p>Total of squares of single <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
+<dd class="field-odd"><p><strong>reduction</strong> (<em>Callable</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.
 Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.sum.html#torch.sum" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.sum</span></code></a> (sum of all elements, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Sum</span></code>
-to get sum across iterations/epochs).</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor containing <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data of any shape. Usually <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p></li>
-</ul>
+to get sum across iterations/epochs).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.metrics.regression.TotalOfSquares.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#TotalOfSquares.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.TotalOfSquares.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor containing <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data of any shape. Usually <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default {} is taken and single value returned.
@@ -510,10 +538,7 @@ Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><sp
 <dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="torchtrain.metrics.regression.TotalOfSquares.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/regression.html#TotalOfSquares.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.regression.TotalOfSquares.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -530,7 +555,7 @@ Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><sp
         <a href="../torchtrain.functional.html" class="btn btn-neutral float-right" title="torchtrain.functional" accesskey="n" rel="next">Next <img src="../../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
-        <a href="torchtrain.metrics.distance.html" class="btn btn-neutral" title="torchtrain.metrics.distance module" accesskey="p" rel="prev"><img src="../../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+        <a href="torchtrain.metrics.distance.html" class="btn btn-neutral" title="torchtrain.metrics.distance" accesskey="p" rel="prev"><img src="../../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
       
     </div>
   
@@ -559,7 +584,7 @@ Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><sp
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">torchtrain.metrics.regression module</a></li>
+<li><a class="reference internal" href="#">torchtrain.metrics.regression</a></li>
 </ul>
 
             </div>

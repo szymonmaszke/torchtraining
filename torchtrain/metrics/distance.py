@@ -16,9 +16,6 @@ class Cosine(_base.Operation):
 
     It is equal to :math:`1 - S`, where :math:`S` is cosine similarity.
 
-    .. math ::
-        \text{distance} = 1 - \dfrac{x_1 \cdot x_2}{\max(\Vert x_1 \Vert _2 \cdot \Vert x_2 \Vert _2, \epsilon)}.
-
     Parameters
     ----------
     dim: int, optional
@@ -44,6 +41,22 @@ class Cosine(_base.Operation):
         self.reduction = reduction
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Tuple[torch.Tensor, torch.Tensor]
+            Tuple containing `outputs` from neural network and regression `targets`.
+            `outputs` should be of shape :math:`(N, F)`, where :math:`N` is the number of samples,
+            :math:`F` is the number of features.
+            Should contain `floating` point values.
+            `targets` should be in the same shape `outputs` and be of `float` data type as well.
+
+        Returns
+        -------
+        torch.Tensor
+            If `reduction` is left as default {} is taken and single value returned.
+            Otherwise whatever `reduction` returns.
+        """
         return functional.metrics.distance.cosine(
             *data, self.dim, self.eps, self.reduction
         )
@@ -59,10 +72,6 @@ class Cosine(_base.Operation):
 class Pairwise(_base.Operation):
     """Computes the batchwise pairwise distance between vectors :math:`v_1`, :math:`v_2` using specified norm.
 
-    .. math ::
-        \Vert x \Vert _p = \left( \sum_{i=1}^n  \vert x_i \vert ^ p \right) ^ {1/p}.
-
-
     Parameters
     ----------
     p: float, optional
@@ -74,22 +83,6 @@ class Pairwise(_base.Operation):
         after specified reduction.
         Default: `torch.mean` (mean across batch, user can use `torchtrain.savers.Mean`
         to get mean across iterations/epochs).
-
-    Arguments
-    ---------
-    data: Tuple[torch.Tensor, torch.Tensor]
-        Tuple containing `outputs` from neural network and regression `targets`.
-        `outputs` should be of shape :math:`(N, F)`, where :math:`N` is the number of samples,
-        :math:`F` is the number of features.
-        Should contain `floating` point values.
-        `targets` should be in the same shape `outputs` and be of `float` data type as well.
-
-    Returns
-    -------
-    torch.Tensor
-        If `reduction` is left as default {} is taken and single value returned.
-        Otherwise whatever `reduction` returns.
-
     """
 
     def __init__(self, p: float = 2.0, eps: float = 1e-06, reduction=torch.mean):
@@ -99,6 +92,22 @@ class Pairwise(_base.Operation):
         self.reduction = reduction
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Tuple[torch.Tensor, torch.Tensor]
+            Tuple containing `outputs` from neural network and regression `targets`.
+            `outputs` should be of shape :math:`(N, F)`, where :math:`N` is the number of samples,
+            :math:`F` is the number of features.
+            Should contain `floating` point values.
+            `targets` should be in the same shape `outputs` and be of `float` data type as well.
+
+        Returns
+        -------
+        torch.Tensor
+            If `reduction` is left as default {} is taken and single value returned.
+            Otherwise whatever `reduction` returns.
+        """
         return functional.metrics.distance.pairwise(
             *data, self.p, self.eps, self.reduction,
         )

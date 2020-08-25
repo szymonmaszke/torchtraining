@@ -241,7 +241,7 @@
 <div class="viewcode-block" id="BinaryFocal"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.BinaryFocal">[docs]</a><span class="k">class</span> <span class="nc">BinaryFocal</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Binary focal loss working with raw output from network (logits).</span>
 
-<span class="sd">    See: https://arxiv.org/abs/1708.02002.</span>
+<span class="sd">    See original research paper: `Focal Loss for Dense Object Detection &lt;https://arxiv.org/abs/1708.02002&gt;`__</span>
 
 <span class="sd">    Underplays loss of easy examples while leaving loss of harder examples</span>
 <span class="sd">    for neural network mostly intact (dampened way less).</span>
@@ -267,17 +267,6 @@
 <span class="sd">        If user wants a summation he should use: `torch.sum`.</span>
 <span class="sd">        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).</span>
 
-<span class="sd">    Shape</span>
-<span class="sd">    -----</span>
-<span class="sd">    outputs:</span>
-<span class="sd">        :math:`(N, *)` where :math:`*` means, any number of additional dimensions.</span>
-<span class="sd">        Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`</span>
-<span class="sd">        is it&#39;s width.</span>
-<span class="sd">    targets:</span>
-<span class="sd">        :math:`(N, *)`, same shape as the input.</span>
-<span class="sd">    output:</span>
-<span class="sd">        If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
-<span class="sd">        Otherwise whatever shape `reduction` returns.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -296,6 +285,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="n">reduction</span>
 
 <div class="viewcode-block" id="BinaryFocal.forward"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.BinaryFocal.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        outputs: torch.Tensor</span>
+<span class="sd">            :math:`(N, *)` where :math:`*` means, any number of additional dimensions.</span>
+<span class="sd">            Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`</span>
+<span class="sd">            is it&#39;s width.</span>
+<span class="sd">        targets: torch.Tensor</span>
+<span class="sd">            :math:`(N, *)`, same shape as the input.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
+<span class="sd">            Otherwise whatever shape `reduction` returns.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">binary_focal_loss</span><span class="p">(</span>
             <span class="n">outputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span><span class="p">,</span>
         <span class="p">)</span></div></div>
@@ -304,7 +310,7 @@
 <div class="viewcode-block" id="MulticlassFocal"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.MulticlassFocal">[docs]</a><span class="k">class</span> <span class="nc">MulticlassFocal</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Multiclass focal loss working with raw output from network (logits).</span>
 
-<span class="sd">    See: https://arxiv.org/abs/1708.02002.</span>
+<span class="sd">    See original research paper: `Focal Loss for Dense Object Detection &lt;https://arxiv.org/abs/1708.02002&gt;`__</span>
 
 <span class="sd">    Underplays loss of easy examples while leaving loss of harder examples</span>
 <span class="sd">    for neural network mostly intact (dampened way less).</span>
@@ -328,24 +334,6 @@
 <span class="sd">        If user wants a summation he should use: `torch.sum`.</span>
 <span class="sd">        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).</span>
 
-<span class="sd">    Shape</span>
-<span class="sd">    -----</span>
-<span class="sd">    outputs:</span>
-<span class="sd">        :math:`(N, C)` where `C = number of classes`, or</span>
-<span class="sd">        :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`</span>
-<span class="sd">        in the case of `K`-dimensional loss.</span>
-<span class="sd">        Usually of shape :math:`(N, C, H, W)`, where :math:`H` is image height and :math:`W`</span>
-<span class="sd">        is it&#39;s width.</span>
-<span class="sd">    targets:</span>
-<span class="sd">        :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or</span>
-<span class="sd">        :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of</span>
-<span class="sd">        K-dimensional loss.</span>
-<span class="sd">        Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`</span>
-<span class="sd">        is it&#39;s width and elements are of specified `C` classes.</span>
-<span class="sd">    output:</span>
-<span class="sd">        If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
-<span class="sd">        Otherwise whatever shape `reduction` returns.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -363,6 +351,29 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="n">reduction</span>
 
 <div class="viewcode-block" id="MulticlassFocal.forward"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.MulticlassFocal.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        outputs: torch.Tensor</span>
+<span class="sd">            :math:`(N, C)` where `C = number of classes`, or</span>
+<span class="sd">            :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`</span>
+<span class="sd">            in the case of `K`-dimensional loss.</span>
+<span class="sd">            Usually of shape :math:`(N, C, H, W)`, where :math:`H` is image height and :math:`W`</span>
+<span class="sd">            is it&#39;s width.</span>
+<span class="sd">        targets: torch.Tensor</span>
+<span class="sd">            :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or</span>
+<span class="sd">            :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of</span>
+<span class="sd">            K-dimensional loss.</span>
+<span class="sd">            Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`</span>
+<span class="sd">            is it&#39;s width and elements are of specified `C` classes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
+<span class="sd">            Otherwise whatever shape `reduction` returns.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">multiclass_focal_loss</span><span class="p">(</span>
             <span class="n">outputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span>
         <span class="p">)</span></div></div>
@@ -373,6 +384,8 @@
 <div class="viewcode-block" id="SmoothCrossEntropy"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.SmoothCrossEntropy">[docs]</a><span class="k">class</span> <span class="nc">SmoothCrossEntropy</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Run cross entropy with non-integer labels smoothed by `alpha`.</span>
 
+<span class="sd">    See `When Does Label Smoothing Help? &lt;https://arxiv.org/abs/1906.02629&gt;`__ for more details</span>
+
 <span class="sd">    `targets` will be transformed to one-hot encoding and modified according</span>
 <span class="sd">    to formula:</span>
 
@@ -380,8 +393,6 @@
 <span class="sd">        y = y(1 - \alpha) + \frac{\alpha}{C}</span>
 
 <span class="sd">    where :math:`C` is total number of classes.</span>
-
-<span class="sd">    See: https://arxiv.org/pdf/1906.02629.pdf for details about it&#39;s usage.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -399,20 +410,6 @@
 <span class="sd">        If user wants no reduction he should use: `lambda loss: loss`.</span>
 <span class="sd">        If user wants a summation he should use: `torch.sum`.</span>
 <span class="sd">        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).</span>
-
-<span class="sd">    Shape</span>
-<span class="sd">    -----</span>
-<span class="sd">    outputs:</span>
-<span class="sd">        :math:`(N, C)` where `C = number of classes`, or</span>
-<span class="sd">        :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`</span>
-<span class="sd">        in the case of `K`-dimensional loss.</span>
-<span class="sd">    targets:</span>
-<span class="sd">        :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or</span>
-<span class="sd">        :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of</span>
-<span class="sd">        K-dimensional loss.</span>
-<span class="sd">    output:</span>
-<span class="sd">        If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
-<span class="sd">        Otherwise whatever shape `reduction` returns.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -434,6 +431,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="n">reduction</span>
 
 <div class="viewcode-block" id="SmoothCrossEntropy.forward"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.SmoothCrossEntropy.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        outputs: torch.Tensor</span>
+<span class="sd">            :math:`(N, C)` where `C = number of classes`, or</span>
+<span class="sd">            :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`</span>
+<span class="sd">            in the case of `K`-dimensional loss.</span>
+<span class="sd">        targets: torch.Tensor</span>
+<span class="sd">            :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or</span>
+<span class="sd">            :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of</span>
+<span class="sd">            K-dimensional loss.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
+<span class="sd">            Otherwise whatever shape `reduction` returns.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">smooth_cross_entropy</span><span class="p">(</span>
             <span class="n">outputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span>
         <span class="p">)</span></div></div>
@@ -442,6 +457,8 @@
 <div class="viewcode-block" id="SmoothBinaryCrossEntropy"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.SmoothBinaryCrossEntropy">[docs]</a><span class="k">class</span> <span class="nc">SmoothBinaryCrossEntropy</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Run binary cross entropy with booleans smoothed by `alpha`.</span>
 
+<span class="sd">    See `When Does Label Smoothing Help? &lt;https://arxiv.org/abs/1906.02629&gt;`__ for more details</span>
+
 <span class="sd">    `targets` will be transformed to one-hot encoding and modified according</span>
 <span class="sd">    to formula:</span>
 
@@ -449,8 +466,6 @@
 <span class="sd">        y = y(1 - \alpha) + \frac{\alpha}{2}</span>
 
 <span class="sd">    where :math:`2` is total number of classes in binary case.</span>
-
-<span class="sd">    See: https://arxiv.org/pdf/1906.02629.pdf for details about it&#39;s usage.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -470,15 +485,6 @@
 <span class="sd">        If user wants a summation he should use: `torch.sum`.</span>
 <span class="sd">        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).</span>
 
-<span class="sd">    Shape</span>
-<span class="sd">    -----</span>
-<span class="sd">    outputs:</span>
-<span class="sd">        :math:`(N, *)` where :math:`*` means, any number of additional dimensions</span>
-<span class="sd">    targets:</span>
-<span class="sd">        :math:`(N, *)`, same shape as the input</span>
-<span class="sd">    output:</span>
-<span class="sd">        If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
-<span class="sd">        Otherwise whatever shape `reduction` returns.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -500,6 +506,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="n">reduction</span>
 
 <div class="viewcode-block" id="SmoothBinaryCrossEntropy.forward"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.SmoothBinaryCrossEntropy.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        outputs: torch.Tensor</span>
+<span class="sd">            :math:`(N, *)` where :math:`*` means, any number of additional dimensions</span>
+<span class="sd">        targets: torch.Tensor</span>
+<span class="sd">            :math:`(N, *)`, same shape as the input</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
+<span class="sd">            Otherwise whatever shape `reduction` returns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">smooth_binary_cross_entropy</span><span class="p">(</span>
             <span class="n">outputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span>
         <span class="p">)</span></div></div>
@@ -507,6 +527,8 @@
 
 <div class="viewcode-block" id="QuadrupletLoss"><a class="viewcode-back" href="../../packages/torchtrain.loss.html#torchtrain.loss.QuadrupletLoss">[docs]</a><span class="k">class</span> <span class="nc">QuadrupletLoss</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Quadruplet loss pushing away samples belonging to different classes.</span>
+
+<span class="sd">    See original research paper `Beyond triplet loss: a deep quadruplet network for person re-identification &lt;https://arxiv.org/abs/1704.01719&gt;`__ for more information.</span>
 
 <span class="sd">    It is an extension of `torch.nn.TripletMarginLoss`, where samples</span>
 <span class="sd">    from two different `negative` (`negative` and `negative2`)</span>
@@ -517,8 +539,6 @@
 
 <span class="sd">    .. math::</span>
 <span class="sd">        L(a, p, n) = \max \{d(a, p) - d(a, n) + {\rm alpha1}, 0\} + \max \{d(a, p) - d(n, n2) + {\rm alpha2}, 0\}</span>
-
-<span class="sd">    See: https://arxiv.org/abs/1704.01719 for more details.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -541,20 +561,6 @@
 <span class="sd">        If user wants a summation he should use: `torch.sum`.</span>
 <span class="sd">        By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).</span>
 
-<span class="sd">    Shape</span>
-<span class="sd">    -----</span>
-<span class="sd">    anchor:</span>
-<span class="sd">        :math:`(N, *)` where :math:`*` means, any number of additional dimensions</span>
-<span class="sd">        For images usually of shape :math:`(N, C, H, W)`.</span>
-<span class="sd">    positive:</span>
-<span class="sd">        Same as `anchor`</span>
-<span class="sd">    negative:</span>
-<span class="sd">        Same as `anchor`</span>
-<span class="sd">    negative2:</span>
-<span class="sd">        Same as `anchor`</span>
-<span class="sd">    output:</span>
-<span class="sd">        If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
-<span class="sd">        Otherwise whatever shape `reduction` returns.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -584,6 +590,25 @@
         <span class="n">negative</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
         <span class="n">negative2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        anchor: torch.Tensor</span>
+<span class="sd">            :math:`(N, *)` where :math:`*` means, any number of additional dimensions</span>
+<span class="sd">            For images usually of shape :math:`(N, C, H, W)`.</span>
+<span class="sd">        positive: torch.Tensor</span>
+<span class="sd">            Same as `anchor`</span>
+<span class="sd">        negative: torch.Tensor</span>
+<span class="sd">            Same as `anchor`</span>
+<span class="sd">        negative2: torch.Tensor</span>
+<span class="sd">            Same as `anchor`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If :attr:`reduction` is not specified then `mean` across sample is taken.</span>
+<span class="sd">            Otherwise whatever shape `reduction` returns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">quadruplet</span><span class="p">(</span>
             <span class="n">anchor</span><span class="p">,</span>
             <span class="n">positive</span><span class="p">,</span>

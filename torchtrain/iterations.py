@@ -46,7 +46,7 @@ class Iteration(_base.Iteration):
 
 
 @iterations_utils.docs(
-    header="Perform training `step`s until `data` is exhausted",
+    header="Perform training step until `data` is exhausted",
     body="Provided `module` will be passed to every `step`.",
 )
 class Train(Iteration):
@@ -63,7 +63,7 @@ class Train(Iteration):
 
 
 @iterations_utils.docs(
-    header="Perform evaluation `step`s until `data` is exhausted",
+    header="Perform evaluation step until `data` is exhausted",
     body="Provided `module` will be passed to every `step`.",
 )
 class Eval(Iteration):

@@ -1,4 +1,4 @@
-"""Perform single step on data and via specific `module`(s).
+"""Perform single step on data and via specific module(s).
 
 .. note::
 
@@ -6,6 +6,8 @@
     so be sure to understand how it works.
     It is the core and defines how you perform single
     step through the data.
+
+See `Introduction tutorial <>`_ for example of `step`.
 
 
 """

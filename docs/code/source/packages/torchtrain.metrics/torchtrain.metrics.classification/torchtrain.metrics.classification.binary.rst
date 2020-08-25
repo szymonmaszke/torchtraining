@@ -1,7 +1,6 @@
-torchtrain.metrics.classification.binary module
-===============================================
+torchtrain.metrics.classification.binary
+========================================
 
 .. automodule:: torchtrain.metrics.classification.binary
    :members:
    :undoc-members:
-   :show-inheritance:

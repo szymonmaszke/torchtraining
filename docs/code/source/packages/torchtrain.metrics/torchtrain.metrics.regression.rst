@@ -1,7 +1,6 @@
-torchtrain.metrics.regression module
-====================================
+torchtrain.metrics.regression
+=============================
 
 .. automodule:: torchtrain.metrics.regression
    :members:
    :undoc-members:
-   :show-inheritance:

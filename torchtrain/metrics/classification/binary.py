@@ -63,7 +63,7 @@ class _ThresholdReductionSum(_base.Operation):
 ###############################################################################
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Calculate accuracy score between `output` and `target`.""",
     reduction="mean",
 )
@@ -74,7 +74,7 @@ class Accuracy(_ThresholdReductionMean):
         )
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Calculate jaccard score between `output` and `target`.""",
     reduction="mean",
 )
@@ -92,7 +92,7 @@ class Jaccard(_ThresholdReductionMean):
 ###############################################################################
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Number of true positives between `output` and `target`.""",
     reduction="sum",
 )
@@ -103,7 +103,7 @@ class TruePositive(_ThresholdReductionSum):
         )
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Number of false positives between `output` and `target`.""",
     reduction="sum",
 )
@@ -114,7 +114,7 @@ class FalsePositive(_ThresholdReductionSum):
         )
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Number of true negatives between `output` and `target`.""",
     reduction="sum",
 )
@@ -125,7 +125,7 @@ class TrueNegative(_ThresholdReductionSum):
         )
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Number of false negatives between `output` and `target`.""",
     reduction="sum",
 )
@@ -136,7 +136,7 @@ class FalseNegative(_ThresholdReductionSum):
         )
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Confusion matrix between `output` and `target`.""", reduction="sum",
 )
 class ConfusionMatrix(_ThresholdReductionSum):
@@ -153,13 +153,13 @@ class ConfusionMatrix(_ThresholdReductionSum):
 ###############################################################################
 
 
-@utils.binary.docstring(header="""Recall between `output` and `target`.""",)
+@utils.binary.docs(header="""Recall between `output` and `target`.""",)
 class Recall(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.recall(*data, self.threshold)
 
 
-@utils.binary.docstring(header="""Specificity between `output` and `target`.""",)
+@utils.binary.docs(header="""Specificity between `output` and `target`.""",)
 class Specificity(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.specificity(
@@ -167,13 +167,13 @@ class Specificity(_Threshold):
         )
 
 
-@utils.binary.docstring(header="""Precision between `output` and `target`.""",)
+@utils.binary.docs(header="""Precision between `output` and `target`.""",)
 class Precision(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.precision(*data, self.threshold)
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Negative predictive value between `output` and `target`.""",
 )
 class NegativePredictiveValue(_Threshold):
@@ -183,9 +183,7 @@ class NegativePredictiveValue(_Threshold):
         )
 
 
-@utils.binary.docstring(
-    header="""False negative rate between `output` and `target`.""",
-)
+@utils.binary.docs(header="""False negative rate between `output` and `target`.""",)
 class FalseNegativeRate(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.false_negative_rate(
@@ -193,9 +191,7 @@ class FalseNegativeRate(_Threshold):
         )
 
 
-@utils.binary.docstring(
-    header="""False positive rate between `output` and `target`.""",
-)
+@utils.binary.docs(header="""False positive rate between `output` and `target`.""",)
 class FalsePositiveRate(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.false_positive_rate(
@@ -203,9 +199,7 @@ class FalsePositiveRate(_Threshold):
         )
 
 
-@utils.binary.docstring(
-    header="""False discovery rate between `output` and `target`.""",
-)
+@utils.binary.docs(header="""False discovery rate between `output` and `target`.""",)
 class FalseDiscoveryRate(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.false_discovery_rate(
@@ -213,9 +207,7 @@ class FalseDiscoveryRate(_Threshold):
         )
 
 
-@utils.binary.docstring(
-    header="""False omission rate between `output` and `target`.""",
-)
+@utils.binary.docs(header="""False omission rate between `output` and `target`.""",)
 class FalseOmissionRate(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.false_omission_rate(
@@ -223,9 +215,7 @@ class FalseOmissionRate(_Threshold):
         )
 
 
-@utils.binary.docstring(
-    header="""Critical success index between `output` and `target`.""",
-)
+@utils.binary.docs(header="""Critical success index between `output` and `target`.""",)
 class CriticalSuccessIndex(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.critical_success_index(
@@ -233,9 +223,7 @@ class CriticalSuccessIndex(_Threshold):
         )
 
 
-@utils.binary.docstring(
-    header="""Critical success index between `output` and `target`.""",
-)
+@utils.binary.docs(header="""Critical success index between `output` and `target`.""",)
 class BalancedAccuracy(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.balanced_accuracy(
@@ -243,13 +231,13 @@ class BalancedAccuracy(_Threshold):
         )
 
 
-@utils.binary.docstring(header="""F1 score between `output` and `target`.""",)
+@utils.binary.docs(header="""F1 score between `output` and `target`.""",)
 class F1(_Threshold):
     def forward(self, data):
         return functional.metrics.classification.binary.f1(*data, self.threshold)
 
 
-@utils.binary.docstring(
+@utils.binary.docs(
     header="""Matthews correlation coefficient between `output` and `target`.""",
 )
 class MatthewsCorrelationCoefficient(_Threshold):

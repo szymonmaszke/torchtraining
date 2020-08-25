@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>torchtrain.metrics.distance module &mdash; torchtrain  documentation</title>
+  <title>torchtrain.metrics.distance &mdash; torchtrain  documentation</title>
   
 
   
@@ -34,8 +34,8 @@
   <link rel="stylesheet" href="../../_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="torchtrain.metrics.regression module" href="torchtrain.metrics.regression.html" />
-    <link rel="prev" title="torchtrain.metrics.classification.multiclass module" href="torchtrain.metrics.classification/torchtrain.metrics.classification.multiclass.html" /> 
+    <link rel="next" title="torchtrain.metrics.regression" href="torchtrain.metrics.regression.html" />
+    <link rel="prev" title="torchtrain.metrics.classification.multiclass" href="torchtrain.metrics.classification/torchtrain.metrics.classification.multiclass.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -200,7 +200,7 @@
         
           <li><a href="../torchtrain.metrics.html">torchtrain.metrics</a> &gt;</li>
         
-      <li>torchtrain.metrics.distance module</li>
+      <li>torchtrain.metrics.distance</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
@@ -231,69 +231,17 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <div class="section" id="module-torchtrain.metrics.distance">
-<span id="torchtrain-metrics-distance-module"></span><h1>torchtrain.metrics.distance module<a class="headerlink" href="#module-torchtrain.metrics.distance" title="Permalink to this headline">¶</a></h1>
+<span id="torchtrain-metrics-distance"></span><h1>torchtrain.metrics.distance<a class="headerlink" href="#module-torchtrain.metrics.distance" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="torchtrain.metrics.distance.Cosine">
 <em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.distance.</code><code class="sig-name descname">Cosine</code><span class="sig-paren">(</span><em class="sig-param">dim: int = 1</em>, <em class="sig-param">eps: float = 1e-08</em>, <em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/distance.html#Cosine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.distance.Cosine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
-<p>{header}.
-:param data: Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
-<blockquote>
-<div><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, F)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mclose">)</span></span></span></span>
-
-</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
-
-</span> is the number of samples,
-<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>
-
-</span> is the number of features.
-Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
-</dd>
-</dl>
+<dd><p>Cosine distance between <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.</p>
 <dl class="py method">
 <dt id="torchtrain.metrics.distance.Cosine.forward">
 <code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/distance.html#Cosine.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.distance.Cosine.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="torchtrain.metrics.distance.Pairwise">
-<em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.distance.</code><code class="sig-name descname">Pairwise</code><span class="sig-paren">(</span><em class="sig-param">p: float = 2.0</em>, <em class="sig-param">eps: float = 1e-06</em>, <em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/distance.html#Pairwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.distance.Pairwise" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
-<p>Computes the batchwise pairwise distance between vectors <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">v_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
-
-</span>, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">v_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
-
-</span> using specified norm.</p>
-<blockquote>
-<div><div class="math">
-</div></div></blockquote>
-<p>ert x_i
-ert ^ p
-ight) ^ {1/p}.</p>
-<blockquote>
-<div><dl class="simple">
-<dt>p: float, optional</dt><dd><p>Degree of <code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code>. Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">2</span></code></p>
-</dd>
-<dt>eps: float, optional</dt><dd><p>Epsilon to avoid division by zero. Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">1e-06</span></code></p>
-</dd>
-<dt>reduction: Callable(torch.Tensor) -&gt; Any, optional</dt><dd><p>One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
-after specified reduction.
-Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Mean</span></code>
-to get mean across iterations/epochs).</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>data: Tuple[torch.Tensor, torch.Tensor]</dt><dd><p>Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, F)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mclose">)</span></span></span></span>
 
 </span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
@@ -305,17 +253,63 @@ to get mean across iterations/epochs).</p>
 Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>torch.Tensor</dt><dd><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default {} is taken and single value returned.
-Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scalar <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
 </dd>
 </dl>
-</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.metrics.distance.Pairwise">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.metrics.distance.</code><code class="sig-name descname">Pairwise</code><span class="sig-paren">(</span><em class="sig-param">p: float = 2.0</em>, <em class="sig-param">eps: float = 1e-06</em>, <em class="sig-param">reduction=&lt;built-in method mean of type object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/distance.html#Pairwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.distance.Pairwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the batchwise pairwise distance between vectors <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">v_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
+
+</span>, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">v_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
+
+</span> using specified norm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Degree of <code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code>. Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">2</span></code></p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Epsilon to avoid division by zero. Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">1e-06</span></code></p></li>
+<li><p><strong>reduction</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>) </em><em>-&gt; Any</em><em>, </em><em>optional</em>) – One argument callable getting <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> and returning argument
+after specified reduction.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.mean.html#torch.mean" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.mean</span></code></a> (mean across batch, user can use <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.savers.Mean</span></code>
+to get mean across iterations/epochs).</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="torchtrain.metrics.distance.Pairwise.forward">
 <code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/torchtrain/metrics/distance.html#Pairwise.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.metrics.distance.Pairwise.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>, </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a><em>]</em>) – Tuple containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> from neural network and regression <code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code>.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> should be of shape <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, F)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mclose">)</span></span></span></span>
+
+</span>, where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>
+
+</span> is the number of samples,
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>
+
+</span> is the number of features.
+Should contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">floating</span></code> point values.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">targets</span></code> should be in the same shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">outputs</span></code> and be of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a> data type as well.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> is left as default {} is taken and single value returned.
+Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduction</span></code> returns.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -329,10 +323,10 @@ Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><sp
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torchtrain.metrics.regression.html" class="btn btn-neutral float-right" title="torchtrain.metrics.regression module" accesskey="n" rel="next">Next <img src="../../_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="torchtrain.metrics.regression.html" class="btn btn-neutral float-right" title="torchtrain.metrics.regression" accesskey="n" rel="next">Next <img src="../../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
-        <a href="torchtrain.metrics.classification/torchtrain.metrics.classification.multiclass.html" class="btn btn-neutral" title="torchtrain.metrics.classification.multiclass module" accesskey="p" rel="prev"><img src="../../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+        <a href="torchtrain.metrics.classification/torchtrain.metrics.classification.multiclass.html" class="btn btn-neutral" title="torchtrain.metrics.classification.multiclass" accesskey="p" rel="prev"><img src="../../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
       
     </div>
   
@@ -361,7 +355,7 @@ Otherwise whatever <code class="xref py py-obj docutils literal notranslate"><sp
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">torchtrain.metrics.distance module</a></li>
+<li><a class="reference internal" href="#">torchtrain.metrics.distance</a></li>
 </ul>
 
             </div>

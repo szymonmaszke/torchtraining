@@ -243,9 +243,6 @@
 
 <span class="sd">    It is equal to :math:`1 - S`, where :math:`S` is cosine similarity.</span>
 
-<span class="sd">    .. math ::</span>
-<span class="sd">        \text{distance} = 1 - \dfrac{x_1 \cdot x_2}{\max(\Vert x_1 \Vert _2 \cdot \Vert x_2 \Vert _2, \epsilon)}.</span>
-
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    dim: int, optional</span>
@@ -271,6 +268,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="n">reduction</span>
 
 <div class="viewcode-block" id="Cosine.forward"><a class="viewcode-back" href="../../../packages/torchtrain.metrics/torchtrain.metrics.distance.html#torchtrain.metrics.distance.Cosine.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Tuple[torch.Tensor, torch.Tensor]</span>
+<span class="sd">            Tuple containing `outputs` from neural network and regression `targets`.</span>
+<span class="sd">            `outputs` should be of shape :math:`(N, F)`, where :math:`N` is the number of samples,</span>
+<span class="sd">            :math:`F` is the number of features.</span>
+<span class="sd">            Should contain `floating` point values.</span>
+<span class="sd">            `targets` should be in the same shape `outputs` and be of `float` data type as well.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If `reduction` is left as default {} is taken and single value returned.</span>
+<span class="sd">            Otherwise whatever `reduction` returns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span>
             <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span>
         <span class="p">)</span></div></div>
@@ -286,10 +299,6 @@
 <div class="viewcode-block" id="Pairwise"><a class="viewcode-back" href="../../../packages/torchtrain.metrics/torchtrain.metrics.distance.html#torchtrain.metrics.distance.Pairwise">[docs]</a><span class="k">class</span> <span class="nc">Pairwise</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Computes the batchwise pairwise distance between vectors :math:`v_1`, :math:`v_2` using specified norm.</span>
 
-<span class="sd">    .. math ::</span>
-<span class="sd">        \Vert x \Vert _p = \left( \sum_{i=1}^n  \vert x_i \vert ^ p \right) ^ {1/p}.</span>
-
-
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    p: float, optional</span>
@@ -301,22 +310,6 @@
 <span class="sd">        after specified reduction.</span>
 <span class="sd">        Default: `torch.mean` (mean across batch, user can use `torchtrain.savers.Mean`</span>
 <span class="sd">        to get mean across iterations/epochs).</span>
-
-<span class="sd">    Arguments</span>
-<span class="sd">    ---------</span>
-<span class="sd">    data: Tuple[torch.Tensor, torch.Tensor]</span>
-<span class="sd">        Tuple containing `outputs` from neural network and regression `targets`.</span>
-<span class="sd">        `outputs` should be of shape :math:`(N, F)`, where :math:`N` is the number of samples,</span>
-<span class="sd">        :math:`F` is the number of features.</span>
-<span class="sd">        Should contain `floating` point values.</span>
-<span class="sd">        `targets` should be in the same shape `outputs` and be of `float` data type as well.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    torch.Tensor</span>
-<span class="sd">        If `reduction` is left as default {} is taken and single value returned.</span>
-<span class="sd">        Otherwise whatever `reduction` returns.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
@@ -326,6 +319,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="n">reduction</span>
 
 <div class="viewcode-block" id="Pairwise.forward"><a class="viewcode-back" href="../../../packages/torchtrain.metrics/torchtrain.metrics.distance.html#torchtrain.metrics.distance.Pairwise.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Tuple[torch.Tensor, torch.Tensor]</span>
+<span class="sd">            Tuple containing `outputs` from neural network and regression `targets`.</span>
+<span class="sd">            `outputs` should be of shape :math:`(N, F)`, where :math:`N` is the number of samples,</span>
+<span class="sd">            :math:`F` is the number of features.</span>
+<span class="sd">            Should contain `floating` point values.</span>
+<span class="sd">            `targets` should be in the same shape `outputs` and be of `float` data type as well.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            If `reduction` is left as default {} is taken and single value returned.</span>
+<span class="sd">            Otherwise whatever `reduction` returns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">functional</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span>
             <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span><span class="p">,</span>
         <span class="p">)</span></div></div>

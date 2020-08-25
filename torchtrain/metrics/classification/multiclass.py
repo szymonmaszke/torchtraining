@@ -48,7 +48,7 @@ class _ReductionMean(_base.Operation):
 ###############################################################################
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Calculate accuracy score between `output` and `target`.""",
     reduction="mean",
 )
@@ -59,7 +59,7 @@ class Accuracy(_ReductionMean):
         )
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Calculate Jaccard score between `output` and `target`.""",
     reduction="mean",
 )
@@ -78,7 +78,7 @@ class Jaccard(_ReductionMean):
 
 
 # Basic cases
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Number of false positives between `output` and `target`.""",
     reduction="sum",
 )
@@ -89,7 +89,7 @@ class TruePositive(_ReductionSum):
         )
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Number of false positives between `output` and `target`.""",
     reduction="sum",
 )
@@ -100,7 +100,7 @@ class FalsePositive(_ReductionSum):
         )
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Number of true negatives between `output` and `target`.""",
     reduction="sum",
 )
@@ -111,7 +111,7 @@ class TrueNegative(_ReductionSum):
         )
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Number of false negatives between `output` and `target`.""",
     reduction="sum",
 )
@@ -122,7 +122,7 @@ class FalseNegative(_ReductionSum):
         )
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Confusion matrix between `output` and `target`.""", reduction="sum",
 )
 class ConfusionMatrix(_base.Operation):
@@ -137,25 +137,25 @@ class ConfusionMatrix(_base.Operation):
 ###############################################################################
 
 
-@utils.multiclass.docstring(header="""Recall between `output` and `target`.""",)
+@utils.multiclass.docs(header="""Recall between `output` and `target`.""",)
 class Recall(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.recall(*data)
 
 
-@utils.multiclass.docstring(header="""Specificity between `output` and `target`.""",)
+@utils.multiclass.docs(header="""Specificity between `output` and `target`.""",)
 class Specificity(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.specificity(*data)
 
 
-@utils.multiclass.docstring(header="""Precision between `output` and `target`.""",)
+@utils.multiclass.docs(header="""Precision between `output` and `target`.""",)
 class Precision(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.precision(*data)
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Negative predictive value between `output` and `target`.""",
 )
 class NegativePredictiveValue(_base.Operation):
@@ -165,23 +165,19 @@ class NegativePredictiveValue(_base.Operation):
         )
 
 
-@utils.multiclass.docstring(
-    header="""False negative rate between `output` and `target`.""",
-)
+@utils.multiclass.docs(header="""False negative rate between `output` and `target`.""",)
 class FalseNegativeRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_negative_rate(*data)
 
 
-@utils.multiclass.docstring(
-    header="""False positive rate between `output` and `target`.""",
-)
+@utils.multiclass.docs(header="""False positive rate between `output` and `target`.""",)
 class FalsePositiveRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_positive_rate(*data)
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""False discovery rate between `output` and `target`.""",
 )
 class FalseDiscoveryRate(_base.Operation):
@@ -189,15 +185,13 @@ class FalseDiscoveryRate(_base.Operation):
         return functional.metrics.classification.multiclass.false_discovery_rate(*data)
 
 
-@utils.multiclass.docstring(
-    header="""False omission rate between `output` and `target`.""",
-)
+@utils.multiclass.docs(header="""False omission rate between `output` and `target`.""",)
 class FalseOmissionRate(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.false_omission_rate(*data)
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Critical success index between `output` and `target`.""",
 )
 class CriticalSuccessIndex(_base.Operation):
@@ -207,7 +201,7 @@ class CriticalSuccessIndex(_base.Operation):
         )
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Critical success index between `output` and `target`.""",
 )
 class BalancedAccuracy(_base.Operation):
@@ -215,13 +209,13 @@ class BalancedAccuracy(_base.Operation):
         return functional.metrics.classification.multiclass.balanced_accuracy(*data)
 
 
-@utils.multiclass.docstring(header="""F1 score between `output` and `target`.""",)
+@utils.multiclass.docs(header="""F1 score between `output` and `target`.""",)
 class F1(_base.Operation):
     def forward(self, data):
         return functional.metrics.classification.multiclass.f1(*data)
 
 
-@utils.multiclass.docstring(
+@utils.multiclass.docs(
     header="""Matthews correlation coefficient between `output` and `target`.""",
 )
 class MatthewsCorrelationCoefficient(_base.Operation):

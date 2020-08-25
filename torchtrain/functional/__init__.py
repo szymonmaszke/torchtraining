@@ -51,9 +51,7 @@ Should be preferred instead of this (notice `accuracy` calculation in `step`)::
 Second approach has the following shortcomings:
 
     * calculation of metrics is mixed with what your network actually does with inputs and what it produces
-    * Step's' `forward` function has more limited usage. If user wants to calculate
-    other metrics they have to change `step` manually instead of simply
-    adding another `**` pipe
+    * Step's' `forward` function has more limited usage. If user wants to calculate other metrics they have to change `step` manually instead of simply adding another `**` pipe
 
 
 .. note::

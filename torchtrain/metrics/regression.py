@@ -126,21 +126,21 @@ class TotalOfSquares(_SumReduction):
         Default: `torch.sum` (sum of all elements, user can use `torchtrain.savers.Sum`
         to get sum across iterations/epochs).
 
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor containing `float` data of any shape. Usually `targets`.
-
-
-    Returns
-    -------
-    torch.Tensor
-        If `reduction` is left as default {} is taken and single value returned.
-        Otherwise whatever `reduction` returns.
-
     """
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor containing `float` data of any shape. Usually `targets`.
+
+        Returns
+        -------
+        torch.Tensor
+            If `reduction` is left as default {} is taken and single value returned.
+            Otherwise whatever `reduction` returns.
+        """
         return functional.metrics.regression.total_of_squares(data, self.reduction)
 
 
@@ -152,19 +152,6 @@ class AdjustedR2(_base.Operation):
     p: int
         Number of explanatory terms in model.
 
-    Arguments
-    ---------
-    data: Tuple[torch.Tensor, torch.Tensor]
-        Tuple containing `outputs` from neural network and regression `targets`.
-        `outputs` should be of shape :math:`(N, *)`, where :math:`N` is the number of samples.
-        Should contain `floating` point values.
-        `targets` should be in the same shape `outputs` and be of `float` data type as well.
-
-    Returns
-    -------
-    torch.Tensor
-        Scalar `tensor`
-
     """
 
     def __init__(self, p: int):
@@ -173,4 +160,19 @@ class AdjustedR2(_base.Operation):
         self.p = p
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Tuple[torch.Tensor, torch.Tensor]
+            Tuple containing `outputs` from neural network and regression `targets`.
+            `outputs` should be of shape :math:`(N, *)`, where :math:`N` is the number of samples.
+            Should contain `floating` point values.
+            `targets` should be in the same shape `outputs` and be of `float` data type as well.
+
+        Returns
+        -------
+        torch.Tensor
+            Scalar `tensor`
+
+        """
         return functional.metrics.regression.adjusted_r2(*data, self.p)

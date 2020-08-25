@@ -14,7 +14,7 @@ from . import functional
 class BinaryFocal(_Loss):
     """Binary focal loss working with raw output from network (logits).
 
-    See: https://arxiv.org/abs/1708.02002.
+    See original research paper: `Focal Loss for Dense Object Detection <https://arxiv.org/abs/1708.02002>`__
 
     Underplays loss of easy examples while leaving loss of harder examples
     for neural network mostly intact (dampened way less).
@@ -40,17 +40,6 @@ class BinaryFocal(_Loss):
         If user wants a summation he should use: `torch.sum`.
         By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
 
-    Shape
-    -----
-    outputs:
-        :math:`(N, *)` where :math:`*` means, any number of additional dimensions.
-        Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`
-        is it's width.
-    targets:
-        :math:`(N, *)`, same shape as the input.
-    output:
-        If :attr:`reduction` is not specified then `mean` across sample is taken.
-        Otherwise whatever shape `reduction` returns.
 
     """
 
@@ -69,6 +58,23 @@ class BinaryFocal(_Loss):
         self.reduction = reduction
 
     def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """
+        Arguments
+        ---------
+        outputs: torch.Tensor
+            :math:`(N, *)` where :math:`*` means, any number of additional dimensions.
+            Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`
+            is it's width.
+        targets: torch.Tensor
+            :math:`(N, *)`, same shape as the input.
+
+        Returns
+        -------
+        torch.Tensor
+            If :attr:`reduction` is not specified then `mean` across sample is taken.
+            Otherwise whatever shape `reduction` returns.
+
+        """
         return functional.loss.binary_focal_loss(
             outputs, targets, self.gamma, self.weight, self.pos_weight, self.reduction,
         )
@@ -77,7 +83,7 @@ class BinaryFocal(_Loss):
 class MulticlassFocal(_Loss):
     r"""Multiclass focal loss working with raw output from network (logits).
 
-    See: https://arxiv.org/abs/1708.02002.
+    See original research paper: `Focal Loss for Dense Object Detection <https://arxiv.org/abs/1708.02002>`__
 
     Underplays loss of easy examples while leaving loss of harder examples
     for neural network mostly intact (dampened way less).
@@ -101,24 +107,6 @@ class MulticlassFocal(_Loss):
         If user wants a summation he should use: `torch.sum`.
         By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
 
-    Shape
-    -----
-    outputs:
-        :math:`(N, C)` where `C = number of classes`, or
-        :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
-        in the case of `K`-dimensional loss.
-        Usually of shape :math:`(N, C, H, W)`, where :math:`H` is image height and :math:`W`
-        is it's width.
-    targets:
-        :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or
-        :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of
-        K-dimensional loss.
-        Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`
-        is it's width and elements are of specified `C` classes.
-    output:
-        If :attr:`reduction` is not specified then `mean` across sample is taken.
-        Otherwise whatever shape `reduction` returns.
-
     """
 
     def __init__(
@@ -136,6 +124,29 @@ class MulticlassFocal(_Loss):
         self.reduction = reduction
 
     def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """
+        Arguments
+        ---------
+        outputs: torch.Tensor
+            :math:`(N, C)` where `C = number of classes`, or
+            :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
+            in the case of `K`-dimensional loss.
+            Usually of shape :math:`(N, C, H, W)`, where :math:`H` is image height and :math:`W`
+            is it's width.
+        targets: torch.Tensor
+            :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or
+            :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of
+            K-dimensional loss.
+            Usually of shape :math:`(N, H, W)`, where :math:`H` is image height and :math:`W`
+            is it's width and elements are of specified `C` classes.
+
+        Returns
+        -------
+        torch.Tensor
+            If :attr:`reduction` is not specified then `mean` across sample is taken.
+            Otherwise whatever shape `reduction` returns.
+
+        """
         return functional.loss.multiclass_focal_loss(
             outputs, targets, self.gamma, self.weight, self.ignore_index, self.reduction
         )
@@ -146,6 +157,8 @@ class MulticlassFocal(_Loss):
 class SmoothCrossEntropy(_Loss):
     r"""Run cross entropy with non-integer labels smoothed by `alpha`.
 
+    See `When Does Label Smoothing Help? <https://arxiv.org/abs/1906.02629>`__ for more details
+
     `targets` will be transformed to one-hot encoding and modified according
     to formula:
 
@@ -153,8 +166,6 @@ class SmoothCrossEntropy(_Loss):
         y = y(1 - \alpha) + \frac{\alpha}{C}
 
     where :math:`C` is total number of classes.
-
-    See: https://arxiv.org/pdf/1906.02629.pdf for details about it's usage.
 
     Arguments
     ---------
@@ -172,20 +183,6 @@ class SmoothCrossEntropy(_Loss):
         If user wants no reduction he should use: `lambda loss: loss`.
         If user wants a summation he should use: `torch.sum`.
         By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
-
-    Shape
-    -----
-    outputs:
-        :math:`(N, C)` where `C = number of classes`, or
-        :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
-        in the case of `K`-dimensional loss.
-    targets:
-        :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or
-        :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of
-        K-dimensional loss.
-    output:
-        If :attr:`reduction` is not specified then `mean` across sample is taken.
-        Otherwise whatever shape `reduction` returns.
 
     """
 
@@ -207,6 +204,24 @@ class SmoothCrossEntropy(_Loss):
         self.reduction = reduction
 
     def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """
+        Arguments
+        ---------
+        outputs: torch.Tensor
+            :math:`(N, C)` where `C = number of classes`, or
+            :math:`(N, C, d_1, d_2, ..., d_K)` with :math:`K \geq 1`
+            in the case of `K`-dimensional loss.
+        targets: torch.Tensor
+            :math:`(N)` where each value is :math:`0 \leq \text{targets}[i] \leq C-1`, or
+            :math:`(N, d_1, d_2, ..., d_K)` with :math:`K \geq 1` in the case of
+            K-dimensional loss.
+        Returns
+        -------
+        torch.Tensor
+            If :attr:`reduction` is not specified then `mean` across sample is taken.
+            Otherwise whatever shape `reduction` returns.
+
+        """
         return functional.loss.smooth_cross_entropy(
             outputs, targets, self.alpha, self.weight, self.ignore_index, self.reduction
         )
@@ -215,6 +230,8 @@ class SmoothCrossEntropy(_Loss):
 class SmoothBinaryCrossEntropy(_Loss):
     r"""Run binary cross entropy with booleans smoothed by `alpha`.
 
+    See `When Does Label Smoothing Help? <https://arxiv.org/abs/1906.02629>`__ for more details
+
     `targets` will be transformed to one-hot encoding and modified according
     to formula:
 
@@ -222,8 +239,6 @@ class SmoothBinaryCrossEntropy(_Loss):
         y = y(1 - \alpha) + \frac{\alpha}{2}
 
     where :math:`2` is total number of classes in binary case.
-
-    See: https://arxiv.org/pdf/1906.02629.pdf for details about it's usage.
 
     Arguments
     ---------
@@ -243,15 +258,6 @@ class SmoothBinaryCrossEntropy(_Loss):
         If user wants a summation he should use: `torch.sum`.
         By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
 
-    Shape
-    -----
-    outputs:
-        :math:`(N, *)` where :math:`*` means, any number of additional dimensions
-    targets:
-        :math:`(N, *)`, same shape as the input
-    output:
-        If :attr:`reduction` is not specified then `mean` across sample is taken.
-        Otherwise whatever shape `reduction` returns.
 
     """
 
@@ -273,6 +279,20 @@ class SmoothBinaryCrossEntropy(_Loss):
         self.reduction = reduction
 
     def forward(self, outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """
+        Arguments
+        ---------
+        outputs: torch.Tensor
+            :math:`(N, *)` where :math:`*` means, any number of additional dimensions
+        targets: torch.Tensor
+            :math:`(N, *)`, same shape as the input
+
+        Returns
+        -------
+        torch.Tensor
+            If :attr:`reduction` is not specified then `mean` across sample is taken.
+            Otherwise whatever shape `reduction` returns.
+        """
         return functional.loss.smooth_binary_cross_entropy(
             outputs, targets, self.alpha, self.weight, self.pos_weight, self.reduction
         )
@@ -280,6 +300,8 @@ class SmoothBinaryCrossEntropy(_Loss):
 
 class QuadrupletLoss(_Loss):
     r"""Quadruplet loss pushing away samples belonging to different classes.
+
+    See original research paper `Beyond triplet loss: a deep quadruplet network for person re-identification <https://arxiv.org/abs/1704.01719>`__ for more information.
 
     It is an extension of `torch.nn.TripletMarginLoss`, where samples
     from two different `negative` (`negative` and `negative2`)
@@ -290,8 +312,6 @@ class QuadrupletLoss(_Loss):
 
     .. math::
         L(a, p, n) = \max \{d(a, p) - d(a, n) + {\rm alpha1}, 0\} + \max \{d(a, p) - d(n, n2) + {\rm alpha2}, 0\}
-
-    See: https://arxiv.org/abs/1704.01719 for more details.
 
     Arguments
     ---------
@@ -314,20 +334,6 @@ class QuadrupletLoss(_Loss):
         If user wants a summation he should use: `torch.sum`.
         By default, `lambda loss: loss.sum() / loss.shape[0]` is used (mean across examples).
 
-    Shape
-    -----
-    anchor:
-        :math:`(N, *)` where :math:`*` means, any number of additional dimensions
-        For images usually of shape :math:`(N, C, H, W)`.
-    positive:
-        Same as `anchor`
-    negative:
-        Same as `anchor`
-    negative2:
-        Same as `anchor`
-    output:
-        If :attr:`reduction` is not specified then `mean` across sample is taken.
-        Otherwise whatever shape `reduction` returns.
 
     """
 
@@ -357,6 +363,25 @@ class QuadrupletLoss(_Loss):
         negative: torch.Tensor,
         negative2: torch.Tensor,
     ) -> torch.Tensor:
+        """
+        Arguments
+        ---------
+        anchor: torch.Tensor
+            :math:`(N, *)` where :math:`*` means, any number of additional dimensions
+            For images usually of shape :math:`(N, C, H, W)`.
+        positive: torch.Tensor
+            Same as `anchor`
+        negative: torch.Tensor
+            Same as `anchor`
+        negative2: torch.Tensor
+            Same as `anchor`
+
+        Returns
+        -------
+        torch.Tensor
+            If :attr:`reduction` is not specified then `mean` across sample is taken.
+            Otherwise whatever shape `reduction` returns.
+        """
         return functional.loss.quadruplet(
             anchor,
             positive,
