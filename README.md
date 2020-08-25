@@ -42,7 +42,7 @@ pip install --user torchtraining
 There are a lot of training libraries around for a lot of frameworks. Why would
 you choose this one?
 
-### `torchtrain` fits you, not the other way around
+### `torchtraining` fits you, not the other way around
 
 We think it's impossible to squeeze user's code in an overly strict API.
 We __are not__ trying to `fit` everything into a single... `.fit()` method (or `Trainer` god class,
@@ -50,7 +50,7 @@ see `40!` [arguments in PyTorch-Lightning trainer](https://github.com/PyTorchLig
 This approach has shown time and time again it does not work for more complicated
 use cases as one cannot foresee the endless possibilities
 of training neural network and data generation user might require.
-`torchtrain` gives you building blocks to calculate metrics, log results,
+`torchtraining` gives you building blocks to calculate metrics, log results,
 distribute training instead.
 
 
@@ -100,7 +100,7 @@ See introduction tutorial to see how it's done
 
 We don't think your neural network source code should be polluted with training.
 We think it's better to have `data` preparation in `data.py` module,
-`optimizers` in `optimizers.py` and so on. With `torchtrain` you don't have to
+`optimizers` in `optimizers.py` and so on. With `torchtraining` you don't have to
 crunch any functionalities into single god `class`.
 
 ### Nothing under the hood (almost)
