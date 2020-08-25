@@ -6,7 +6,7 @@ torchtraining.functional
    :maxdepth: 1
    :caption: Submodules
 
-   torchtraining.functional/*
+   torchtrain.functional/*
 
 .. automodule:: torchtraining.functional
    :members:

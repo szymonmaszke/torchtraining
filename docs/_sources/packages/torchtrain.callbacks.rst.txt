@@ -6,7 +6,7 @@ torchtraining.callbacks
    :maxdepth: 1
    :caption: Submodules
 
-   torchtraining.callbacks/*
+   torchtrain.callbacks/*
 
 .. automodule:: torchtraining.callbacks
    :members:

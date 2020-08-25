@@ -6,7 +6,7 @@ torchtraining.metrics
    :maxdepth: 1
    :caption: Submodules
 
-   torchtraining.metrics/*
+   torchtrain.metrics/*
 
 .. automodule:: torchtraining.metrics
    :members:

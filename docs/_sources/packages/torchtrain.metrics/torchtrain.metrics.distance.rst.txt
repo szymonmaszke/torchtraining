@@ -1,5 +1,5 @@
 torchtraining.metrics.distance
-===========================
+==============================
 
 .. automodule:: torchtraining.metrics.distance
    :members:

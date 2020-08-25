@@ -1,5 +1,5 @@
 torchtraining.accelerators
-=======================
+==========================
 
 .. automodule:: torchtraining.accelerators
    :members:
@@ -11,4 +11,4 @@ torchtraining.accelerators
    :maxdepth: 1
    :caption: Submodules
 
-   torchtraining.accelerators/*
+   torchtrain.accelerators/*

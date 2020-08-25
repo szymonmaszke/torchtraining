@@ -1,5 +1,5 @@
 torchtraining.metrics.classification.multiclass
-============================================
+===============================================
 
 .. automodule:: torchtraining.metrics.classification.multiclass
    :members:
