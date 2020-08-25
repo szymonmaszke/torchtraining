@@ -133,11 +133,6 @@ class Image(tt.Operation):
             self.log_name, data, self.image_name, self.description, self.timestamp
         )
         return data
-
-# Assume step returns single image
-step = tt.steps.Step(...)
-# Numpy is required by neptune, well, okay, sometimes we have to do it
-step > tt.cast.Numpy() > Image(experiment)
 ```
 
 ## Contributing
