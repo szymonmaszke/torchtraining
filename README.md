@@ -19,7 +19,7 @@ __All of that using single `**` piping operator!__
 
 ## Tutorials
 
-See tutorials to get a grasp or what's the fuss is all about:
+See tutorials to get a grasp of what's the fuss is all about:
 
 - [__Introduction__](https://colab.research.google.com/drive/19oI8RlpDT9JZnkW8BbFzrLL1Wse6wD5G?usp=sharing) - quick tour around functionalities with CIFAR100 classification
 and `tensorboard`.
@@ -39,28 +39,38 @@ see `40!` [arguments in PyTorch-Lightning trainer](https://github.com/PyTorchLig
 This approach has shown time and time again it does not work for more complicated
 use cases as one cannot foresee the endless possibilities
 of training neural network and data generation user might require.
+`torchtrain` gives you building blocks to calculate metrics, log results,
+distribute training instead.
 
 
 ### Implement single `forward` instead of 40 methods
 
-Implementing `forward` is __all__ you will __ever__ need (okay, `accumulators` also need `calculate`,
-but that's it). Compare that to `PyTorch-Lightning`'s `LightningModule` (source code [here](https://github.com/PyTorchLightning/pytorch-lightning/blob/master/pytorch_lightning/core/lightning.py#L51)):
+Implementing `forward` with `data` argument is __all__ you will __ever__ need (okay, `accumulators` also need `calculate`,
+but that's it), we add thin `__call__`.
+Compare that to `PyTorch-Lightning`'s `LightningModule` (source code [here](https://github.com/PyTorchLightning/pytorch-lightning/blob/master/pytorch_lightning/core/lightning.py#L51))
 
 - `training_step`
 - `training_step_end`
-- `training_epoch_end` (repeat all the above for `validation` and `test` and add their specific methods)
+- `training_epoch_end` (repeat all the above for `validation` and `test`)
+- `validation_end`, `test_end`
+- `configure_sync_batchnorm`
 - `configure_ddp`
 - `init_ddp_connection`
 - `configure_apex`
+- `configure_optimizers`
 - `optimizer_step`
 - `optimizer_zero_grad`
 - `tbptt_split_batch` (?)
 - `prepare_data`
 - `train_dataloader`
+- `tng_dataloader`
+- `test_dataloader`
+- `val_dataloader`
 
-The list goes on, __here are just a few!__.
+This list could go on (and probably will grow even bigger as time passes).
 We believe in functional approach and using only what you need (a lot of decoupled building blocks instead
-of gigantic god classes __trying__ to do everything).
+of gigantic god classes __trying__ to do everything). Once again: we can't foresee
+future and __won't__ squash everything into single `class`.
 
 ### Explicitness
 
@@ -72,6 +82,15 @@ Still, you are explicit about __everything__ going on in your code, for example:
 - what data you choose to accumulate and how often
 - which component of your pipeline should log via `loguru`
 - and how to log (e.g. to `stdout` and `file` or maybe over the web?)
+
+See introduction tutorial to see how it's done
+
+### Neural network != training
+
+We don't think your neural network source code should be polluted with training.
+We think it's better to have `data` preparation in `data.py` module,
+`optimizers` in `optimizers.py` and so on. With `torchtrain` you don't have to
+crunch any functionalities into single god `class`.
 
 ### Nothing under the hood (almost)
 
@@ -137,11 +156,16 @@ class Image(tt.Operation):
 
 ## Contributing
 
-This project is currently in it's infancy and help would be appreciated.
+This project is currently in it's infancy and __we would love to get some help from you!__
 You can find current ideas inside `issues` tagged by `[DISCUSSION]` (see [here](https://github.com/szymonmaszke/torchtraining/issues?q=DISCUSSION)).
 
 - [`accelerators.py` module for distributed training](https://github.com/szymonmaszke/torchtraining/issues/1)
 - [`callbacks.py` third party integrations (experiment handlers like `comet-ml` or `neptune`)](https://github.com/szymonmaszke/torchtraining/issues/2)
+
+Also feel free to make your own feature requests and give us your thoughts in `issues`!
+
+__Remember: It's only `0.0.1` version, direction is there but you can be sure
+to encounter a lot of bugs along the way at the moment__
 
 ### Why `**` as an operator?
 
