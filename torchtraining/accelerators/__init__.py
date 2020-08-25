@@ -23,7 +23,7 @@ import torch
 from .._base import Accelerator
 from ..utils import general as utils
 
-if utils.modules_exist("horovod.torch"):
+if utils.modules_exist("horovod", "horovod.torch"):
 
     import horovod.torch as hvd
 
