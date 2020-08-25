@@ -30,7 +30,7 @@ extras["all"] = list(
     )
 )
 
-extras["test"] = extras["callbacks"]
+extras["tests"] = extras["callbacks"]
 
 setuptools.setup(
     name=_name,
