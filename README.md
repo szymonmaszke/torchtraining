@@ -23,8 +23,19 @@ See tutorials to get a grasp of what's the fuss is all about:
 
 - [__Introduction__](https://colab.research.google.com/drive/19oI8RlpDT9JZnkW8BbFzrLL1Wse6wD5G?usp=sharing) - quick tour around functionalities with CIFAR100 classification
 and `tensorboard`.
-- [__GAN training__](https://colab.research.google.com/drive/19oI8RlpDT9JZnkW8BbFzrLL1Wse6wD5G?usp=sharing) - more advanced example and creating you own pipeline components.
+- [__GAN training__](https://colab.research.google.com/drive/1zdyiQtrAVUkzAlb-cFeb1QzJfIj7C91V?usp=sharing) - more advanced example and creating you own pipeline components.
 
+## Installation
+
+See [documentation](https://img.shields.io/static/v1?label=&message=docs&color=EE4C2C&style=for-the-badge)
+for full list of extras (e.g. installation with integrations like `horovod`).
+
+To just start you can install via `pip`:
+
+```bash
+pip install --user torchtraining
+
+```
 
 ## Why `torchtraining`?
 
