@@ -1,4 +1,4 @@
-"""Integrate `torchtrain` with [comet.ml](https://www.comet.ml/site/) experiment management.
+"""Integrate `torchtrain` with `comet.ml <https://www.comet.ml/site/>`__ experiment management tool.
 
 .. note::
 
@@ -30,11 +30,13 @@ Example::
     step = TrainStep(criterion, device)
 
     # You have to split `tensor` as only single image can be logged
-    step > tt.Select(1) > tt.OnSplittedTensor(comet.Image(experiment))
-    step > tt.Select(0) > tt.cast.Item() > comet.Scalar(experiment)
+    step ** tt.Select(1) ** tt.OnSplittedTensor(comet.Image(experiment))
+    step ** tt.Select(0) ** tt.cast.Item() ** comet.Scalar(experiment)
 
 
 """
+
+import typing
 
 import comet_ml
 
@@ -53,11 +55,6 @@ class Clean(_base.Operation):
     experiment: Experiment
         Object representing single experiment
 
-    Arguments
-    ---------
-    data: Any
-        Anything, will be forwarded
-
     Returns
     -------
     Any
@@ -70,6 +67,12 @@ class Clean(_base.Operation):
         self.experiment = experiment
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything, will be forwarded
+        """
         self.experiment.clean()
         return data
 
@@ -98,11 +101,6 @@ class Asset(_base.Operation):
         Optional. Some additional data to attach to the the asset data.
         Must be a JSON-encodable dict. Default: `None`
 
-    Arguments
-    ---------
-    data: str | File-like
-        Either the file path of the file you want to log, or a file-like asset.
-
     Returns
     -------
     str | File-like
@@ -128,6 +126,12 @@ class Asset(_base.Operation):
         self.metadata = metadata
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: str | File-like
+            Either the file path of the file you want to log, or a file-like asset.
+        """
         self.experiment.log_asset(
             data, self.name, self.overwrite, self.copy_to_tmp, self.step, self.metadata,
         )
@@ -153,10 +157,6 @@ class AssetData(_base.Operation):
         Optional. Some additional data to attach to the the asset data.
         Must be a JSON-encodable dict. Default: `None`
 
-    Arguments
-    ---------
-    data: str | JSON
-        Data to log
 
     Returns
     -------
@@ -176,6 +176,12 @@ class AssetData(_base.Operation):
         self.metadata = metadata
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: str | JSON
+            Data to log
+        """
         self.experiment.log_asset_data(
             data, self.name, self.overwrite, self.step, self.metadata,
         )
@@ -197,11 +203,6 @@ class AssetFolder(_base.Operation):
         If `true` recurse folder and save file names.
         Default: `False`
 
-    Arguments
-    ---------
-    folder: str
-        Path to the folder to be logged.
-
     Returns
     -------
     folder: str
@@ -219,6 +220,13 @@ class AssetFolder(_base.Operation):
         self.recursive = recursive
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        folder: str
+            Path to the folder to be logged.
+
+        """
         self.experiment.log_asset_folder(
             data, self.step, self.log_file_name, self.recursive
         )
@@ -251,15 +259,9 @@ class Audio(_base.Operation):
         Optional. Some additional data to attach to the the asset data.
         Must be a JSON-encodable dict. Default: `None`
 
-    Arguments
-    ---------
-    data: str | np.array
-        Either the file path of the file you want to log, or a numpy array given to
-        `scipy.io.wavfile.write` for wav conversion.
-
     Returns
     -------
-    folder: str
+    data: str | np.array
         Data passed initially to the operation.
 
     """
@@ -284,6 +286,14 @@ class Audio(_base.Operation):
         self.metadata = metadata
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: str | np.array
+            Either the file path of the file you want to log, or a numpy array given to
+            `scipy.io.wavfile.write` for wav conversion.
+
+        """
         self.experiment.log_audio(
             data,
             self.sample_rate,
@@ -332,14 +342,9 @@ class ConfusionMatrix(_base.Operation):
     kwargs: optional
         any extra keywords and their values will be passed onto the index_to_example_function.
 
-    Arguments
-    ---------
-    data: List[List[double]]
-        Matrix-like list contianing `confusion` matrix.
-
     Returns
     -------
-    folder: str
+    data: List[List[double]]
         Data passed initially to the operation.
 
     """
@@ -376,6 +381,13 @@ class ConfusionMatrix(_base.Operation):
         self.kwargs = kwargs
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: List[List[double]]
+            Matrix-like list contianing `confusion` matrix.
+
+        """
         self.experiment.log_confusion_matrix(
             None,
             None,
@@ -411,16 +423,10 @@ class Curve(_base.Operation):
     step: int, optional
         Step value. Default: `None`
 
-    Arguments
-    ---------
-    data: Tuple(List[Number], List[Number])
-        Either the file path of the file you want to log, or a numpy array given to
-        `scipy.io.wavfile.write` for wav conversion.
-
     Returns
     -------
     data: Tuple(List[Number], List[Number])
-        Same as argument passed
+        Data passed initially to operation
 
     """
 
@@ -434,6 +440,13 @@ class Curve(_base.Operation):
         self.step = step
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Tuple(List[Number], List[Number])
+            Either the file path of the file you want to log, or a numpy array given to
+            `scipy.io.wavfile.write` for wav conversion.
+        """
         self.experiment.log_curve(
             self.name, *data, self.overwrite, self.step,
         )
@@ -463,11 +476,6 @@ class Embedding(_base.Operation):
         Name of tensor
     template_filename: str, optional
         name of template JSON file
-
-    Arguments
-    ---------
-    data: Tuple(torch.Tensor, torch.Tensor)
-        Tensors to visualize in 3D and labels for each tensor.
 
     Returns
     -------
@@ -502,6 +510,12 @@ class Embedding(_base.Operation):
         self.group = group
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Tuple(torch.Tensor, torch.Tensor)
+            Tensors to visualize in 3D and labels for each tensor.
+        """
         self.experiment.log_embedding(
             *data,
             self.image_data,
@@ -531,17 +545,10 @@ class Figure(_base.Operation):
     step: int, optional
         Used to associate figure to a specific step.
 
-    Arguments
-    ---------
-    data: figure, optional.
-        The figure you want to log. If `None` passed,
-        the global pyplot figure will be logged and uploaded
-
     Returns
     -------
     data: figure, optional.
-        The figure you want to log. If `None` passed,
-        the global pyplot figure will be logged and uploaded
+        Data passed initially to operation.
 
     """
 
@@ -555,6 +562,13 @@ class Figure(_base.Operation):
         self.step = step
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: figure, optional.
+            The figure you want to log. If `None` passed,
+            the global pyplot figure will be logged and uploaded
+        """
         self.experiment.log_figure(
             self.figure_name, data, self.overwrite, self.step,
         )
@@ -578,15 +592,10 @@ class Histogram3d(_base.Operation):
     **kwargs:
         Additional keyword arguments for histogram.
 
-    Arguments
-    ---------
-    data: List | Tuple | Array | Histogram object
-        Summarization of histogram
-
     Returns
     -------
     data: List | Tuple | Array | Histogram object
-        Summarization of histogram
+        Summarization of histogram (passed to `forward`).
 
     """
 
@@ -599,6 +608,12 @@ class Histogram3d(_base.Operation):
         self.kwargs = kwargs
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: List | Tuple | Array | Histogram object
+            Summarization of histogram
+        """
         self.experiment.log_histogram_3d(data, self.name, self.step, **self.kwargs)
         return data
 
@@ -644,22 +659,10 @@ class Image(_base.Operation):
     step: int, optional
         Used to associate the audio asset to a specific step. Default: `None`
 
-    Arguments
-    ---------
-    data: Multiple objects
-        One of:
-            * a path (string) to an image
-            * a file-like object containing an image
-            * a numpy matrix
-            * a TensorFlow tensor
-            * a PyTorch tensor
-            * a list or tuple of values
-            * a PIL Image
-
     Returns
     -------
-    data: List | Tuple | Array | Histogram object
-        Summarization of histogram
+    data: Multiple objects
+        See `forward` for possibilities
 
     """
 
@@ -693,6 +696,20 @@ class Image(_base.Operation):
         self.step = step
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Multiple objects
+            One of:
+                * a path (string) to an image
+                * a file-like object containing an image
+                * a numpy matrix
+                * a TensorFlow tensor
+                * a PyTorch tensor
+                * a list or tuple of values
+                * a PIL Image
+
+        """
         self.experiment.log_image(
             data,
             self.name,
@@ -728,11 +745,6 @@ class Scalar(_base.Operation):
         If set to True (the default), the current context will be logged along
         the metric.
 
-    Arguments
-    ---------
-    data: Number
-        Value to log
-
     Returns
     -------
     data: Number
@@ -751,6 +763,12 @@ class Scalar(_base.Operation):
         self.include_context = include_context
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Number
+            Value to log
+        """
         self.experiment.log_metric(
             self.name, data, self.step, self.epoch, self.include_context
         )
@@ -774,11 +792,6 @@ class Scalars(_base.Operation):
     epoch: int, optional
         Used as the X axis when plotting on comet.ml
 
-    Arguments
-    ---------
-    data: Dict
-        Dictionary with values to log
-
     Returns
     -------
     data: Dict
@@ -796,6 +809,12 @@ class Scalars(_base.Operation):
         self.epoch = epoch
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Dict
+            Dictionary with values to log
+        """
         self.experiment.log_metrics(data, self.prefix, self.step, self.epoch)
         return data
 
@@ -810,11 +829,6 @@ class Other(_base.Operation):
     experiment: Experiment
         Object representing single experiment
 
-    Arguments
-    ---------
-    data: Tuple[Any, Any]
-        Tuple with `key` and `value`
-
     Returns
     -------
     data: Tuple[Any, Any]
@@ -827,6 +841,12 @@ class Other(_base.Operation):
         self.experiment = experiment
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Tuple[Any, Any]
+            Tuple with `key` and `value`
+        """
         self.experiment.log_other(*data)
         return data
 
@@ -841,11 +861,6 @@ class Others(_base.Operation):
     experiment: Experiment
         Object representing single experiment
 
-    Arguments
-    ---------
-    data: Dict[Any, Any]
-        Dict with any `keys` and `values`
-
     Returns
     -------
     data: Dict[Any, Any]
@@ -858,6 +873,12 @@ class Others(_base.Operation):
         self.experiment = experiment
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Dict[Any, Any]
+            Dict with any `keys` and `values`
+        """
         self.experiment.log_others(data)
         return data
 
@@ -876,11 +897,6 @@ class Table(_base.Operation):
     headers: bool | List
         If True, will add column headers automatically if tabular_data is given;
         if False, no headers will be added; if list then it will be used as headers.
-
-    Arguments
-    ---------
-    data: tensor | List[List]
-        Data that can be interpreted as 2D tabular data.
 
     Returns
     -------
@@ -902,7 +918,14 @@ class Table(_base.Operation):
         self.header = headers
 
     def forward(self, data):
-        self.experiment.log_table(self.filename, data, self.headers)
+        """
+        Arguments
+        ---------
+        data: tensor | List[List]
+            Data that can be interpreted as 2D tabular data.
+
+        """
+        self.experiment.log_table(self.filename, data, self.header)
         return data
 
 
@@ -920,11 +943,6 @@ class Text(_base.Operation):
     metadata: JSON-like, optional
         Additional data attached to text.
 
-    Arguments
-    ---------
-    data: str
-        Text to be stored
-
     Returns
     -------
     data: str
@@ -940,6 +958,13 @@ class Text(_base.Operation):
         self.metadata = metadata
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: str
+            Text to be stored
+
+        """
         self.experiment.log_text(data, self.step, self.metadata)
         return data
 
@@ -959,11 +984,6 @@ class Notification(_base.Operation):
     additional_data: dict
         Dictionary of key/values to notify.
 
-    Arguments
-    ---------
-    data: Any
-        Anything as it's not send to the function, just passes through
-
     Returns
     -------
     data: Any
@@ -980,5 +1000,12 @@ class Notification(_base.Operation):
         self.additional_data = additional_data
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as it's not send to the function, just passes through
+
+        """
         self.experiment.log_text(self.title, self.status, self.additional_data)
         return data

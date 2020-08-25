@@ -16,7 +16,7 @@ def mixup(
 ) -> typing.Tuple[torch.Tensor, torch.Tensor]:
     """Perform per-batch mixup on images.
 
-    See [mixup: Beyond Empirical Risk Minimization](https://arxiv.org/abs/1710.09412)
+    See `mixup: Beyond Empirical Risk Minimization <https://arxiv.org/abs/1710.09412>`__.
     for explanation of the method.
 
     Example::
@@ -32,7 +32,9 @@ def mixup(
 
         step = TrainStep(criterion, device)
 
-    **IMPORTANT:** Examples are modified in-place!
+    .. note::
+
+        **IMPORTANT**: Examples are modified in-place!
 
     Arguments
     ---------

@@ -1,0 +1,517 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtrain.device &mdash; torchtrain  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtrain/packages/torchtrain.device.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="torchtrain.quantization" href="torchtrain.quantization.html" />
+    <link rel="prev" title="torchtrain.cast" href="torchtrain.cast.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtrain">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="torchtrain.html">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../index.html">
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="torchtrain.html">torchtrain</a> &gt;</li>
+        
+      <li>torchtrain.device</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/packages/torchtrain.device.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="module-torchtrain.device">
+<span id="torchtrain-device"></span><h1>torchtrain.device<a class="headerlink" href="#module-torchtrain.device" title="Permalink to this headline">¶</a></h1>
+<p>Cast objects (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) to specific device.</p>
+<p>PyTorch’s defaults (as of <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.6.0</span></code> CPU and GPU) are forwarded for easier usage.</p>
+<p>If you wish to use other (non-standard) devices (like TPUs), please use
+<a class="reference internal" href="#torchtrain.device.Device" title="torchtrain.device.Device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Device</span></code></a> class explicitly, for example (TPU):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch_xla.core.xla_model</span> <span class="k">as</span> <span class="nn">xm</span>
+
+<span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="c1"># Generate loss and other necessary items</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">targets</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="c1"># Select `loss` and perform backpropagation</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">xm</span><span class="o">.</span><span class="n">xla_device</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Usually users should use <a class="reference internal" href="#torchtrain.device.CPU" title="torchtrain.device.CPU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.device.CPU()</span></code></a> cast
+after <code class="xref py py-obj docutils literal notranslate"><span class="pre">iteration</span></code> and before <code class="xref py py-obj docutils literal notranslate"><span class="pre">accumulation</span></code> in order not to pollute
+GPUs memory.</p>
+</div>
+<dl class="py class">
+<dt id="torchtrain.device.CPU">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.device.</code><code class="sig-name descname">CPU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/device.html#CPU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.device.CPU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
+<p>Cast <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a> (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) to <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpu</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This object should be used most often from this package
+in order to save <code class="xref py py-obj docutils literal notranslate"><span class="pre">GPU</span></code>/<code class="xref py py-obj docutils literal notranslate"><span class="pre">TPU</span></code> memory.
+See example below</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">Train</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+<span class="c1"># Cast to CPU in order not to inflate GPU memory with `list`</span>
+<span class="c1"># You should usually use this OP before accumulation</span>
+<span class="n">iteration</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span>
+    <span class="n">accuracy</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">CPU</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">accumulators</span><span class="o">.</span><span class="n">List</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>memory_format</strong> (<em>torch.memory_format</em><em>, </em><em>optional</em>) – The desired memory format of returned Tensor. Default: torch.preserve_format.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.preserve_format</span></code></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.device.CPU.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/device.html#CPU.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.device.CPU.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.device.CUDA">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.device.</code><code class="sig-name descname">CUDA</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.preserve_format</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/device.html#CUDA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.device.CUDA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
+<p>Cast <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a> (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>) to cuda enabled device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This object <strong>USUALLY SHOULDN’T BE USED</strong> as it
+<strong>usually</strong> pointlessly pollutes GPU memory.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<em>torch.device | int</em><em>, </em><em>optional</em>) – Device index to select. It’s a no-op if this argument is a negative integer or None.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>non_blocking</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If True and this copy is between CPU and GPU, the copy may occur asynchronously
+with respect to the host. For other cases, this argument has no effect.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>memory_format</strong> (<em>torch.memory_format</em><em>, </em><em>optional</em>) – The desired memory format of returned Tensor. Default: torch.preserve_format.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.preserve_format</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.device.CUDA.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/device.html#CUDA.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.device.CUDA.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.device.Device">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.device.</code><code class="sig-name descname">Device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/device.html#Device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.device.Device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtrain._base.Operation</span></code></p>
+<p>Cast <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a> to any device (for example <code class="xref py py-obj docutils literal notranslate"><span class="pre">TPU</span></code> with <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch_xla</span></code> package).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This object <strong>USUALLY SHOULDN’T BE USED</strong> as it
+<strong>usually</strong> pointlessly pollutes device memory (unless it’s CPU,
+in such case simply use <a class="reference internal" href="#torchtrain.device.CPU" title="torchtrain.device.CPU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.device.CPU()</span></code></a>).</p>
+</div>
+<p>See <code class="xref py py-obj docutils literal notranslate"><span class="pre">example</span></code> at the beginning of this section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<em>torch.device | Any</em>) – Anything which can be used with <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.to" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor.to</span></code></a> to cast onto
+specified device.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.device.Device.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/device.html#Device.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.device.Device.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="torchtrain.quantization.html" class="btn btn-neutral float-right" title="torchtrain.quantization" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="torchtrain.cast.html" class="btn btn-neutral" title="torchtrain.cast" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtrain.device</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtrain">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

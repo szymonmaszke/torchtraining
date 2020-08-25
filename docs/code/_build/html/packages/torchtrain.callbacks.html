@@ -1,0 +1,833 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtrain.callbacks &mdash; torchtrain  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtrain/packages/torchtrain.callbacks.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="torchtrain.callbacks.comet module" href="torchtrain.callbacks/torchtrain.callbacks.comet.html" />
+    <link rel="prev" title="torchtrain.accumulators" href="torchtrain.accumulators.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtrain">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="torchtrain.html">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../index.html">
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="torchtrain.html">torchtrain</a> &gt;</li>
+        
+      <li>torchtrain.callbacks</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/packages/torchtrain.callbacks.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtrain-callbacks">
+<h1>torchtrain.callbacks<a class="headerlink" href="#torchtrain-callbacks" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Submodules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks/torchtrain.callbacks.comet.html">torchtrain.callbacks.comet module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks/torchtrain.callbacks.neptune.html">torchtrain.callbacks.neptune module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks/torchtrain.callbacks.tensorboard.html">torchtrain.callbacks.tensorboard module</a></li>
+</ul>
+</div>
+<span class="target" id="module-torchtrain.callbacks"></span><p>Traditionally known callback-like pipes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This module is one of core features
+so be sure to understand how it works.</p>
+</div>
+<p>This module allows user to (for example):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>* `save` their best model
+* terminate training (early stopping)
+* log data to `stdout`
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">targets</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TerminateOnNan</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Users can also use specific <code class="xref py py-obj docutils literal notranslate"><span class="pre">callbacks</span></code> which integrate with third party tools,
+namely:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tensorboard</p></li>
+<li><p>neptune</p></li>
+<li><p>comet</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: Most of the training related logging/saving/processing
+is (or will be) in this package.</p>
+</div>
+<dl class="py class">
+<dt id="torchtrain.callbacks.EarlyStopping">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.callbacks.</code><code class="sig-name descname">EarlyStopping</code><span class="sig-paren">(</span><em class="sig-param">patience: int</em>, <em class="sig-param">delta: numbers.Number = 0</em>, <em class="sig-param">comparator: Callable = &lt;built-in function gt&gt;</em>, <em class="sig-param">log='NONE'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#EarlyStopping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.EarlyStopping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop <code class="xref py py-obj docutils literal notranslate"><span class="pre">epoch</span></code> if <code class="xref py py-obj docutils literal notranslate"><span class="pre">patience</span></code> was reached without improvement.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">Train</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+<span class="c1"># Stop if mean accuracy did not improve for `5` iterations</span>
+<span class="n">iteration</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">accumulators</span><span class="o">.</span><span class="n">Mean</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">)</span>
+<span class="c1"># Assume epoch was created from `iteration`</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patience</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How long not to terminate if metric does not improve</p></li>
+<li><p><strong>delta</strong> (<em>Number</em><em>, </em><em>optional</em>) – Difference between <code class="xref py py-obj docutils literal notranslate"><span class="pre">best</span></code> value and current considered as an improvement.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>comparator</strong> (<em>Callable</em><em>(</em><em>Number</em><em>, </em><em>Number</em><em>) </em><em>-&gt; bool</em><em>, </em><em>optional</em>) – Function comparing two values - current metric and best metric.
+If <code class="docutils literal notranslate"><span class="pre">true</span></code>, reset patience and use current value as the best one.
+One can use Python’s standard <a class="reference external" href="https://docs.python.org/3/library/operator.html#module-operator" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operator</span></code></a> library for this argument.
+Default: <a class="reference external" href="https://docs.python.org/3/library/operator.html#operator.gt" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operator.gt</span></code></a> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">current</span></code> ** <code class="xref py py-obj docutils literal notranslate"><span class="pre">best</span></code>)</p></li>
+<li><p><strong>log</strong> (<em>str | int</em><em>, </em><em>optional</em>) – <p>Severity level for logging object’s actions.
+Available levels of logging:</p>
+<blockquote>
+<div><ul>
+<li><p>NONE      0</p></li>
+<li><p>TRACE     5</p></li>
+<li><p>DEBUG     10</p></li>
+<li><p>INFO      20</p></li>
+<li><p>SUCCESS   25</p></li>
+<li><p>WARNING   30</p></li>
+<li><p>ERROR     40</p></li>
+<li><p>CRITICAL  50</p></li>
+</ul>
+</div></blockquote>
+<p>Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed in forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.callbacks.EarlyStopping.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#EarlyStopping.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.EarlyStopping.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything which can be passed to <code class="xref py py-obj docutils literal notranslate"><span class="pre">comparator</span></code> (e.g. <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.callbacks.Log">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.callbacks.</code><code class="sig-name descname">Log</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">'INFO'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#Log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log data using <code class="xref py py-obj docutils literal notranslate"><span class="pre">loguru.logger</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">Train</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+<span class="c1"># Log with loguru.logger accuracy</span>
+<span class="n">iteration</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name under which data will be logged.
+It will be in format “{name}: {data}”</p></li>
+<li><p><strong>log</strong> (<em>str | int</em><em>, </em><em>optional</em>) – <p>Severity level for logging object’s actions.
+Available levels of logging:</p>
+<blockquote>
+<div><ul>
+<li><p>NONE      0</p></li>
+<li><p>TRACE     5</p></li>
+<li><p>DEBUG     10</p></li>
+<li><p>INFO      20</p></li>
+<li><p>SUCCESS   25</p></li>
+<li><p>WARNING   30</p></li>
+<li><p>ERROR     40</p></li>
+<li><p>CRITICAL  50</p></li>
+</ul>
+</div></blockquote>
+<p>Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></p>
+</p></li>
+<li><p><strong>data</strong> (<em>Any</em>) – Anything which can be sensibly represented with <code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code> magic method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed in forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.callbacks.Log.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#Log.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.Log.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything which can be sensibly represented with <code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code> magic method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.callbacks.Save">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.callbacks.</code><code class="sig-name descname">Save</code><span class="sig-paren">(</span><em class="sig-param">module: torch.nn.modules.module.Module</em>, <em class="sig-param">path: pathlib.Path</em>, <em class="sig-param">comparator: Callable = &lt;built-in function gt&gt;</em>, <em class="sig-param">method: Callable = None</em>, <em class="sig-param">log: Union[str</em>, <em class="sig-param">int] = 'NONE'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#Save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.Save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save best module according to specified metric.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This class plays the role of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelCheckpointer</span></code>
+known from other training libs. It is user’s role to load module
+and pass to <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code>, hence we provide only <code class="xref py py-obj docutils literal notranslate"><span class="pre">saving</span></code> part of checkpointing
+(may be subject to change).</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">operator</span>
+
+
+<span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">Train</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+<span class="c1"># Lower (operator.lt) loss than current best -&gt; save the model</span>
+<span class="n">iteration</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">accumulators</span><span class="o">.</span><span class="n">Mean</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span> <span class="s2">&quot;my_model.pt&quot;</span><span class="p">,</span> <span class="n">comparator</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">lt</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.nn.Module</em></a>) – Module to save.</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.8)"><em>pathlib.Path</em></a>) – Path where module will be saved. Usually ends with <code class="xref py py-obj docutils literal notranslate"><span class="pre">pt</span></code> suffix,
+see PyTorch documentation.</p></li>
+<li><p><strong>comparator</strong> (<em>Callable</em><em>(</em><em>Number</em><em>, </em><em>Number</em><em>) </em><em>-&gt; bool</em><em>, </em><em>optional</em>) – Function comparing two values - current metric and best metric.
+If <code class="docutils literal notranslate"><span class="pre">true</span></code>, save new module and use current value as the best one.
+One can use Python’s standard operator library for this argument.
+Default: <a class="reference external" href="https://docs.python.org/3/library/operator.html#operator.gt" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operator.gt</span></code></a> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">current</span></code> ** <code class="xref py py-obj docutils literal notranslate"><span class="pre">best</span></code>)</p></li>
+<li><p><strong>method</strong> (<em>Callable</em><em>(</em><a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.nn.Module</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.8)"><em>pathlib.Path</em></a><em>) </em><em>-&gt; None</em><em>, </em><em>optional</em>) – Method to save <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>. Takes module and path
+and returns anything (return value is discarded).
+Might be useful to transform model into
+<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.jit.ScriptModule</span></code></a> or do some preprocessing before saving.
+Default: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.save.html#torch.save" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.save</span></code></a> (whole model saving)</p></li>
+<li><p><strong>log</strong> (<em>str | int</em><em>, </em><em>optional</em>) – <p>Severity level for logging object’s actions.
+Available levels of logging:</p>
+<blockquote>
+<div><ul>
+<li><p>NONE      0</p></li>
+<li><p>TRACE         5</p></li>
+<li><p>DEBUG         10</p></li>
+<li><p>INFO  20</p></li>
+<li><p>SUCCESS       25</p></li>
+<li><p>WARNING       30</p></li>
+<li><p>ERROR         40</p></li>
+<li><p>CRITICAL      50</p></li>
+</ul>
+</div></blockquote>
+<p>Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed in forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.callbacks.Save.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/torchtrain/callbacks.html#Save.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.Save.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything which can be passed to <code class="xref py py-obj docutils literal notranslate"><span class="pre">comparator</span></code> (e.g. <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.callbacks.TerminateOnNan">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.callbacks.</code><code class="sig-name descname">TerminateOnNan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'NONE'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#TerminateOnNan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.TerminateOnNan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop <code class="xref py py-obj docutils literal notranslate"><span class="pre">epoch</span></code> if any <code class="xref py py-obj docutils literal notranslate"><span class="pre">NaN</span></code> value encountered in <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">targets</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TerminateOnNan</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>log</strong> (<em>str | int</em><em>, </em><em>optional</em>) – <p>Severity level for logging object’s actions.
+Available levels of logging:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NONE      0</p></li>
+<li><p>TRACE         5</p></li>
+<li><p>DEBUG         10</p></li>
+<li><p>INFO  20</p></li>
+<li><p>SUCCESS       25</p></li>
+<li><p>WARNING       30</p></li>
+<li><p>ERROR         40</p></li>
+<li><p>CRITICAL      50</p></li>
+</ul>
+</div></blockquote>
+<p>Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></p>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed in forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.callbacks.TerminateOnNan.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#TerminateOnNan.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.TerminateOnNan.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor possibly containing <code class="xref py py-obj docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.callbacks.TimeStopping">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.callbacks.</code><code class="sig-name descname">TimeStopping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">'NONE'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#TimeStopping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.TimeStopping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop <code class="xref py py-obj docutils literal notranslate"><span class="pre">epoch</span></code> after specified duration.</p>
+<p>Python’s <code class="xref py py-obj docutils literal notranslate"><span class="pre">time.time()</span></code> functionality is used.</p>
+<p>Can be placed anywhere (e.g. <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span> <span class="pre">**</span> <span class="pre">TimeStopping(60</span> <span class="pre">*</span> <span class="pre">60)</span></code>) as it’s
+not data dependent.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">Train</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+<span class="c1"># Stop after 30 minutes</span>
+<span class="n">iteration</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TimeStopping</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>duration</strong> (<em>int | float</em>) – How long to run (in seconds) before exiting program.</p></li>
+<li><p><strong>log</strong> (<em>str | int</em><em>, </em><em>optional</em>) – <p>Severity level for logging object’s actions.
+Available levels of logging:</p>
+<blockquote>
+<div><ul>
+<li><p>NONE      0</p></li>
+<li><p>TRACE         5</p></li>
+<li><p>DEBUG         10</p></li>
+<li><p>INFO  20</p></li>
+<li><p>SUCCESS       25</p></li>
+<li><p>WARNING       30</p></li>
+<li><p>ERROR         40</p></li>
+<li><p>CRITICAL      50</p></li>
+</ul>
+</div></blockquote>
+<p>Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed in forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.callbacks.TimeStopping.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#TimeStopping.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.TimeStopping.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything as <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> will be simply forwarded</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.callbacks.Unfreeze">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.callbacks.</code><code class="sig-name descname">Unfreeze</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em>, <em class="sig-param"><span class="n">n</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">'NONE'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#Unfreeze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.Unfreeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unfreeze module’s parameters after <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> steps.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">iterations</span><span class="o">.</span><span class="n">Train</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+<span class="c1"># Assume `module`&#39;s parameters are frozen</span>
+
+<span class="c1"># Doesn&#39;t matter what data goes it, so you can unfreeze however you wish</span>
+<span class="c1"># And it doesn&#39;t matter what the accumulated value is</span>
+<span class="n">iteration</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">accumulators</span><span class="o">.</span><span class="n">Sum</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Unfreeze</span><span class="p">(</span>
+    <span class="n">module</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.nn.Module</em></a>) – Module whose <code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code> will be unfrozen (<code class="xref py py-obj docutils literal notranslate"><span class="pre">grad</span></code> set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>).</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Module will be unfrozen after this many steps.</p></li>
+<li><p><strong>log</strong> (<em>str | int</em><em>, </em><em>optional</em>) – <p>Severity level for logging object’s actions.
+Available levels of logging:</p>
+<blockquote>
+<div><ul>
+<li><p>NONE      0</p></li>
+<li><p>TRACE     5</p></li>
+<li><p>DEBUG     10</p></li>
+<li><p>INFO      20</p></li>
+<li><p>SUCCESS   25</p></li>
+<li><p>WARNING   30</p></li>
+<li><p>ERROR     40</p></li>
+<li><p>CRITICAL  50</p></li>
+</ul>
+</div></blockquote>
+<p>Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data passed in forward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.callbacks.Unfreeze.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain/callbacks.html#Unfreeze.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.callbacks.Unfreeze.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything as data is simply forwarded</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="torchtrain.callbacks/torchtrain.callbacks.comet.html" class="btn btn-neutral float-right" title="torchtrain.callbacks.comet module" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="torchtrain.accumulators.html" class="btn btn-neutral" title="torchtrain.accumulators" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtrain.callbacks</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtrain">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

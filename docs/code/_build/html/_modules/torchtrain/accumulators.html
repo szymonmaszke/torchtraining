@@ -1,0 +1,721 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtrain.accumulators &mdash; torchtrain  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtrain/_modules/torchtrain/accumulators.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtrain">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.html">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../torchtrain.html">torchtrain</a> &gt;</li>
+        
+      <li>torchtrain.accumulators</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torchtrain.accumulators</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Accumulate results from `iterations` or `epochs`</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    **IMPORTANT**: This module is one of core features</span>
+<span class="sd">    so be sure to understand how it works.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    **IMPORTANT**: Accumulators should be applied to `iteration`</span>
+<span class="sd">    objects. This way those can efficiently accumulate value later passed</span>
+<span class="sd">    to other operations.</span>
+
+<span class="sd">Example::</span>
+
+<span class="sd">    iteration</span>
+<span class="sd">    ** tt.Select(predictions=1, labels=2)</span>
+<span class="sd">    ** tt.metrics.classification.multiclass.Accuracy()</span>
+<span class="sd">    ** tt.accumulators.Mean()</span>
+<span class="sd">    ** tt.Split(</span>
+<span class="sd">        tt.callbacks.Log(f&quot;{name} Accuracy&quot;),</span>
+<span class="sd">        tt.callbacks.tensorboard.Scalar(writer, f&quot;{name}/Accuracy&quot;),</span>
+<span class="sd">    )</span>
+
+<span class="sd">Code above will accumulate `accuracy` from each step and after `iteration`</span>
+<span class="sd">ends it will be send to `tt.Split`.</span>
+
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    **IMPORTANT**: If users wish to implement their own `accumulators`</span>
+<span class="sd">    `forward` shouldn&#39;t return anything but accumulate data in `self.data`</span>
+<span class="sd">    variable. No argument `calculate` should return `self.data` after</span>
+<span class="sd">    calculating accumulated value (e.g. for `mean` it would be division</span>
+<span class="sd">    by number of samples).</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">._base</span> <span class="kn">import</span> <span class="n">Accumulator</span>
+
+
+<div class="viewcode-block" id="Sum"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Sum">[docs]</a><span class="k">class</span> <span class="nc">Sum</span><span class="p">(</span><span class="n">Accumulator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sum data coming into this object.</span>
+
+<span class="sd">    `data` should have `+=` operator implemented between it&#39;s instances</span>
+<span class="sd">    and Python integers.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        **IMPORTANT**: This is one of memory efficient accumulators</span>
+<span class="sd">        and can be safely used.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    torch.Tensor | Any</span>
+<span class="sd">        Sum of values after accumulation. At each step proper</span>
+<span class="sd">        summation up to this point is returned nonetheless.</span>
+<span class="sd">        `torch.Tensor` usually, but can be anything &quot;summable&quot;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Sum.reset"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Sum.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Assign 0 to `self.data` clearing `saver`.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="Sum.forward"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Sum.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which has `__iadd__`/`__add__` operator implemented between it&#39;s instances</span>
+<span class="sd">            and Python integers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="Sum.calculate"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Sum.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate final value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            Data accumulated via addition.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="Mean"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Mean">[docs]</a><span class="k">class</span> <span class="nc">Mean</span><span class="p">(</span><span class="n">Accumulator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Take mean of the data coming into this object.</span>
+
+<span class="sd">    `data` should have `+=` operator implemented between it&#39;s instances</span>
+<span class="sd">    and Python integers.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        **IMPORTANT**: This is one of memory efficient accumulators</span>
+<span class="sd">        and can be safely used. Should be preferred over accumulating</span>
+<span class="sd">        data via `torchtrain.accumulators.List`</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    torch.Tensor | Any</span>
+<span class="sd">        Mean of values after accumulation. At each step proper</span>
+<span class="sd">        mean up to this point is returned nonetheless.</span>
+<span class="sd">        `torch.Tensor` usually, but can be anything implementing concept above.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Mean.reset"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Mean.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Assign `0` to `self.data` and zero out counter clearing `saver`&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="Mean.forward"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Mean.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which has `__iadd__`/`__add__` operator implemented between it&#39;s instances</span>
+<span class="sd">            and Python integers. It should also have `__div__` operator implemented</span>
+<span class="sd">            for proper mean calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="Mean.calculate"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Mean.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate final value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            Accumulated data after summation and division by number of samples.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span></div></div>
+
+
+<div class="viewcode-block" id="List"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.List">[docs]</a><span class="k">class</span> <span class="nc">List</span><span class="p">(</span><span class="n">Accumulator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sum data coming into this object.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        **IMPORTANT**: It is advised **NOT TO USE** this accumulator</span>
+<span class="sd">        due to memory inefficiencies. Prefer `torchtrain.accumulators.Sum`</span>
+<span class="sd">        or `torchtrain.accumulators.Mean` instead.</span>
+
+<span class="sd">    List containing data received up to this moment.</span>
+<span class="sd">    `data` **does not** have to implement any concept</span>
+<span class="sd">    (as it is only appended to `list`).</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    List</span>
+<span class="sd">        List of values after accumulation. At each step proper</span>
+<span class="sd">        `list` up to this point is returned nonetheless.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="List.reset"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.List.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Assign empty `list` to `self.data clearing `saver`&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="List.forward"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.List.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which can be added to `list`. So anything I guess</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+<div class="viewcode-block" id="List.accumulate"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.List.accumulate">[docs]</a>    <span class="k">def</span> <span class="nf">accumulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate final value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        torch.Tensor</span>
+<span class="sd">            Return `List` with gathered data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Except"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Except">[docs]</a><span class="k">class</span> <span class="nc">Except</span><span class="p">(</span><span class="n">Accumulator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Special modifier of accumulators accumulating every value except specified.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        **IMPORTANT**: One of the `begin`, `end` has to be specified.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        **IMPORTANT**: This accumulators is useful in conjunction</span>
+<span class="sd">        with `torchtrain.iterations.Multi` (e.g. for GANs and other irregular</span>
+<span class="sd">        type of training).</span>
+
+<span class="sd">    User can effectively choose which data coming from step should be accumulated</span>
+<span class="sd">    and can divide accumulation based on that.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    accumulator: tt.Accumulator</span>
+<span class="sd">        Instance of accumulator to use for `data` accumulation.</span>
+<span class="sd">    begin: int | torch.Tensor[int], optional</span>
+<span class="sd">        If `int`, it should specify beginning of incoming values stream which</span>
+<span class="sd">        will not be taken into accumulation. If `torch.Tensor` containing integers,</span>
+<span class="sd">        it should specify consecutive beginnings of streams which are not taken into account.</span>
+<span class="sd">        If left unspecified (`None`), `begin` is assumed to be `0`th step.</span>
+<span class="sd">        Every modulo element of stream matching [begin, end] range will not be</span>
+<span class="sd">        forwarded to accumulator.</span>
+<span class="sd">    end: int | torch.Tensor[int], optional</span>
+<span class="sd">        If `int`, it should specify end of incoming values stream which</span>
+<span class="sd">        will not be taken into accumulation. If `torch.Tensor` containing integers,</span>
+<span class="sd">        it should specify consecutive ends of stream which will not be taken into account.</span>
+<span class="sd">        If left unspecified (`None`), `end` is assumed to be the same as `begin`.</span>
+<span class="sd">        This effectively excludes every `begin` element coming from value stream.</span>
+<span class="sd">        Every modulo element of stream matching [begin, end] range will not be</span>
+<span class="sd">        forwarded to accumulator.</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Whatever `accumulator` returns after accumulation. At each step proper</span>
+<span class="sd">        value up to this point is returned nonetheless. Usually `torch.Tensor`</span>
+<span class="sd">        or `list`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">accumulator</span><span class="p">:</span> <span class="n">Accumulator</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">def</span> <span class="nf">_validate_argument</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">arg</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">(</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                <span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> as torch.Tensor should be of integer-like type, got: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">name</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">dtype</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> should be torch.Tensor/int, got : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">arg</span>
+
+        <span class="k">def</span> <span class="nf">_same_type</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg2</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;begin and end should be of the same type. Got </span><span class="si">{}</span><span class="s2"> for begin and </span><span class="si">{}</span><span class="s2"> for end&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">type</span><span class="p">(</span><span class="n">arg1</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg2</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_same_shape</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">arg1</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">arg2</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;begin and end should have the same shape. Got </span><span class="si">{}</span><span class="s2"> for begin and </span><span class="si">{}</span><span class="s2"> for end&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">arg1</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">arg2</span><span class="o">.</span><span class="n">shape</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_one_of_specified</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">arg1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">arg2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;One of begin/end has to be specified.&quot;</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="n">_one_of_specified</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">begin</span> <span class="o">=</span> <span class="n">_validate_argument</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="s2">&quot;begin&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_same_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">_validate_argument</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
+            <span class="n">_same_shape</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="n">accumulator</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_in</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">i</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">maximum</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_in</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">maximum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">i</span> <span class="o">%</span> <span class="n">maximum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">maximum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<div class="viewcode-block" id="Except.reset"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Except.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Reset internal `accumulator`.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Except.forward"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Except.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which `accumulator` can consume</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_in</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Except.calculate"><a class="viewcode-back" href="../../packages/torchtrain.accumulators.html#torchtrain.accumulators.Except.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate final value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            Returns anything `accumulator` accumulated.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="o">.</span><span class="n">calculate</span><span class="p">()</span></div></div>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtrain">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtrain &mdash; torchtrain  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtrain/index.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="torchtrain" href="packages/torchtrain.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtrain">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.html">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="#">
+        </a> &gt;
+      </li>
+
+        
+      <li>torchtrain</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/szymonmaszke/torchtrain" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtrain">
+<h1>torchtrain<a class="headerlink" href="#torchtrain" title="Permalink to this headline">¶</a></h1>
+<p><strong>torchtrain</strong> is a functional PyTorch neural network training library which
+provides high level building blocks and integrations instead of trying to do
+everything for you under the hood (most of current approaches, e.g. <a class="reference external" href="https://github.com/PyTorchLightning/pytorch-lightning">pytorch-lightning</a>,
+<a class="reference external" href="https://github.com/skorch-dev/skorch">skorch</a>).</p>
+<p>Using unified approach (single <code class="xref py py-obj docutils literal notranslate"><span class="pre">**</span></code> operator) across <code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">callbacks</span></code>
+and others all users have to do is inherit from specific object (usually <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.Operation</span></code>)
+and implement desired <code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code> or use provided building blocks by us.</p>
+<div class="section" id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="https://colab.research.google.com">Google Colab</a> tutorials to get
+a feel and what’s possible with this framework:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a href="#id1"><span class="problematic" id="id2">`Introduction &lt;&gt;`__</span></a> - quick tour around functionalities with CIFAR100 classification and <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorboard</span></code></p></li>
+<li><p><a href="#id1"><span class="problematic" id="id3">`GAN training &lt;&gt;`__</span></a> - more advanced example and creating you own pipeline components</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<p>Below you can find available modules, so be sure to skim through those to see what’s
+currently possible.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.html">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="integrations">
+<h2>Integrations<a class="headerlink" href="#integrations" title="Permalink to this headline">¶</a></h2>
+<p><strong>Integration are currently WIP, please file any issues you find along the way</strong></p>
+<p>Following are currently available:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.comet.ml/site/">comet-ml</a> - module <a class="reference internal" href="packages/torchtrain.callbacks/torchtrain.callbacks.comet.html#module-torchtrain.callbacks.comet" title="torchtrain.callbacks.comet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.callbacks.comet</span></code></a>, ‘Self-hosted and cloud-based meta machine learning platform allowing data
+scientists and teams to track, compare, explain and optimize experiments and models.’</p></li>
+<li><p><a class="reference external" href="https://neptune.ai/">neptune.ai</a> - module <a class="reference internal" href="packages/torchtrain.callbacks/torchtrain.callbacks.neptune.html#module-torchtrain.callbacks.neptune" title="torchtrain.callbacks.neptune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.callbacks.neptune</span></code></a>, ‘The most lightweight experiment management tool that fits any workflow’</p></li>
+<li><p><a class="reference external" href="https://www.tensorflow.org/tensorboard">tensorboard</a> - module <a class="reference internal" href="packages/torchtrain.callbacks/torchtrain.callbacks.tensorboard.html#module-torchtrain.callbacks.tensorboard" title="torchtrain.callbacks.tensorboard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.callbacks.tensorboard</span></code></a>, ‘Visualization and tooling needed for machine learning experimentation’</p></li>
+<li><p><a class="reference external" href="https://github.com/horovod/horovod">horovod</a> - module <a class="reference internal" href="packages/torchtrain.accelerators/torchtrain.accelerators.horovod.html#module-torchtrain.accelerators.horovod" title="torchtrain.accelerators.horovod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.accelerators.horovod</span></code></a> and <a class="reference internal" href="packages/torchtrain.accelerators.html#torchtrain.accelerators.Horovod" title="torchtrain.accelerators.Horovod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.accelerators.Horovod</span></code></a>,
+‘Simple distributed training framework for TensorFlow, Keras, PyTorch, and Apache MXNet.’</p></li>
+</ul>
+</div></blockquote>
+<p>All of those can be installed via <code class="xref py py-obj docutils literal notranslate"><span class="pre">extras</span></code>, see below.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Following installation methods are available:</p>
+<div class="section" id="pip">
+<h3><a class="reference external" href="https://pypi.org/project/torchtrain/">pip:</a><a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<p>To install latest release:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install --user torchtrain
+</pre></div>
+</div>
+<p>To install <code class="xref py py-obj docutils literal notranslate"><span class="pre">nightly</span></code> version:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install --user torchtrain-nightly
+</pre></div>
+</div>
+<p><a class="reference internal" href="packages/torchtrain.html#module-torchtrain" title="torchtrain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain</span></code></a> integrations come with <code class="xref py py-obj docutils literal notranslate"><span class="pre">extra</span></code>. Simply run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install --user torchtrain<span class="o">[</span>neptune, tensorboard<span class="o">]</span>
+</pre></div>
+</div>
+<p>To install necessary packages for additional <a class="reference internal" href="packages/torchtrain.callbacks.html#module-torchtrain.callbacks" title="torchtrain.callbacks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.callbacks</span></code></a> modules.
+Available extras:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[all]</span></code> - install all <code class="xref py py-obj docutils literal notranslate"><span class="pre">extras</span></code> in one go</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[callbacks]</span></code> - third party callbacks: <code class="xref py py-obj docutils literal notranslate"><span class="pre">[neptune,</span> <span class="pre">comet,</span> <span class="pre">tensorboard]</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[accelerators]</span></code> - third party accelerators: <code class="xref py py-obj docutils literal notranslate"><span class="pre">[horovod]</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[horovod]</span></code> - <code class="xref py py-obj docutils literal notranslate"><span class="pre">HOROVOD_CUDA_HOME=/path/to/cuda</span></code> may be required during
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[neptune]</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[comet]</span></code></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">[tensorboard]</span></code></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="packages/torchtrain.html" class="btn btn-neutral float-right" title="torchtrain" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+    </div>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtrain</a><ul>
+<li><a class="reference internal" href="#tutorials">Tutorials</a></li>
+<li><a class="reference internal" href="#modules">Modules</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#integrations">Integrations</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#pip">pip:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+         <script src="_static/jquery.js"></script>
+         <script src="_static/underscore.js"></script>
+         <script src="_static/doctools.js"></script>
+         <script src="_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtrain">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

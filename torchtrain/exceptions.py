@@ -1,3 +1,10 @@
+"""Exceptions which allow users to finish pipes abruptly.
+
+Usually shouldn't be used except for the above.
+
+"""
+
+
 class EpochsException(Exception):
     """Special exception caught by `torchtrain.epochs.EpochsBase` objects.
 
@@ -40,4 +47,5 @@ class TimeStopping(EpochsException):
 
 class TerminateOnNan(EpochsException):
     """TerminateOnNaN special exception"""
+
     pass

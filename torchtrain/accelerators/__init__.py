@@ -7,9 +7,9 @@ module (in the following order):
     * iteration (if exists)
     * step
 
-Those are the only objects which can be "piped" into producers, for example:
+Those are the only objects which can be "piped" into producers, for example::
 
-    tt.accelerators.Horovod(...) > tt.iterations.Iteration(...)
+    tt.accelerators.Horovod(...) ** tt.iterations.Iteration(...)
 
 And should be used in this way (although it's not always necessary).
 See `horovod` module for an example.
@@ -30,19 +30,20 @@ if utils.modules_exist("horovod.torch"):
     class Horovod(Accelerator):
         """Accelerate training using Uber's Horovod framework.
 
+        See `torchtrain.accelerators.horovod` package for more information.
 
         .. note::
 
-            **IMPORTANT**: This module needs `horovod` Python package to be visible.
-            You can install it with `pip install -U torchtrain[horovod]`
+            **IMPORTANT**: This object needs `horovod` Python package to be visible.
+            You can install it with `pip install -U torchtrain[horovod]`.
+            Also you should export `CUDA_HOME` variable like this:
+            `CUDA_HOME=/opt/cuda pip install -U torchtrain[horovod]` (your path may vary)
+
 
         Parameters
         ----------
         module: torch.nn.Module
             Module to be broadcasted to all processes.
-        optimizer: tt.accelerators.horovod.Optimize.get()
-            Special distributed `horovod` optimizer. See `horovod` module
-            for an example.
         rank: int, optional
             Root process rank. Default: `0`
         per_worker_threads: int, optional
@@ -57,12 +58,7 @@ if utils.modules_exist("horovod.torch"):
         """
 
         def __init__(
-            self,
-            model,
-            optimizer,
-            rank: int = 0,
-            per_worker_threads: int = None,
-            comm=None,
+            self, model, rank: int = 0, per_worker_threads: int = None, comm=None,
         ):
             hvd.init(comm)
 
@@ -74,6 +70,5 @@ if utils.modules_exist("horovod.torch"):
                 torch.set_num_threads(per_worker_threads)
 
             hvd.broadcast_parameters(model.state_dict(), root_rank=rank)
-            hvd.broadcast_optimizer_state(optimizer, root_rank=rank)
 
     from . import horovod

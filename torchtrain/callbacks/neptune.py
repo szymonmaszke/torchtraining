@@ -1,4 +1,4 @@
-"""Integrate `torchtrain` with [neptune.ai](https://neptune.ai/) experiment management.
+"""Integrate `torchtrain` with `neptune.ai <https://neptune.ai/>`__ experiment management tool.
 
 .. note::
 
@@ -34,7 +34,7 @@ Example::
     # Experiment is optional
     # You have to split `tensor` as only single image can be logged
     # Also you need to cast to `numpy`
-    step > tt.OnSplittedTensor(tt.cast.Numpy() > neptune.Image(experiment))
+    step ** tt.OnSplittedTensor(tt.cast.Numpy() ** neptune.Image(experiment))
 
 
 """
@@ -51,7 +51,7 @@ def project(project_qualified_name=None, api_token=None, proxies=None, backend=N
     that can be used to create or list experiments, notebooks, etc.
 
     Extensive documentation (explained optional parameters) is located
-    [here](https://docs.neptune.ai/neptune-client/docs/neptune.html#neptune.init)
+    `here <https://docs.neptune.ai/neptune-client/docs/neptune.html#neptune.init>`__ .
 
     Returns
     -------
@@ -89,13 +89,12 @@ def experiment(
     All parameters are optional.
 
     Extensive documentation (explained optional parameters) is located
-    [here](https://docs.neptune.ai/neptune-client/docs/project.html#neptune.projects.Project.create_experiment)
+    `here <https://docs.neptune.ai/neptune-client/docs/project.html#neptune.projects.Project.create_experiment>`__
 
     Returns:
     --------
         `neptune.experiments.Experiment` object that is used to manage experiment
-        and log data to it. See [original
-        documentation](https://docs.neptune.ai/neptune-client/docs/experiment.html#neptune.experiments.Experiment.log_artifact)
+        and log data to it. See `original documentation <https://docsneptune.ai/neptune-client/docs/experiment.html#neptune.experiments.Experiment.log_artifact>`__)
 
     Raises:
     ------
@@ -173,11 +172,6 @@ class Artifact(_NeptuneOperation):
         Instance of experiment to use. If `None`, global `experiment` will be used.
         Default: `None`
 
-    Arguments
-    ---------
-    data: str | IO.Object
-        A path to the file in local filesystem or IO object.
-        It can be open file descriptor or in-memory buffer like io.StringIO or io.BytesIO.
 
     Returns
     -------
@@ -191,6 +185,13 @@ class Artifact(_NeptuneOperation):
         self.destination = destination
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: str | IO.Object
+            A path to the file in local filesystem or IO object.
+            It can be open file descriptor or in-memory buffer like io.StringIO or io.BytesIO.
+        """
         self._method(data, self.destination)
         return data
 
@@ -198,7 +199,7 @@ class Artifact(_NeptuneOperation):
 class Image(_NeptuneOperation):
     """Log image data in Neptune.
 
-    See [original documentation](https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.log_image).
+    See `original documentation <https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.log_image>`__.
 
     Example::
 
@@ -222,7 +223,7 @@ class Image(_NeptuneOperation):
         # Experiment is optional
         # You have to split `tensor` as only single image can be logged
         # Also you need to cast to `numpy`
-        step > tt.OnSplittedTensor(tt.cast.Numpy() > neptune.Image(experiment))
+        step ** tt.OnSplittedTensor(tt.cast.Numpy() ** neptune.Image(experiment))
 
     Parameters
     ----------
@@ -243,26 +244,7 @@ class Image(_NeptuneOperation):
         Instance of experiment to use. If `None`, global `experiment` will be used.
         Default: `None`
 
-    Arguments
-    ---------
-    data: PIL image | matplotlib.figure.Figure | str | np.array
-        Can be one of:
-        * :obj:`PIL image`
-          `Pillow docs <https://pillow.readthedocs.io/en/latest/reference/Image.html#image-module>`_
-        * :obj:`matplotlib.figure.Figure`
-          `Matplotlib 3.1.1 docs <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.figure.Figure.html>`_
-        * :obj:`str` - path to image file
-        * 2-dimensional :obj:`numpy.array` - interpreted as grayscale image
-        * 3-dimensional :obj:`numpy.array` - behavior depends on last dimension
-
-            * if last dimension is 1 - interpreted as grayscale image
-            * if last dimension is 3 - interpreted as RGB image
-            * if last dimension is 4 - interpreted as RGBA image
-
-        You may need to `transpose` and  transforms PyTorch `tensors` to
-        fit the above format.
-
-    Returns
+        Returns
     -------
     data
         Data without any modification
@@ -284,6 +266,27 @@ class Image(_NeptuneOperation):
         self.timestamp = timestamp
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: PIL image | matplotlib.figure.Figure | str | np.array
+            Can be one of:
+            * :obj:`PIL image`
+              `Pillow docs <https://pillow.readthedocs.io/en/latest/reference/Image.html#image-module>`_
+            * :obj:`matplotlib.figure.Figure`
+              `Matplotlib 3.1.1 docs <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.figure.Figure.html>`_
+            * :obj:`str` - path to image file
+            * 2-dimensional :obj:`numpy.array` - interpreted as grayscale image
+            * 3-dimensional :obj:`numpy.array` - behavior depends on last dimension
+
+                * if last dimension is 1 - interpreted as grayscale image
+                * if last dimension is 3 - interpreted as RGB image
+                * if last dimension is 4 - interpreted as RGBA image
+
+            You may need to `transpose` and  transform PyTorch `tensors` to
+            fit the above format.
+
+        """
         self._method(
             self.log_name, data, None, self.image_name, self.description, self.timestamp
         )
@@ -294,7 +297,7 @@ class Scalar(_NeptuneOperation):
     """Log scalar data in Neptune.
 
     Calls `experiment.log_metric` under the hood.
-    See [original documentation](https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.log_metric).
+    See `original documentation <https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.log_metric>`__.
 
     Example::
 
@@ -318,7 +321,7 @@ class Scalar(_NeptuneOperation):
         # Experiment is optional
         # You have to split `tensor` as only single image can be logged
         # Also you need to cast to `numpy`
-        step > tt.cast.Item() > neptune.Image(experiment))
+        step ** tt.cast.Item() ** neptune.Image(experiment))
 
     Parameters
     ----------
@@ -331,11 +334,6 @@ class Scalar(_NeptuneOperation):
     experiment: `neptune.experiments.Experiment`, optional
         Instance of experiment to use. If `None`, global `experiment` will be used.
         Default: `None`
-
-    Arguments
-    ---------
-    data: double
-        Single element Python `double` type
 
     Returns
     -------
@@ -352,6 +350,13 @@ class Scalar(_NeptuneOperation):
         self.timestamp = timestamp
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: double
+            Single element Python `double` type
+
+        """
         self._method(self.log_name, data, None, self.timestamp)
         return data
 
@@ -359,7 +364,7 @@ class Scalar(_NeptuneOperation):
 class Text(_NeptuneOperation):
     """Log text data in Neptune.
 
-    See [original documentation](https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.log_text).
+    See `original documentation <https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.log_text>`__.
 
     Example::
 
@@ -382,7 +387,7 @@ class Text(_NeptuneOperation):
         # Experiment is optional
         # You have to split `tensor` as only single image can be logged
         # Also you need to cast to `numpy`
-        step > tt.Select(text=1) > neptune.Text())
+        step ** tt.Select(text=1) ** neptune.Text())
 
     Parameters
     ----------
@@ -395,11 +400,6 @@ class Text(_NeptuneOperation):
     experiment: `neptune.experiments.Experiment`, optional
         Instance of experiment to use. If `None`, global `experiment` will be used.
         Default: `None`
-
-    Arguments
-    ---------
-    data: double
-        Single element Python `double` type
 
     Returns
     -------
@@ -416,6 +416,12 @@ class Text(_NeptuneOperation):
         self.timestamp = timestamp
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: str
+            Text to be logged
+        """
         self._method(self.log_name, data, None, self.timestamp)
         return data
 
@@ -424,7 +430,7 @@ class Reset(_NeptuneOperation):
     """Resets the log.
 
     Removes all data from the log and enables it to be reused from scratch.
-    See [original documentation](https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.reset_log).
+    See `original documentation <https://docs.neptune.ai/_modules/neptune/experiments.html#Experiment.reset_log>`__.
 
     Example::
 
@@ -447,18 +453,13 @@ class Reset(_NeptuneOperation):
         # Experiment is optional
         # You have to split `tensor` as only single image can be logged
         # Also you need to cast to `numpy`
-        step > tt.Select(text=1) > neptune.Text())
+        step ** tt.Select(text=1) ** neptune.Text())
 
     Parameters
     ----------
     log_name: str
         Name of log (group of images), e.g. "generated images".
         If `log` does not exist, error `ChannelDoesNotExist` will be raised.
-
-    Arguments
-    ---------
-    data: Any
-        Anything as data will be forwarded
 
     Returns
     -------
@@ -474,5 +475,11 @@ class Reset(_NeptuneOperation):
         self.log_name = log_name
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as data will be forwarded
+        """
         self._method(self.log_name)
         return data

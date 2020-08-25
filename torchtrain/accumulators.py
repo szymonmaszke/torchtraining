@@ -1,3 +1,41 @@
+"""Accumulate results from `iterations` or `epochs`
+
+.. note::
+
+    **IMPORTANT**: This module is one of core features
+    so be sure to understand how it works.
+
+.. note::
+
+    **IMPORTANT**: Accumulators should be applied to `iteration`
+    objects. This way those can efficiently accumulate value later passed
+    to other operations.
+
+Example::
+
+    iteration
+    ** tt.Select(predictions=1, labels=2)
+    ** tt.metrics.classification.multiclass.Accuracy()
+    ** tt.accumulators.Mean()
+    ** tt.Split(
+        tt.callbacks.Log(f"{name} Accuracy"),
+        tt.callbacks.tensorboard.Scalar(writer, f"{name}/Accuracy"),
+    )
+
+Code above will accumulate `accuracy` from each step and after `iteration`
+ends it will be send to `tt.Split`.
+
+
+.. note::
+
+    **IMPORTANT**: If users wish to implement their own `accumulators`
+    `forward` shouldn't return anything but accumulate data in `self.data`
+    variable. No argument `calculate` should return `self.data` after
+    calculating accumulated value (e.g. for `mean` it would be division
+    by number of samples).
+
+"""
+
 import abc
 import typing
 
@@ -9,16 +47,13 @@ from ._base import Accumulator
 class Sum(Accumulator):
     """Sum data coming into this object.
 
-    Accumulated data will be returned at each step.
-
     `data` should have `+=` operator implemented between it's instances
     and Python integers.
 
-    Arguments
-    ---------
-    data: Any
-        Anything which has `__iadd__`/`__add__` operator implemented between it's instances
-        and Python integers.
+    .. note::
+
+        **IMPORTANT**: This is one of memory efficient accumulators
+        and can be safely used.
 
     Returns
     -------
@@ -34,30 +69,43 @@ class Sum(Accumulator):
         self.data = 0
 
     def reset(self) -> None:
-        """Assign `0` to `self.data` clearing `saver`"""
+        """Assign 0 to `self.data` clearing `saver`."""
         self.data = 0
 
     def forward(self, data) -> None:
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which has `__iadd__`/`__add__` operator implemented between it's instances
+            and Python integers.
+        """
         self.data += data
 
     def calculate(self) -> typing.Any:
+        """Calculate final value.
+
+        Returns
+        -------
+        torch.Tensor
+            Data accumulated via addition.
+
+        """
         return self.data
 
 
 class Mean(Accumulator):
-    """Sum data coming into this object.
-
-    Accumulated data will be returned at each step.
+    """Take mean of the data coming into this object.
 
     `data` should have `+=` operator implemented between it's instances
     and Python integers.
 
-    Arguments
-    ---------
-    data: Any
-        Anything which has `__iadd__`/`__add__` operator implemented between it's instances
-        and Python integers. It should also have `__div__` operator implemented
-        for proper mean calculation.
+    .. note::
+
+        **IMPORTANT**: This is one of memory efficient accumulators
+        and can be safely used. Should be preferred over accumulating
+        data via `torchtrain.accumulators.List`
+
 
     Returns
     -------
@@ -79,28 +127,42 @@ class Mean(Accumulator):
         self._counter = 0
 
     def forward(self, data: typing.Any) -> None:
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which has `__iadd__`/`__add__` operator implemented between it's instances
+            and Python integers. It should also have `__div__` operator implemented
+            for proper mean calculation.
+        """
         self._counter += 1
         self.data += data
 
     def calculate(self) -> typing.Any:
+        """Calculate final value.
+
+        Returns
+        -------
+        torch.Tensor
+            Accumulated data after summation and division by number of samples.
+
+        """
         return self.data / self._counter
 
 
 class List(Accumulator):
     """Sum data coming into this object.
 
-    **It is advised NOT TO USE this accumulator due to memory inefficiencies!**
+    .. note::
 
-    List containing data received up to this moment will be returned
-    at every `step`.
+        **IMPORTANT**: It is advised **NOT TO USE** this accumulator
+        due to memory inefficiencies. Prefer `torchtrain.accumulators.Sum`
+        or `torchtrain.accumulators.Mean` instead.
 
+    List containing data received up to this moment.
     `data` **does not** have to implement any concept
     (as it is only appended to `list`).
 
-    Arguments
-    ---------
-    data: Any
-        Anything which can be added to `list`. So anything I guess
 
     Returns
     -------
@@ -119,17 +181,41 @@ class List(Accumulator):
         self.data = []
 
     def forward(self) -> typing.List[typing.Any]:
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which can be added to `list`. So anything I guess
+        """
         return self.data
 
     def accumulate(self, data) -> None:
+        """Calculate final value.
+
+        Returns
+        -------
+        torch.Tensor
+            Return `List` with gathered data.
+
+        """
         self.data.append()
 
 
 class Except(Accumulator):
     """Special modifier of accumulators accumulating every value except specified.
 
-    **One of `begin`, `end` has to be specified!**
+    .. note::
 
+        **IMPORTANT**: One of the `begin`, `end` has to be specified.
+
+    .. note::
+
+        **IMPORTANT**: This accumulators is useful in conjunction
+        with `torchtrain.iterations.Multi` (e.g. for GANs and other irregular
+        type of training).
+
+    User can effectively choose which data coming from step should be accumulated
+    and can divide accumulation based on that.
 
     Parameters
     ----------
@@ -151,10 +237,6 @@ class Except(Accumulator):
         Every modulo element of stream matching [begin, end] range will not be
         forwarded to accumulator.
 
-    Arguments
-    ---------
-    data: Any
-        Anything which `accumulator` can consume
 
     Returns
     -------
@@ -166,10 +248,7 @@ class Except(Accumulator):
     """
 
     def __init__(
-        self,
-        accumulator: Accumulator,
-        begin: typing.Union[int, torch.Tensor] = None,
-        end: typing.Union[int, torch.Tensor] = None,
+        self, accumulator: Accumulator, begin=None, end=None,
     ):
         def _validate_argument(arg, name: str):
             if torch.is_tensor(arg):
@@ -236,13 +315,28 @@ class Except(Accumulator):
         self._counter = -1
 
     def reset(self) -> None:
+        """Reset internal `accumulator`."""
         self._counter = -1
         self.accumulator.reset()
 
     def forward(self, data) -> None:
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which `accumulator` can consume
+        """
         self._counter += 1
         if not self._in(self._counter):
             self.accumulator(data)
 
     def calculate(self) -> typing.Any:
+        """Calculate final value.
+
+        Returns
+        -------
+        Any
+            Returns anything `accumulator` accumulated.
+
+        """
         return self.accumulator.calculate()

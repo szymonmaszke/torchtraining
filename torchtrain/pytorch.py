@@ -1,7 +1,14 @@
 """This module provides standard PyTorch operations (like `backward`)
 in functional manner.
 
-It allows users to use single `step` for both training and evaluation, see below::
+.. note::
+
+    **IMPORTANT**: This module is used almost all the time
+    so be sure to understand how it works.
+
+
+It allows users to perform training on single `step` for both training and evaluation
+using PyTorch's optimizer, backward or zeroing gradient, for example::
 
 
     class Step(tt.steps.Step):
@@ -12,21 +19,21 @@ It allows users to use single `step` for both training and evaluation, see below
 
     training = (
         Step(criterion, gradient=True, device=device)
-        > tt.Select(loss=0)
-        > tt.pytorch.ZeroGrad(network)
-        > tt.pytorch.Backward()
-        > tt.pytorch.Optimize(optimizer)
-        > tt.pytorch.Detach()
+        ** tt.Select(loss=0)
+        ** tt.pytorch.ZeroGrad(network)
+        ** tt.pytorch.Backward()
+        ** tt.pytorch.Optimize(optimizer)
+        ** tt.pytorch.Detach()
     )
 
     evaluation = (
         Step(criterion, gradient=False, device=device)
-        > tt.Select(predictions=1)
-        > tt.callbacks.Log(writer, "Predicted")
+        ** tt.Select(predictions=1)
+        ** tt.callbacks.Log(writer, "Predicted")
     )
 
 Some other operations are also simplified (e.g. gradient accumulation),
-see ``
+see `torchtrain.callbacks.Optimize`
 
 """
 
@@ -38,12 +45,27 @@ from ._base import Operation
 class Detach(Operation):
     """Returns a new Tensor, detached from the current graph.
 
-    Usually should be placed after each `step` in order not
-    to keep track of operations that might be required by `backward`.
+    .. note::
+
+        **IMPORTANT**: This operation should be used before accumulating
+        values after `iteration` in order not to grow backpropagation
+        graph.
+
+    Returns
+    -------
+    torch.Tensor
+        Detached tensor
 
     """
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        torch.Tensor
+            Tensor to be detached (new Tensor is returned).
+
+        """
         return data.detach()
 
 
@@ -52,6 +74,11 @@ class Schedule(Operation):
 
     Usually placed after each `step` or `iteration` (depending on provided
     scheduler instance).
+
+    Returns
+    -------
+    torch.Tensor
+        Value passed to function initially
 
     Parameters
     ----------
@@ -68,6 +95,13 @@ class Schedule(Operation):
         self.use_data = use_data
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        torch.Tensor
+            Tensor which is optionally used to step scheduler.
+
+        """
         if self.use_data:
             self.scheduler.step(data)
         else:
@@ -91,6 +125,11 @@ class Backward(Operation):
         Tensor used as initial value to backpropagation. If unspecified,
         uses `torch.tensor([1.0])` as default value (just like `tensor.backward()` call).
 
+    Returns
+    -------
+    torch.Tensor
+        Tensor after backward (possibly scaled by `accumulate`)
+
     """
 
     def __init__(self, scaler=None, accumulate: int = 1, gradient: torch.Tensor = None):
@@ -99,8 +138,16 @@ class Backward(Operation):
         self.accumulate = accumulate
         self.gradient = gradient
 
-    def forward(self, loss):
-        output = loss / self.accumulate
+    def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor on which `backward` will be run (possibly accumulated).
+            Usually `loss` value
+
+        """
+        output = data / self.accumulate
         if self.scaler is not None:
             output = self.scaler.scale(output)
         if self.gradient is not None:
@@ -136,6 +183,12 @@ class Optimize(Operation):
     **kwargs
         Keyword arguments passed to either `scaler.step` (if specified) or `optimizer.step`
 
+    Returns
+    -------
+    Any
+        Anything passed to `forward`.
+
+
     """
 
     def __init__(
@@ -156,6 +209,13 @@ class Optimize(Operation):
         self._counter = -1
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as it does not influence this operation.
+
+        """
         self._counter += 1
         if self._counter % self.accumulate:
             if self.scaler is not None:
@@ -181,6 +241,12 @@ class ZeroGrad(Operation):
         Accumulate gradient for specified number of iterations before zero-ing out
         gradient.
 
+    Returns
+    -------
+    Any
+        Anything passed to `forward`.
+
+
     """
 
     def __init__(self, obj, accumulate: int = 1):
@@ -190,6 +256,13 @@ class ZeroGrad(Operation):
         self._counter = -1
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as it does not influence this operation.
+
+        """
         self._counter += 1
         if self._counter % self.accumulate:
             self.obj.zero_grad()
@@ -198,12 +271,17 @@ class ZeroGrad(Operation):
 
 class UpdateGradScaler(Operation):
     """Update gradient scaler used with automatic mixed precision.
-    def forward(self, data):
 
     Parameters
     ----------
     scaler : torch.cuda.amp.GradScaler
         Gradient scaler used for automatic mixed precision mode.
+
+    Returns
+    -------
+    Any
+        Anything passed to `forward`.
+
 
     """
 
@@ -212,5 +290,12 @@ class UpdateGradScaler(Operation):
         self.scaler = scaler
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as it does not influence this operation.
+
+        """
         self.scaler.update()
         return data

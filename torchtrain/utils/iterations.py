@@ -39,14 +39,14 @@ def docs(header, body):
         log : str | int, optional
             Severity level for logging object's actions.
             Available levels of logging:
-                NONE        0
-                TRACE 	5
-                DEBUG 	10
-                INFO 	20
-                SUCCESS 	25
-                WARNING 	30
-                ERROR 	40
-                CRITICAL 	50
+                * NONE          0
+                * TRACE 	5
+                * DEBUG 	10
+                * INFO 	        20
+                * SUCCESS 	25
+                * WARNING 	30
+                * ERROR 	40
+                * CRITICAL 	50
             Default: `NONE` (no logging, `0` priority)
 
         """

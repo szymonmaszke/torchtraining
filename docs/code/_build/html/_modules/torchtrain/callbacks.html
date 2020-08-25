@@ -1,0 +1,899 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtrain.callbacks &mdash; torchtrain  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtrain/_modules/torchtrain/callbacks.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtrain">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.html">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../packages/torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../index.html">Module code</a> &gt;</li>
+        
+          <li><a href="../torchtrain.html">torchtrain</a> &gt;</li>
+        
+      <li>torchtrain.callbacks</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <h1>Source code for torchtrain.callbacks</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Traditionally known callback-like pipes.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    **IMPORTANT**: This module is one of core features</span>
+<span class="sd">    so be sure to understand how it works.</span>
+
+<span class="sd">This module allows user to (for example)::</span>
+
+<span class="sd">    * `save` their best model</span>
+<span class="sd">    * terminate training (early stopping)</span>
+<span class="sd">    * log data to `stdout`</span>
+
+<span class="sd">Example::</span>
+
+<span class="sd">    class TrainStep(tt.steps.Train):</span>
+<span class="sd">        def forward(self, module, sample):</span>
+<span class="sd">            ...</span>
+<span class="sd">            return loss, targets</span>
+
+
+<span class="sd">    step = TrainStep(criterion, device)</span>
+<span class="sd">    step ** tt.Select(loss=0) ** tt.callbacks.TerminateOnNan()</span>
+
+<span class="sd">Users can also use specific `callbacks` which integrate with third party tools,</span>
+<span class="sd">namely:</span>
+
+<span class="sd">    * tensorboard</span>
+<span class="sd">    * neptune</span>
+<span class="sd">    * comet</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    **IMPORTANT**: Most of the training related logging/saving/processing</span>
+<span class="sd">    is (or will be) in this package.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">numbers</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="kn">import</span> <span class="nn">loguru</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">_base</span><span class="p">,</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">general</span> <span class="k">as</span> <span class="n">utils</span>
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">modules_exist</span><span class="p">(</span><span class="s2">&quot;torch.utils.tensorboard&quot;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tensorboard</span>
+
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">modules_exist</span><span class="p">(</span><span class="s2">&quot;neptune&quot;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">neptune</span>
+
+
+<span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">modules_exist</span><span class="p">(</span><span class="s2">&quot;comet_ml&quot;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">comet</span>
+
+
+<div class="viewcode-block" id="Save"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.Save">[docs]</a><span class="k">class</span> <span class="nc">Save</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Save best module according to specified metric.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        **IMPORTANT**: This class plays the role of `ModelCheckpointer`</span>
+<span class="sd">        known from other training libs. It is user&#39;s role to load module</span>
+<span class="sd">        and pass to `step`, hence we provide only `saving` part of checkpointing</span>
+<span class="sd">        (may be subject to change).</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        import operator</span>
+
+
+<span class="sd">        class TrainStep(tt.steps.Train):</span>
+<span class="sd">            def forward(self, module, sample):</span>
+<span class="sd">                ...</span>
+<span class="sd">                return loss</span>
+
+
+<span class="sd">        step = TrainStep(criterion, device)</span>
+<span class="sd">        iteration = tt.iterations.Train(step, module, dataloader)</span>
+
+<span class="sd">        # Lower (operator.lt) loss than current best -&gt; save the model</span>
+<span class="sd">        iteration ** tt.accumulators.Mean() ** tt.callbacks.Save(</span>
+<span class="sd">            module, &quot;my_model.pt&quot;, comparator=operator.lt</span>
+<span class="sd">        )</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module: torch.nn.Module</span>
+<span class="sd">        Module to save.</span>
+<span class="sd">    path: pathlib.Path</span>
+<span class="sd">        Path where module will be saved. Usually ends with `.pt` suffix,</span>
+<span class="sd">        see PyTorch documentation.</span>
+<span class="sd">    comparator: Callable(Number, Number) -&gt; bool, optional</span>
+<span class="sd">        Function comparing two values - current metric and best metric.</span>
+<span class="sd">        If ``true``, save new module and use current value as the best one.</span>
+<span class="sd">        One can use Python&#39;s standard operator library for this argument.</span>
+<span class="sd">        Default: `operator.gt` (`current` ** `best`)</span>
+<span class="sd">    method: Callable(torch.nn.Module, pathlib.Path) -&gt; None, optional</span>
+<span class="sd">        Method to save `torch.nn.Module`. Takes module and path</span>
+<span class="sd">        and returns anything (return value is discarded).</span>
+<span class="sd">        Might be useful to transform model into</span>
+<span class="sd">        `torch.jit.ScriptModule` or do some preprocessing before saving.</span>
+<span class="sd">        Default: `torch.save` (whole model saving)</span>
+<span class="sd">    log : str | int, optional</span>
+<span class="sd">            Severity level for logging object&#39;s actions.</span>
+<span class="sd">            Available levels of logging:</span>
+<span class="sd">                * NONE      0</span>
+<span class="sd">                * TRACE 	5</span>
+<span class="sd">                * DEBUG 	10</span>
+<span class="sd">                * INFO 	20</span>
+<span class="sd">                * SUCCESS 	25</span>
+<span class="sd">                * WARNING 	30</span>
+<span class="sd">                * ERROR 	40</span>
+<span class="sd">                * CRITICAL 	50</span>
+<span class="sd">            Default: `INFO`</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Data passed in forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span>
+        <span class="n">comparator</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">log</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span> <span class="o">=</span> <span class="n">comparator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">module</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">method</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">best</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Save.forward"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.Save.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which can be passed to `comparator` (e.g. `torch.Tensor`).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">best</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;New best value: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="TimeStopping"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.TimeStopping">[docs]</a><span class="k">class</span> <span class="nc">TimeStopping</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stop `epoch` after specified duration.</span>
+
+<span class="sd">    Python&#39;s `time.time()` functionality is used.</span>
+
+<span class="sd">    Can be placed anywhere (e.g. `step ** TimeStopping(60 * 60)`) as it&#39;s</span>
+<span class="sd">    not data dependent.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        class TrainStep(tt.steps.Train):</span>
+<span class="sd">            def forward(self, module, sample):</span>
+<span class="sd">                ...</span>
+<span class="sd">                return loss</span>
+
+
+<span class="sd">        step = TrainStep(criterion, device)</span>
+<span class="sd">        iteration = tt.iterations.Train(step, module, dataloader)</span>
+
+<span class="sd">        # Stop after 30 minutes</span>
+<span class="sd">        iteration ** tt.callbacks.TimeStopping(duration=60 * 30)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    duration: int | float</span>
+<span class="sd">        How long to run (in seconds) before exiting program.</span>
+<span class="sd">    log : str | int, optional</span>
+<span class="sd">            Severity level for logging object&#39;s actions.</span>
+<span class="sd">            Available levels of logging:</span>
+<span class="sd">                * NONE      0</span>
+<span class="sd">                * TRACE 	5</span>
+<span class="sd">                * DEBUG 	10</span>
+<span class="sd">                * INFO 	20</span>
+<span class="sd">                * SUCCESS 	25</span>
+<span class="sd">                * WARNING 	30</span>
+<span class="sd">                * ERROR 	40</span>
+<span class="sd">                * CRITICAL 	50</span>
+<span class="sd">            Default: `INFO`</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Data passed in forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TimeStopping.forward"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.TimeStopping.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything as `data` will be simply forwarded</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span>
+            <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;Stopping after </span><span class="si">{}</span><span class="s2"> seconds.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">TimeStopping</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="TerminateOnNan"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.TerminateOnNan">[docs]</a><span class="k">class</span> <span class="nc">TerminateOnNan</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stop `epoch` if any `NaN` value encountered in `data`.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        class TrainStep(tt.steps.Train):</span>
+<span class="sd">            def forward(self, module, sample):</span>
+<span class="sd">                ...</span>
+<span class="sd">                return loss, targets</span>
+
+
+<span class="sd">        step = TrainStep(criterion, device)</span>
+<span class="sd">        step ** tt.Select(loss=0) ** tt.callbacks.TerminateOnNan()</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log : str | int, optional</span>
+<span class="sd">            Severity level for logging object&#39;s actions.</span>
+<span class="sd">            Available levels of logging:</span>
+<span class="sd">                * NONE      0</span>
+<span class="sd">                * TRACE 	5</span>
+<span class="sd">                * DEBUG 	10</span>
+<span class="sd">                * INFO 	20</span>
+<span class="sd">                * SUCCESS 	25</span>
+<span class="sd">                * WARNING 	30</span>
+<span class="sd">                * ERROR 	40</span>
+<span class="sd">                * CRITICAL 	50</span>
+<span class="sd">            Default: `INFO`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Data passed in forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+
+<div class="viewcode-block" id="TerminateOnNan.forward"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.TerminateOnNan.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: torch.Tensor</span>
+<span class="sd">            Tensor possibly containing `NaN` values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;NaN values found, exiting with 1.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">TerminateOnNan</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="EarlyStopping"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.EarlyStopping">[docs]</a><span class="k">class</span> <span class="nc">EarlyStopping</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stop `epoch` if `patience` was reached without improvement.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        class TrainStep(tt.steps.Train):</span>
+<span class="sd">            def forward(self, module, sample):</span>
+<span class="sd">                ...</span>
+<span class="sd">                return loss, accuracy</span>
+
+
+<span class="sd">        step = TrainStep(criterion, device)</span>
+<span class="sd">        iteration = tt.iterations.Train(step, module, dataloader)</span>
+
+<span class="sd">        # Stop if mean accuracy did not improve for `5` iterations</span>
+<span class="sd">        iteration ** tt.Select(accuracy=1) ** tt.accumulators.Mean() ** tt.callbacks.EarlyStopping(</span>
+<span class="sd">            patience=5</span>
+<span class="sd">        )</span>
+<span class="sd">        # Assume epoch was created from `iteration`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    patience: int</span>
+<span class="sd">        How long not to terminate if metric does not improve</span>
+<span class="sd">    delta: Number, optional</span>
+<span class="sd">        Difference between `best` value and current considered as an improvement.</span>
+<span class="sd">        Default: `0`.</span>
+<span class="sd">    comparator: Callable(Number, Number) -&gt; bool, optional</span>
+<span class="sd">        Function comparing two values - current metric and best metric.</span>
+<span class="sd">        If ``true``, reset patience and use current value as the best one.</span>
+<span class="sd">        One can use Python&#39;s standard `operator` library for this argument.</span>
+<span class="sd">        Default: `operator.gt` (`current` ** `best`)</span>
+<span class="sd">    log : str | int, optional</span>
+<span class="sd">        Severity level for logging object&#39;s actions.</span>
+<span class="sd">        Available levels of logging:</span>
+<span class="sd">            * NONE      0</span>
+<span class="sd">            * TRACE 	5</span>
+<span class="sd">            * DEBUG 	10</span>
+<span class="sd">            * INFO 	20</span>
+<span class="sd">            * SUCCESS 	25</span>
+<span class="sd">            * WARNING 	30</span>
+<span class="sd">            * ERROR 	40</span>
+<span class="sd">            * CRITICAL 	50</span>
+<span class="sd">        Default: `INFO`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Data passed in forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">delta</span><span class="p">:</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">comparator</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span><span class="p">,</span>
+        <span class="n">log</span><span class="o">=</span><span class="s2">&quot;NONE&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">patience</span> <span class="o">=</span> <span class="n">patience</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span> <span class="o">=</span> <span class="n">comparator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<div class="viewcode-block" id="EarlyStopping.forward"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.EarlyStopping.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which can be passed to `comparator` (e.g. `torch.Tensor`).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">comparator</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">best</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">patience</span><span class="p">:</span>
+            <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;Stopping early, best found: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Unfreeze"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.Unfreeze">[docs]</a><span class="k">class</span> <span class="nc">Unfreeze</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unfreeze module&#39;s parameters after `n` steps.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        class TrainStep(tt.steps.Train):</span>
+<span class="sd">            def forward(self, module, sample):</span>
+<span class="sd">                ...</span>
+<span class="sd">                return loss, accuracy</span>
+
+
+<span class="sd">        step = TrainStep(criterion, device)</span>
+<span class="sd">        iteration = tt.iterations.Train(step, module, dataloader)</span>
+
+<span class="sd">        # Assume `module`&#39;s parameters are frozen</span>
+
+<span class="sd">        # Doesn&#39;t matter what data goes it, so you can unfreeze however you wish</span>
+<span class="sd">        # And it doesn&#39;t matter what the accumulated value is</span>
+<span class="sd">        iteration ** tt.Select(accuracy=1) ** tt.accumulators.Sum() ** tt.callbacks.Unfreeze(</span>
+<span class="sd">            module</span>
+<span class="sd">        )</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module: torch.nn.Module</span>
+<span class="sd">        Module whose `parameters` will be unfrozen (`grad` set to `True`).</span>
+<span class="sd">    n: int</span>
+<span class="sd">        Module will be unfrozen after this many steps.</span>
+<span class="sd">    log : str | int, optional</span>
+<span class="sd">        Severity level for logging object&#39;s actions.</span>
+<span class="sd">        Available levels of logging:</span>
+<span class="sd">            * NONE      0</span>
+<span class="sd">            * TRACE 	5</span>
+<span class="sd">            * DEBUG 	10</span>
+<span class="sd">            * INFO 	20</span>
+<span class="sd">            * SUCCESS 	25</span>
+<span class="sd">            * WARNING 	30</span>
+<span class="sd">            * ERROR 	40</span>
+<span class="sd">            * CRITICAL 	50</span>
+<span class="sd">        Default: `INFO`</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Data passed in forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;NONE&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<div class="viewcode-block" id="Unfreeze.forward"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.Unfreeze.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything as data is simply forwarded</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+            <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;Unfreezing module&#39;s parameters&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="Log"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.Log">[docs]</a><span class="k">class</span> <span class="nc">Log</span><span class="p">(</span><span class="n">_base</span><span class="o">.</span><span class="n">Operation</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Log data using `loguru.logger`.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        class TrainStep(tt.steps.Train):</span>
+<span class="sd">            def forward(self, module, sample):</span>
+<span class="sd">                ...</span>
+<span class="sd">                return loss, accuracy</span>
+
+
+<span class="sd">        step = TrainStep(criterion, device)</span>
+<span class="sd">        iteration = tt.iterations.Train(step, module, dataloader)</span>
+
+<span class="sd">        # Log with loguru.logger accuracy</span>
+<span class="sd">        iteration ** tt.Select(accuracy=1) ** tt.callbacks.Logger(&quot;Accuracy&quot;)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Name under which data will be logged.</span>
+<span class="sd">        It will be in format &quot;{name}: {data}&quot;</span>
+<span class="sd">    log : str | int, optional</span>
+<span class="sd">        Severity level for logging object&#39;s actions.</span>
+<span class="sd">        Available levels of logging:</span>
+<span class="sd">            * NONE      0</span>
+<span class="sd">            * TRACE 	5</span>
+<span class="sd">            * DEBUG 	10</span>
+<span class="sd">            * INFO 	20</span>
+<span class="sd">            * SUCCESS 	25</span>
+<span class="sd">            * WARNING 	30</span>
+<span class="sd">            * ERROR 	40</span>
+<span class="sd">            * CRITICAL 	50</span>
+<span class="sd">        Default: `INFO`</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    data: Any</span>
+<span class="sd">        Anything which can be sensibly represented with `__str__` magic method.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        Data passed in forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+
+<div class="viewcode-block" id="Log.forward"><a class="viewcode-back" href="../../packages/torchtrain.callbacks.html#torchtrain.callbacks.Log.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        data: Any</span>
+<span class="sd">            Anything which can be sensibly represented with `__str__` magic method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">loguru</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">data</span></div></div>
+</pre></div>
+
+             </article>
+             
+            </div>
+            <footer>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtrain">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>

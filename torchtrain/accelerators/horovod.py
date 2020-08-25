@@ -8,11 +8,15 @@
 .. note::
 
     **IMPORTANT**: This module needs `horovod` Python package to be visible.
-    You can install it with `pip install -U torchtrain[horovod]`
+    You can install it with `pip install -U torchtrain[horovod]`.
+    Also you should export `CUDA_HOME` variable like this:
+    `CUDA_HOME=/opt/cuda pip install -U torchtrain[horovod]` (your path may vary)
 
 
-See [Horovod documentation](https://github.com/horovod/horovod) for details
-and specific `operations` offered by `torchtrain` below.
+
+See `Horovod documentation <https://github.com/horovod/horovod>`__ for details
+about the framework (installation, capabilities etc.).
+
 
 Example::
 
@@ -35,26 +39,29 @@ Example::
 
 
     # Accelerate!
+    accelerator = tt.accelerators.Horovod(model, optimize.optimizer)
+
+    # Distributed optimization with gradient accumulation
+    optimizer = horovod.optimizer(optimizer, module.named_parameters())
 
     # Special distributed DataLoader
     dataloader = horovod.DataLoader(dataset, batch_size=64)
 
-    # Distributed optimization with gradient accumulation
-    optimize = horovod.Optimize(optimizer, module.named_parameters())
 
     step = (
         TrainStep(criterion, device)
-        > tt.pytorch.ZeroGrad()
-        > tt.pytorch.Backward()
-        > optimize
+        ** tt.pytorch.ZeroGrad()
+        ** tt.pytorch.Backward()
+        ** tt.pytorch.Optimize(optimizer)
     )
     iteration = (
-        tt.accelerators.Horovod(model, optimize.optimizer)
-        > tt.iterations.TrainIteration(step, model, dataloader)
-        > horovod.AllReduce()
-        > tt.accumulators.Mean()
-        > horovod.OnRank(tt.callbacks.Tensorboard(writer, "Loss"))
+        ** tt.iterations.TrainIteration(step, model, dataloader)
+        ** horovod.AllReduce()
+        ** tt.accumulators.Mean()
+        ** horovod.OnRank(tt.callbacks.Tensorboard(writer, "Loss"))
     )
+
+Specific `operations` integrated by `torchtrain` below.
 
 """
 
@@ -108,11 +115,6 @@ class OnRank(Operation):
     rank: int, optional
         Rank (process) on which the operation will be run. Default: `0` (main process)
 
-    Arguments
-    ---------
-    data: Any
-        Input required by `operation`
-
     Returns
     -------
     data | operation(data)
@@ -128,6 +130,13 @@ class OnRank(Operation):
         self.rank = rank
 
     def forward(self, data: typing.Any):
+        """
+        Arguments
+        ---------
+        data: Any
+            Input required by `operation`
+
+        """
         if hvd.rank() == self.rank:
             return self.operation(data)
         return data
@@ -235,11 +244,6 @@ class AllReduce(Operation):
         Name of the reduction operator. If not provided it will be generated
         automatically. Default: `None` (automatic generation)
 
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor to be reduced
-
     Returns
     -------
     torch.Tensor
@@ -254,6 +258,12 @@ class AllReduce(Operation):
         self.compression = _compression(compression)
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor to be reduced
+        """
         return hvd.allreduce(
             data, name=self.name, compression=self.compression, op=self.reduction
         )
@@ -280,10 +290,6 @@ class AsyncAllReduce(Operation):
         Name of the reduction operator. If not provided it will be generated
         automatically. Default: `None` (automatic generation)
 
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor to be reduced across all processes.
 
     Returns
     -------
@@ -297,6 +303,12 @@ class AsyncAllReduce(Operation):
         self.reduction = _reduction(reduction)
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor to be reduced across all processes.
+        """
         return hvd.allreduce_async(data, name=self.name, op=self.reduction)
 
 
@@ -304,7 +316,7 @@ class AllGather(Operation):
     """Concatenate input tensors from all processes.
 
     Tensor after concatenation will be available to all processes.
-    Concatenation is done over `0`th dimension, so it's the only dimension
+    Concatenation is done over `0` th dimension, so it's the only dimension
     in which `torch.Tensor` on different processes is allowed to be different.
 
     If `data` requires gradient you can backpropagate through this operation.
@@ -314,11 +326,6 @@ class AllGather(Operation):
     name: str, optional
         Name of the reduction operator. If not provided it will be generated
         automatically. Default: `None` (automatic generation)
-
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor to be gathered across all processes.
 
     Returns
     -------
@@ -332,6 +339,12 @@ class AllGather(Operation):
         self.name = name
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor to be gathered across all processes.
+        """
         return hvd.allgather(data, name=self.name)
 
 
@@ -348,11 +361,6 @@ class AsyncAllGather(Operation):
         Name of the reduction operator. If not provided it will be generated
         automatically. Default: `None` (automatic generation)
 
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor to be gathered across all processes.
-
     Returns
     -------
     Handle
@@ -364,6 +372,12 @@ class AsyncAllGather(Operation):
         self.name = name
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor to be gathered across all processes.
+        """
         return hvd.allgather_async(data, name=self.name,)
 
 
@@ -380,11 +394,6 @@ class Broadcast(Operation):
         Name of the reduction operator. If not provided it will be generated
         automatically. Default: `None` (automatic generation)
 
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor to be broadcasted across all processes.
-
     Returns
     -------
     torch.Tensor
@@ -397,6 +406,12 @@ class Broadcast(Operation):
         self.name = name
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor to be broadcasted across all processes.
+        """
         return hvd.broadcast(data, self.rank, name=self.name)
 
 
@@ -411,11 +426,6 @@ class AsyncBroadcast(Operation):
         Name of the reduction operator. If not provided it will be generated
         automatically. Default: `None` (automatic generation)
 
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor to be broadcasted across all processes.
-
     Returns
     -------
     Handle
@@ -428,17 +438,17 @@ class AsyncBroadcast(Operation):
         self.name = name
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor to be broadcasted across all processes.
+        """
         return hvd.async_broadcast(data, self.rank, name=self.name)
 
 
 class Synchronize(Operation):
     """Asynchronously broadcast tensor from `rank` process to all other processes.
-
-    Arguments
-    ---------
-    handle: Handle
-        Handle returned by an `AsyncAllReduce`, `AsyncAllGather`or
-        `AsyncBroadcast` which will be used to retrieve `torch.Tensor`.
 
     Returns
     -------
@@ -449,13 +459,28 @@ class Synchronize(Operation):
     """
 
     def forward(self, handle):
+        """
+        Arguments
+        ---------
+        handle: Handle
+            Handle returned by an `AsyncAllReduce`, `AsyncAllGather`or
+            `AsyncBroadcast` which will be used to retrieve `torch.Tensor`.
+        """
         return hvd.synchronize(handle)
 
 
-class Optimize(Operation):
-    """Perform optimization step on `parameters` stored by `optimizer`.
+def optimizer(
+    optimizer,
+    named_parameters,
+    reduction: str = "sum",
+    compression: str = "none",
+    accumulate: int = 1,
+    rank: int = 0,
+):
+    """Create Horovod compatible optimizer.
 
-    Currently specifying `closure` and `scaler` is mutually exclusive.
+    State of optimizer will be distributed on specified `rank`.
+    Should be used after `torchtrain.accelerators.Horovod` object was created.
 
     Parameters
     ----------
@@ -478,43 +503,27 @@ class Optimize(Operation):
         Divide loss by ``accumulate`` if gradient accumulation is used.
         This approach averages gradient from multiple batches.
         Default: `1` (no accumulation)
-    closure : Callable, optional
-        A closure that reevaluates the model and returns the loss.
-        Optional for most optimizers. Default: `None`
-    *args
-        Arguments passed to either `scaler.step` (if specified) or `optimizer.step`
-    **kwargs
-        Keyword arguments passed to either `scaler.step` (if specified) or `optimizer.step`
+    rank: int, optional
+        Rank from which optimizer's state will be broadcasted.
+        Default: `0`
+
+    Returns
+    -------
+    horovod.torch.DistributedOptimizer
+        Instance of optimizer but distributed across workers.
 
     """
 
-    def __init__(
-        self,
+    optimizer = hvd.DistributedOptimizer(
         optimizer,
         named_parameters,
-        reduction: str = "sum",
-        compression: str = "none",
-        accumulate: int = 1,
-        closure=None,
-        *args,
-        **kwargs
-    ):
+        _compression(compression),
+        backward_passes_per_step=accumulate,
+        op=_reduction(reduction),
+    )
 
-        self.optimizer = hvd.DistributedOptimizer(
-            optimizer,
-            named_parameters,
-            _compression(compression),
-            backward_passes_per_step=accumulate,
-            op=_reduction(reduction),
-        )
-        self.closure = closure
-
-    def forward(self, data):
-        if self.closure is not None:
-            self.optimizer.step(self.closure)
-        else:
-            self.optimizer.step()
-        return data
+    hvd.broadcast_optimizer_state(optimizer, root_rank=rank)
+    return optimizer
 
 
 def load(f, rank: int = 0, map_location=None, pickle_module=pickle, **pickle_load_args):

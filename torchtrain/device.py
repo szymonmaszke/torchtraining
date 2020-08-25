@@ -3,7 +3,7 @@
 PyTorch's defaults (as of `1.6.0` CPU and GPU) are forwarded for easier usage.
 
 If you wish to use other (non-standard) devices (like TPUs), please use
-`Device` class and explicitly, for example (TPU)::
+`Device` class explicitly, for example (TPU)::
 
 
     import torch_xla.core.xla_model as xm
@@ -17,9 +17,14 @@ If you wish to use other (non-standard) devices (like TPUs), please use
 
     step = TrainStep(criterion, device)
     # Select `loss` and perform backpropagation
-    step > tt.Select(loss=0) > tt.device.Device(xm.xla_device())
+    step ** tt.Select(loss=0) ** tt.device.Device(xm.xla_device())
 
-Users should use `CPU` class mainly, rest is provided for convenience.
+.. note::
+
+    **IMPORTANT**: Usually users should use `torchtrain.device.CPU()` cast
+    after `iteration` and before `accumulation` in order not to pollute
+    GPUs memory.
+
 
 """
 
@@ -33,6 +38,12 @@ from ._base import Operation
 class CPU(Operation):
     """Cast `object` (usually `torch.Tensor`) to `cpu`.
 
+    .. note::
+
+        **IMPORTANT**: This object should be used most often from this package
+        in order to save `GPU`/`TPU` memory.
+        See example below
+
     Example::
 
         class TrainStep(tt.steps.Train):
@@ -45,10 +56,10 @@ class CPU(Operation):
         iteration = tt.iterations.Train(step, module, dataloader)
 
         # Cast to CPU in order not to inflate GPU memory with `list`
-        # You shouldn't use tt.accumulators.List though, just saying
-        iteration > tt.Select(
+        # You should usually use this OP before accumulation
+        iteration ** tt.Select(
             accuracy=1
-        ) > tt.device.CPU() > tt.accumulators.List() > tt.callbacks.Logger("Accuracy")
+        ) ** tt.device.CPU() ** tt.accumulators.List() ** tt.callbacks.Logger("Accuracy")
 
     Parameters
     ----------
@@ -69,8 +80,11 @@ class CPU(Operation):
 class CUDA(Operation):
     """Cast `object` (usually `torch.Tensor`) to cuda enabled device.
 
-    Example can be the same as the one presented in `CPU`, though definitely
-    this cast shouldn't be used too often.
+    .. note::
+
+        **IMPORTANT**: This object **USUALLY SHOULDN'T BE USED** as it
+        **usually** pointlessly pollutes GPU memory.
+
 
     Parameters
     ----------
@@ -103,6 +117,12 @@ class CUDA(Operation):
 
 class Device(Operation):
     """Cast `object` to any device (for example `TPU` with `torch_xla` package).
+
+    .. note::
+
+        **IMPORTANT**: This object **USUALLY SHOULDN'T BE USED** as it
+        **usually** pointlessly pollutes device memory (unless it's CPU,
+        in such case simply use `torchtrain.device.CPU()`).
 
     See `example` at the beginning of this section.
 

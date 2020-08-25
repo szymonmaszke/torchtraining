@@ -1,7 +1,15 @@
 """Traditionally known callback-like pipes.
 
-This module allows user to `save` their best model, terminate training
-earlier or Log `data` into `loguru.logger`.
+.. note::
+
+    **IMPORTANT**: This module is one of core features
+    so be sure to understand how it works.
+
+This module allows user to (for example)::
+
+    * `save` their best model
+    * terminate training (early stopping)
+    * log data to `stdout`
 
 Example::
 
@@ -12,7 +20,7 @@ Example::
 
 
     step = TrainStep(criterion, device)
-    step > tt.Select(loss=0) > tt.callbacks.TerminateOnNan()
+    step ** tt.Select(loss=0) ** tt.callbacks.TerminateOnNan()
 
 Users can also use specific `callbacks` which integrate with third party tools,
 namely:
@@ -20,6 +28,11 @@ namely:
     * tensorboard
     * neptune
     * comet
+
+.. note::
+
+    **IMPORTANT**: Most of the training related logging/saving/processing
+    is (or will be) in this package.
 
 """
 
@@ -37,8 +50,6 @@ import torch
 from .. import _base, exceptions
 from ..utils import general as utils
 
-# Conditional integration imports
-
 if utils.modules_exist("torch.utils.tensorboard"):
     from . import tensorboard
 
@@ -47,14 +58,19 @@ if utils.modules_exist("neptune"):
     from . import neptune
 
 
-if utils.modules_exist("comet-ml"):
+if utils.modules_exist("comet_ml"):
     from . import comet
-
-# General callbacks
 
 
 class Save(_base.Operation):
     """Save best module according to specified metric.
+
+    .. note::
+
+        **IMPORTANT**: This class plays the role of `ModelCheckpointer`
+        known from other training libs. It is user's role to load module
+        and pass to `step`, hence we provide only `saving` part of checkpointing
+        (may be subject to change).
 
     Example::
 
@@ -71,7 +87,7 @@ class Save(_base.Operation):
         iteration = tt.iterations.Train(step, module, dataloader)
 
         # Lower (operator.lt) loss than current best -> save the model
-        iteration > tt.accumulators.Mean() > tt.callbacks.Save(
+        iteration ** tt.accumulators.Mean() ** tt.callbacks.Save(
             module, "my_model.pt", comparator=operator.lt
         )
 
@@ -86,30 +102,26 @@ class Save(_base.Operation):
         Function comparing two values - current metric and best metric.
         If ``true``, save new module and use current value as the best one.
         One can use Python's standard operator library for this argument.
-        Default: `operator.gt` (`current` > `best`)
+        Default: `operator.gt` (`current` ** `best`)
     method: Callable(torch.nn.Module, pathlib.Path) -> None, optional
         Method to save `torch.nn.Module`. Takes module and path
         and returns anything (return value is discarded).
         Might be useful to transform model into
         `torch.jit.ScriptModule` or do some preprocessing before saving.
         Default: `torch.save` (whole model saving)
-    log: str | int, optional
-        Severity level for logging object's actions.
-        Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
-        Default: `NONE` (no logging, `0` priority)
+    log : str | int, optional
+            Severity level for logging object's actions.
+            Available levels of logging:
+                * NONE      0
+                * TRACE 	5
+                * DEBUG 	10
+                * INFO 	20
+                * SUCCESS 	25
+                * WARNING 	30
+                * ERROR 	40
+                * CRITICAL 	50
+            Default: `INFO`
 
-    Arguments
-    ---------
-    data: Any
-        Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
 
     Returns
     -------
@@ -139,6 +151,12 @@ class Save(_base.Operation):
         self.best = None
 
     def forward(self, data: typing.Any) -> typing.Any:
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
+        """
         if self.best is None or self.comparator(data, self.best):
             self.best = data
             self.method(self.module, self.path)
@@ -154,7 +172,7 @@ class TimeStopping(_base.Operation):
 
     Python's `time.time()` functionality is used.
 
-    Can be placed anywhere (e.g. `step > TimeStopping(60 * 60)`) as it's
+    Can be placed anywhere (e.g. `step ** TimeStopping(60 * 60)`) as it's
     not data dependent.
 
     Example::
@@ -169,28 +187,25 @@ class TimeStopping(_base.Operation):
         iteration = tt.iterations.Train(step, module, dataloader)
 
         # Stop after 30 minutes
-        iteration > tt.callbacks.TimeStopping(duration=60 * 30)
+        iteration ** tt.callbacks.TimeStopping(duration=60 * 30)
 
     Parameters
     ----------
     duration: int | float
         How long to run (in seconds) before exiting program.
-    log: str | int, optional
-        Severity level for logging object's actions.
-        Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
-        Default: `NONE` (no logging, `0` priority)
+    log : str | int, optional
+            Severity level for logging object's actions.
+            Available levels of logging:
+                * NONE      0
+                * TRACE 	5
+                * DEBUG 	10
+                * INFO 	20
+                * SUCCESS 	25
+                * WARNING 	30
+                * ERROR 	40
+                * CRITICAL 	50
+            Default: `INFO`
 
-    Arguments
-    ---------
-    data: Any
 
     Returns
     -------
@@ -209,7 +224,13 @@ class TimeStopping(_base.Operation):
         self._start = time.time()
 
     def forward(self, data):
-        if time.time() - self._start > self.duration:
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as `data` will be simply forwarded
+        """
+        if time.time() - self._start ** self.duration:
             loguru.logger.log(
                 self.log, "Stopping after {} seconds.".format(self.duration)
             )
@@ -229,27 +250,22 @@ class TerminateOnNan(_base.Operation):
 
 
         step = TrainStep(criterion, device)
-        step > tt.Select(loss=0) > tt.callbacks.TerminateOnNan()
+        step ** tt.Select(loss=0) ** tt.callbacks.TerminateOnNan()
 
     Parameters
     ----------
-    log: str | int, optional
-        Severity level for logging object's actions.
-        Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
-        Default: `NONE` (no logging, `0` priority)
-
-    Arguments
-    ---------
-    data: torch.Tensor
-        Tensor possibly containing `NaN` values.
+    log : str | int, optional
+            Severity level for logging object's actions.
+            Available levels of logging:
+                * NONE      0
+                * TRACE 	5
+                * DEBUG 	10
+                * INFO 	20
+                * SUCCESS 	25
+                * WARNING 	30
+                * ERROR 	40
+                * CRITICAL 	50
+            Default: `INFO`
 
     Returns
     -------
@@ -266,6 +282,12 @@ class TerminateOnNan(_base.Operation):
         self.log = log
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: torch.Tensor
+            Tensor possibly containing `NaN` values.
+        """
         if torch.any(torch.isnan(data)):
             loguru.logger.log(self.log, "NaN values found, exiting with 1.")
             raise exceptions.TerminateOnNan()
@@ -274,9 +296,6 @@ class TerminateOnNan(_base.Operation):
 
 class EarlyStopping(_base.Operation):
     """Stop `epoch` if `patience` was reached without improvement.
-
-    Used to stop training if neural network's desired value didn't improve
-    after `patience` steps.
 
     Example::
 
@@ -289,10 +308,11 @@ class EarlyStopping(_base.Operation):
         step = TrainStep(criterion, device)
         iteration = tt.iterations.Train(step, module, dataloader)
 
-        # Stop if accuracy does not improve for `5` iterations
-        iteration > tt.Select(accuracy=1) > tt.accumulators.Mean() > tt.callbacks.EarlyStopping(
+        # Stop if mean accuracy did not improve for `5` iterations
+        iteration ** tt.Select(accuracy=1) ** tt.accumulators.Mean() ** tt.callbacks.EarlyStopping(
             patience=5
         )
+        # Assume epoch was created from `iteration`
 
     Parameters
     ----------
@@ -305,24 +325,19 @@ class EarlyStopping(_base.Operation):
         Function comparing two values - current metric and best metric.
         If ``true``, reset patience and use current value as the best one.
         One can use Python's standard `operator` library for this argument.
-        Default: `operator.gt` (`current` > `best`)
-    log: str | int, optional
+        Default: `operator.gt` (`current` ** `best`)
+    log : str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
-        Default: `NONE` (no logging, `0` priority)
-
-    Arguments
-    ---------
-    data: Any
-        Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
+            * NONE      0
+            * TRACE 	5
+            * DEBUG 	10
+            * INFO 	20
+            * SUCCESS 	25
+            * WARNING 	30
+            * ERROR 	40
+            * CRITICAL 	50
+        Default: `INFO`
 
     Returns
     -------
@@ -349,6 +364,12 @@ class EarlyStopping(_base.Operation):
         self._counter = -1
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which can be passed to `comparator` (e.g. `torch.Tensor`).
+        """
         if self.best is None or self.comparator(data, self.best):
             self._counter = -1
         else:
@@ -378,7 +399,7 @@ class Unfreeze(_base.Operation):
 
         # Doesn't matter what data goes it, so you can unfreeze however you wish
         # And it doesn't matter what the accumulated value is
-        iteration > tt.Select(accuracy=1) > tt.accumulators.Sum() > tt.callbacks.Unfreeze(
+        iteration ** tt.Select(accuracy=1) ** tt.accumulators.Sum() ** tt.callbacks.Unfreeze(
             module
         )
 
@@ -388,22 +409,19 @@ class Unfreeze(_base.Operation):
         Module whose `parameters` will be unfrozen (`grad` set to `True`).
     n: int
         Module will be unfrozen after this many steps.
-    log: str | int, optional
+    log : str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
-        Default: `NONE` (no logging, `0` priority)
+            * NONE      0
+            * TRACE 	5
+            * DEBUG 	10
+            * INFO 	20
+            * SUCCESS 	25
+            * WARNING 	30
+            * ERROR 	40
+            * CRITICAL 	50
+        Default: `INFO`
 
-    Arguments
-    ---------
-    data: Any
 
     Returns
     -------
@@ -422,6 +440,13 @@ class Unfreeze(_base.Operation):
         self._counter = -1
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything as data is simply forwarded
+
+        """
         self._counter += 1
         if self._counter == self.n:
             loguru.logger.log(self.log, "Unfreezing module's parameters")
@@ -445,7 +470,7 @@ class Log(_base.Operation):
         iteration = tt.iterations.Train(step, module, dataloader)
 
         # Log with loguru.logger accuracy
-        iteration > tt.Select(accuracy=1) > tt.callbacks.Logger("Accuracy")
+        iteration ** tt.Select(accuracy=1) ** tt.callbacks.Logger("Accuracy")
 
     Parameters
     ----------
@@ -455,14 +480,14 @@ class Log(_base.Operation):
     log : str | int, optional
         Severity level for logging object's actions.
         Available levels of logging:
-            NONE        0
-            TRACE 	5
-            DEBUG 	10
-            INFO 	20
-            SUCCESS 	25
-            WARNING 	30
-            ERROR 	40
-            CRITICAL 	50
+            * NONE      0
+            * TRACE 	5
+            * DEBUG 	10
+            * INFO 	20
+            * SUCCESS 	25
+            * WARNING 	30
+            * ERROR 	40
+            * CRITICAL 	50
         Default: `INFO`
 
     Arguments
@@ -484,5 +509,12 @@ class Log(_base.Operation):
         self.log = log
 
     def forward(self, data):
+        """
+        Arguments
+        ---------
+        data: Any
+            Anything which can be sensibly represented with `__str__` magic method.
+        """
+
         loguru.logger.log(self.log, "{}: {}".format(self.name, data))
         return data

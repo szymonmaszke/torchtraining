@@ -1,3 +1,15 @@
+"""Perform single step on data and via specific `module`(s).
+
+.. note::
+
+    **IMPORTANT**: This module is one of core features
+    so be sure to understand how it works.
+    It is the core and defines how you perform single
+    step through the data.
+
+
+"""
+
 import abc
 import collections
 import dataclasses
@@ -43,6 +55,10 @@ class Train(Step):
     ):
         super().__init__(criterion, True, device)
 
+    @abc.abstractmethod
+    def forward(self, *args, **kwargs):
+        pass
+
 
 @steps_utils.docstring(
     header="Perform user specified evaluation step with disabled gradient.",
@@ -53,3 +69,7 @@ class Eval(Step):
         self, criterion: typing.Callable, device=None,
     ):
         super().__init__(criterion, False, device)
+
+    @abc.abstractmethod
+    def forward(self, *args, **kwargs):
+        pass

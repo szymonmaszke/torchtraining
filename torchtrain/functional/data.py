@@ -6,6 +6,24 @@ def random_split(
 ):
     """Randomly split a dataset into non-overlapping new datasets of given proportions.
 
+    Works like `torch.utils.data.random_split` **except** data is splitted on
+    [0, 1] proportions instead of length.
+
+    Example::
+
+
+        train, validation = tt.functional.data.random_split(
+            torchvision.datasets.CIFAR10(
+                root=".",
+                download=True
+                transform=torchvision.transforms.ToTensor(),
+            ),
+            0.8,
+            0.2,
+        )
+
+    Above would be split dataset into 80% train and 20% validation.
+
     Arguments
     ---------
     dataset: torch.utils.data.Dataset

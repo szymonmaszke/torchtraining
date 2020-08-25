@@ -5,8 +5,10 @@ def docs(function):
 
     Redirects users to documentation of non-functional counterpart of `function`.
     """
+    # removes functional from module
+    module = "torchtrain" + function.__module__[21:]
     function.__doc__ = """See `{}.{}` for details.""".format(
-        function.__module__,
+        module,
         "".join([subname.capitalize() for subname in function.__name__.split("_")]),
     )
     return function

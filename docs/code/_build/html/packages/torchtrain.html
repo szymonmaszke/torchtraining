@@ -1,0 +1,827 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>torchtrain &mdash; torchtrain  documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://szymonmaszke.github.io/torchtrain/packages/torchtrain.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="torchtrain.steps" href="torchtrain.steps.html" />
+    <link rel="prev" title="torchtrain" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+</head>
+
+<div class="container-fluid header-holder tutorials-header" id="header-holder">
+  <div class="container">
+    <div class="header-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a>
+          </li>
+
+          <li>
+            <a href="https://szymonmaszke.github.io/torchtrain/related.html">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="https://github.com/szymonmaszke/torchtrain">Github</a>
+          </li>
+        </ul>
+      </div>
+
+      <a class="main-menu-open-button" href="#" data-behavior="open-mobile-menu"></a>
+    </div>
+
+  </div>
+</div>
+
+
+<body class="pytorch-body">
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  0.0.1
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">torchtrain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.steps.html">torchtrain.steps</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../related.html">Related projects</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../index.html">
+        </a> &gt;
+      </li>
+
+        
+      <li>torchtrain</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/packages/torchtrain.rst.txt" rel="nofollow"><img src="../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="torchtrain">
+<h1>torchtrain<a class="headerlink" href="#torchtrain" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.steps.html">torchtrain.steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.epochs.html">torchtrain.epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.iterations.html">torchtrain.iterations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.pytorch.html">torchtrain.pytorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accumulators.html">torchtrain.accumulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.callbacks.html">torchtrain.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.metrics.html">torchtrain.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.functional.html">torchtrain.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.loss.html">torchtrain.loss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.accelerators.html">torchtrain.accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.cast.html">torchtrain.cast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.device.html">torchtrain.device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.quantization.html">torchtrain.quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="torchtrain.exceptions.html">torchtrain.exceptions</a></li>
+</ul>
+</div>
+<div class="section" id="module-torchtrain">
+<span id="classes"></span><h2>Classes<a class="headerlink" href="#module-torchtrain" title="Permalink to this headline">¶</a></h2>
+<p>Root module of <a class="reference internal" href="#module-torchtrain" title="torchtrain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain</span></code></a> containing common operations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This module is one of the most important and
+is used in almost any DL task so be sure to understand it!</p>
+</div>
+<p>Operations in this module can be used to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>control pipeline flow</p></li>
+<li><p>select output from <a href="#id1"><span class="problematic" id="id2">`</span></a>step`s</p></li>
+<li><p>send data to multiple operations</p></li>
+</ul>
+</div></blockquote>
+<p>See below for more info.</p>
+<dl class="py class">
+<dt id="torchtrain.Flatten">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">Flatten</code><span class="sig-paren">(</span><em class="sig-param">types: Tuple = (&lt;class 'list'&gt;</em>, <em class="sig-param">&lt;class 'tuple'&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#Flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten arbitrarily nested data.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="n">module1</span><span class="p">,</span> <span class="n">module2</span> <span class="o">=</span> <span class="n">module</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">logits1</span><span class="p">,</span> <span class="n">targets1</span><span class="p">),</span> <span class="p">(</span><span class="n">logits2</span><span class="p">,</span> <span class="n">targets2</span><span class="p">),</span> <span class="n">module1</span><span class="p">,</span> <span class="n">module2</span><span class="p">)</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Tuple (logits1, targets1, logits2, targets2, module1, module2)</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>types</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>]</em><em>, </em><em>optional</em>) – Types to be considered non-flat. Those will be recursively flattened.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">(list,</span> <span class="pre">tuple)</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Single <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> with all elements (not being <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[samples]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.Flatten.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Any<span class="p">]</span><a class="reference internal" href="../_modules/torchtrain.html#Flatten.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Flatten.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Iterable</em><em>[</em><em>Iterable ... Iterable</em><em>[</em><em>Any</em><em>]</em><em>]</em>) – Arbitrarily nested data being one of type provided in <a class="reference external" href="https://docs.python.org/3/library/types.html#module-types" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">types</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.If">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">If</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><span class="p">, </span>Callable<span class="p">[</span>Any<span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">operation</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span>Any<span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#If"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.If" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run operation only If <code class="xref py py-obj docutils literal notranslate"><span class="pre">condition</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition</span></code> can also be a single argument callable, in this case it can be
+dependent on data, see below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">If</span><span class="p">(</span><span class="k">lambda</span> <span class="n">loss</span><span class="p">:</span> <span class="n">loss</span> <span class="o">**</span> <span class="mi">10</span><span class="p">,</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;VERY HIGH LOSS!!!&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<em>bool | Callable</em><em>(</em><em>Any</em><em>) </em><em>-&gt; bool</em>) – If boolean value and if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, run underlying Operation (or other Callable).
+If Callable, should take data as argument and return decision based on
+that as single <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>.</p></li>
+<li><p><strong>operation</strong> (<em>torchtrain.Operation | Callable</em>) – Operation to run if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">true</span></code>, returns value from <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation</span></code>, otherwise passes original <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.If.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/torchtrain.html#If.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.If.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything you want (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> like stuff).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.IfElse">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">IfElse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span></em>, <em class="sig-param"><span class="n">operation1</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span>Any<span class="p">, </span>Any<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">operation2</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span>Any<span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#IfElse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.IfElse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation1</span></code> only if <code class="xref py py-obj docutils literal notranslate"><span class="pre">condition</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, otherwise run <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation2</span></code>.</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">condition</span></code> can also be a single argument callable, in this case it can be
+dependent on data, see below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">IfElse</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">loss</span><span class="p">:</span> <span class="n">loss</span> <span class="o">**</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;VERY HIGH LOSS!!!&quot;</span><span class="p">),</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;LOSS IS NOT THAT HIGH...&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Boolean value. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">true</span></code>, run underlying Op (or other Callable).</p></li>
+<li><p><strong>operation1</strong> (<em>torchtrain.Op | Callable</em>) – Operation or callable getting single argument (<code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code>) and returning anything.</p></li>
+<li><p><strong>operation2</strong> (<em>torchtrain.Op | Callable</em>) – Operation or callable getting single argument (<code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code>) and returning anything.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">true</span></code>, returns value from <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation1</span></code>, otherwise from <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation2</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.IfElse.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/torchtrain.html#IfElse.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.IfElse.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything you want (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> like stuff).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.Lambda">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">Lambda</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operation</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span>Any<span class="p">, </span>Any<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span> <span class="o">=</span> <span class="default_value">'torchtrain.Lambda'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#Lambda"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run user specified operation on <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">accuracy</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># If you want to get that SOTA badly, we got ya covered</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">accuracy</span><span class="p">:</span> <span class="n">accuracy</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operation</strong> (<em>Callable</em><em>(</em><em>Any</em><em>) </em><em>-&gt; Any</em>) – Single argument callable getting data and returning some value.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – <a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string</span></code></a> representation of this operation (if any).
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.metrics.Lambda</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value returned from <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.Lambda.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/torchtrain.html#Lambda.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Lambda.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything you want (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> like stuff).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.OnSplittedTensor">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">OnSplittedTensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operation</span><span class="p">:</span> <span class="n">torchtrain._base.Operation</span></em>, <em class="sig-param"><span class="n">dim</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#OnSplittedTensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.OnSplittedTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split tensor along dimension and apply operation on each element.</p>
+<p>By default, <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> will be splitted along batch (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dim=0</span></code>)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: After splitting first dimension is squeezed
+via <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.squeeze.html#torch.squeeze" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.squeeze</span></code></a>.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="c1"># Dummy step</span>
+        <span class="n">images</span><span class="p">,</span> <span class="n">labels</span>
+        <span class="k">return</span> <span class="n">images</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Assume summary_writer is instance of torch.utils.tensorboard.SummaryWriter()</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">OnSplittedTensor</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">tensorboard</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">summary_writer</span><span class="p">))</span>
+<span class="c1"># Each image will be saved separately</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operation</strong> (<em>tt.Operation | Callable</em><em>(</em><em>data</em><em>) </em><em>-&gt; Any</em>) – Operation which will be applied to each element of <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Dimension along which <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> will be splitted.
+Default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Splitted <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> along <code class="xref py py-obj docutils literal notranslate"><span class="pre">dim</span></code> (unmodified by <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation</span></code>).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))">torch.Tensor</a>]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.OnSplittedTensor.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#OnSplittedTensor.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.OnSplittedTensor.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><em>torch.Tensor</em></a>) – Tensor to split and apply <code class="xref py py-obj docutils literal notranslate"><span class="pre">operation</span></code> on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.Select">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">Select</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">output_selection</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#Select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select output item(s) returned from <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">iteration</span></code> objects.</p>
+<p>Allows users to focus on specific part of output and pipe specified
+values to other operations (like <a class="reference internal" href="torchtrain.metrics.html#module-torchtrain.metrics" title="torchtrain.metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">loggers</span></code> etc.).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This operation is run in almost any case
+so be sure to understand how it works.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="c1"># Generate loss and other necessary items</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">targets</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="c1"># Select `loss` and perform backpropagation</span>
+<span class="c1"># Only single value will be forward to backward from</span>
+<span class="c1"># (loss, predictions, targets) tuple</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">Backward</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Name of keyword argument can be arbitrary but
+<strong>you are really encouraged</strong> to name it like the variable
+returned from <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code> (or at least make it understandable to others).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>output_selection</strong> (<a href="#id3"><span class="problematic" id="id4">**</span></a>output_selection) – <code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code>: output_index mapping selecting which element from step returned <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>
+to choose. <code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code> can be arbitrary, but should be named like the variable
+returned from <code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code>. See example above.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If single int is passed <code class="xref py py-obj docutils literal notranslate"><span class="pre">output_selection</span></code> return single element from <code class="xref py py-obj docutils literal notranslate"><span class="pre">Iterable</span></code>.
+Otherwise returns chosen elements as <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any | List[Any]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.Select.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/torchtrain.html#Select.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Select.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Iterable</em><em>[</em><em>Any</em><em>]</em>) – Iterable (e.g. <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) with any elements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.Split">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">Split</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">operations</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span>Any<span class="p">, </span>Any<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">return_modified</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#Split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split operation with data to multiple components.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT</strong>: This operation is run in almost any case
+so be sure to understand how it works.</p>
+</div>
+<p>Useful when users wish to use calculated result in multiple places.
+Example calculating metrics and logging them in multiple places:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="c1"># Generate loss and other necessary items</span>
+        <span class="o">...</span>
+        <span class="c1"># Assume binary classification</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="n">targets</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Push (logits, targets) to Precision and Recall</span>
+<span class="c1"># and log those values after calculating metrics</span>
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">Split</span><span class="p">(</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">classification</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">Precision</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;Precision&quot;</span><span class="p">),</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">classification</span><span class="o">.</span><span class="n">binary</span><span class="o">.</span><span class="n">Recall</span><span class="p">()</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;Recall&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*operations</strong> (<em>Callable</em><em>(</em><em>data</em><em>) </em><em>-&gt; Any</em>) – Operations to which results will be passed.</p></li>
+<li><p><strong>return_modified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Return outputs from <code class="xref py py-obj docutils literal notranslate"><span class="pre">operations</span></code> as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, returns
+original <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> passed into <a class="reference internal" href="#torchtrain.Split" title="torchtrain.Split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Split</span></code></a>. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> passed originally or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> containing modified data
+returned from <code class="xref py py-obj docutils literal notranslate"><span class="pre">operations</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>data | List[modified data]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.Split.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Any<span class="p">, </span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/torchtrain.html#Split.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.Split.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Data which will be passed to provided <code class="xref py py-obj docutils literal notranslate"><span class="pre">operations</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="torchtrain.ToAll">
+<em class="property">class </em><code class="sig-prename descclassname">torchtrain.</code><code class="sig-name descname">ToAll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">operation</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#ToAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.ToAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply operation to each element of sample.**</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to apply operation to all nested elements (e.g. in nested <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>),
+please use <a class="reference internal" href="#torchtrain.Flatten" title="torchtrain.Flatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torchtrain.Flatten</span></code></a> object first.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainStep</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">Train</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">loss</span>
+
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">TrainStep</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="n">step</span> <span class="o">**</span> <span class="n">tt</span><span class="o">.</span><span class="n">If</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">loss</span><span class="p">:</span> <span class="n">loss</span> <span class="o">**</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;VERY HIGH LOSS!!!&quot;</span><span class="p">),</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="s2">&quot;LOSS IS NOT THAT HIGH...&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>operation</strong> (<em>Callable</em>) – Pipe to apply to each element of sample.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple consisting of subsamples with operation applied.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[operation(subsample)]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="torchtrain.ToAll.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sample</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torchtrain.html#ToAll.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torchtrain.ToAll.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Any</em>) – Anything you want (usually <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.6.0a0+4392e52 ))"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> like stuff).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+             </article>
+             
+            </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="torchtrain.steps.html" class="btn btn-neutral float-right" title="torchtrain.steps" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="torchtrain" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
+      
+    </div>
+  
+
+    <hr>
+
+  <!-- Spacing. -->
+  <div role="contentinfo">
+  </div>
+    
+      <div>
+        Built with Sphinx using <a href="https://github.com/pytorch/pytorch_sphinx_theme">PyTorch's theme</a> provided originally by <a href="https://readthedocs.org">Read the Docs</a>.
+      </div>
+      <div>
+      </div>
+    
+
+  <div role="contentinfo">
+  </div> 
+
+</footer>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">torchtrain</a><ul>
+<li><a class="reference internal" href="#module-torchtrain">Classes</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+         <script src="../_static/jquery.js"></script>
+         <script src="../_static/underscore.js"></script>
+         <script src="../_static/doctools.js"></script>
+         <script src="../_static/language_data.js"></script>
+     
+
+  
+
+  <script type="text/javascript" src="../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../_static/js/vendor/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+  <!-- Begin Footer -->
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-logo-wrapper">
+        <a href="" class="footer-logo"></a>
+      </div>
+
+      <div class="footer-links-wrapper">
+        <div class="footer-links-col">
+          <ul>
+            <li class="list-title"><a href="https://szymonmaszke.github.io/torchtrain">Home</a></li>
+            <li><a href="https://pytorch.org/docs/stable/index.html">PyTorch</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#torchtrain">Documentation</a></li>
+            <li><a href="https://szymonmaszke.github.io/torchtrain/#installation">Installation</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain">GitHub</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">Github Issues</a></li>
+            <li><a href="https://github.com/szymonmaszke/torchtrain/blob/master/ROADMAP.md">Roadmap</a></li>
+            <li><a href="https://github.com/szymonmaszke" target="_blank">Author</a></li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Begin Mobile Menu -->
+
+  <div class="mobile-main-menu">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="mobile-main-menu-header-container">
+          <a class="header-logo" href="" aria-label="torchutils"></a>
+          <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-main-menu-links-container">
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="#">Docs</a>
+          </li>
+
+          <li>
+            <a href="#">Related Projects</a>
+          </li>
+
+          <li>
+            <a href="#">GitHub</a>
+          </li>
+
+          <li>
+            <a href="">Docs</a>
+          </li>
+
+          <li>
+            <a href="">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Mobile Menu -->
+
+  <script type="text/javascript" src="../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+</body>
+</html>
